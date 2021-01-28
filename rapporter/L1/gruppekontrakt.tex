@@ -1,0 +1,284 @@
+
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{geometry} % Pakke for å endre marginer
+\usepackage{lipsum} % Pakke for å sette inn Lorem Ipsum
+
+
+%-------------------------------------------------
+%	PAGE LAYOUT & MARGINS
+%-------------------------------------------------
+\geometry{left=1.8cm, right=1.8cm, top=1cm, bottom=3cm, headsep=0.5cm, footskip=1cm, includeheadfoot}
+
+%-------------------------------------------------
+%	HEADER & FOOTER
+%-------------------------------------------------
+\pagestyle{fancy}
+
+
+\setlength{\headheight}{14.0pt}
+\addtolength{\topmargin}{-2.0pt}
+
+\setlength{\headheight}{14.0pt}
+\addtolength{\topmargin}{-2.0pt}
+
+
+\fancyhead[L,C]{}
+\fancyhead[R]{\textsc{Gruppe 40}}
+
+\fancyfoot[L,C]{}
+\fancyfoot[R]{\vspace{0pt} %
+	\includegraphics[width=120px, keepaspectratio]{logo-ntnu-eng.png}}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+%-------------------------------------------------
+%	SIGNATUR OG DATO MACRO
+%-------------------------------------------------
+\newcommand*{\SignatureAndDate}[1]{%
+	\par\noindent\makebox[2.5in]{\hrulefill} \hfill\makebox[2.0in]{\hrulefill}%
+	\par\noindent\makebox[2.5in][l]{#1}      \hfill\makebox[2.0in][l]{Dato}%
+}%
+%-------------------------------------------------
+
+
+\begin{document}
+	
+	\begin{titlepage}
+		
+		\newcommand{\HRule}{\rule{\linewidth}{0.8mm}} 
+		
+		\centering
+		
+		%-----------------------------------------
+		%	OVERSKRIFTER
+		%-----------------------------------------
+		
+		\textsc{\LARGE Norges teknisk-naturvitenskapelige universitet}\\[1.5cm] % Name of your university/college
+		\textsc{\Large TDT4140 - Programvareutvikling}\\[0.5cm] % Major heading such as course name
+		\textsc{\large Iterasjonsplanlegging L1}\\[0.5cm] % Minor heading such as course title
+		
+		%-----------------------------------------
+		%	TITTEL
+		%-----------------------------------------
+		
+		\HRule \\[0.4cm]
+		{ \huge \bfseries Gruppekontrakt - Gruppe 40}\\[0.4cm] % Title of your document
+		\HRule \\[1.5cm]
+		
+		%-----------------------------------------
+		%	FORFATTERE
+		%-----------------------------------------
+		
+		%		\begin{minipage}{0.4\textwidth}
+		%			\begin{flushleft} \large
+		%				%\emph{Forfattere:}\\
+		%				Marius \textsc{Arhaug} \\
+		%				Karen \textsc{Hompland} \\
+		%				Lars \textsc{Tønder} \\
+		%				Eskild G. \textsc{Hansen} \\
+		%				Torunn Elisabeth \textsc{Seyffarth} \\
+		%				Joakim N. S. \textsc{Schäffer} \\
+		%			\end{flushleft}
+		%		\end{minipage}
+		%		~
+		%		\begin{minipage}{0.4\textwidth}
+		%			\begin{flushright} \large
+		%				\emph{Veileder:} \\
+		%			Fornavn \textsc{Etternavn} \\
+		%			\end{flushright}
+		%		\end{minipage}\\[2cm]
+		
+		% Fjern seksjonen over og kommenter ut de to neste linjene om vi ikke vil ha med veileder
+		\Large %\emph{Forfatter:}\\
+		Ivar \textsc{Carlsen}\\
+		Lars \textsc{Tønder} \\
+		Marius \textsc{Arhaug} \\
+		Karen \textsc{Hompland} \\
+		Eskild G. \textsc{Hansen} \\
+		Joakim N. S. \textsc{Schäffer} \\
+		Torunn Elisabeth \textsc{Seyffarth} \\
+		\emph{Veileder:}\\
+		Sindre \textsc{Langaard}\\
+		
+		%-----------------------------------------
+		%	DATO
+		%-----------------------------------------
+		
+		% {\large \today}\\[2cm] % Dagens dato
+		\vfill
+		{\large 29. januar 2021}\\[2cm]
+		
+		%-----------------------------------------
+		%	LOGO SECTION
+		%-----------------------------------------
+		
+		\includegraphics[width=60px, keepaspectratio]{ntnulogo.eps}\\[1cm]
+		% \includegraphics{logo-ntnu.eps}\\[1cm]
+		%\includegraphics[width=180px, keepaspectratio]{logo-ntnu-eng.png}\\[1cm]
+		
+		%-----------------------------------------
+		
+		\vfill % Resten av siden med whitespace
+		
+	\end{titlepage}
+	
+	\section{Gruppens medlemmer}
+	\begin{itemize}
+		\item[] Ivar Carlsen, ivarhc@stud.ntnu.no, 466 10 067
+		\item[] Marius Arhaug, mariuhar@stud.ntnu.no, 951 35 923
+		\item[] Karen Hompland, karenhom@stud.ntnu.no, 948 51 992
+		\item[] Lars Tønder, larstond@stud.ntnu.no, 984 89 436
+		\item[] Eskild G. Hansen, eskildha@stud.ntnu.no, 472 54 789
+		\item[] Torunn Elisabeth Seyffarth, torunnse@stud.ntnu.no, 950 08 967
+		\item[] Joakim Schäffer, jnschaff@stud.ntnu.no, 455 06 009
+	\end{itemize}
+	
+	\section{Forventninger til arbeid}
+	\subsection{Arbeidsinnsats}
+	\subsubsection{}
+	\label{subsec:arbiedsinnsats}
+	Gruppen har satt en tommelfinger til 6 timers arbeid pr.~uke, men arbeidsinnsats er vanskelig å måle i timer. En løpende dialog om hvilke deloppgaver medlemmer skal gjennomføre, ved hjelp av smidige verktøy, skal ha fokus. Om oppgaver tar for lang eller kort tid er dette nødt til å kommuniseres og gruppen har et felles ansvar på å delegere. 
+	
+	\subsubsection{}
+	\label{subsec:fravar}
+	Gruppen har kommet frem til at fravær må meldes senest et døgn før avtalt møte. Avtalte møter vil deles i to (2) kategorier, (1) formelle smidige møter og (2) felles arbeidsmøter. Formelle møter ønskes at alle skal delta på, og vil bli utsatt til første neste anledning dersom noen ikke kan være med. Felles arbeidsmøter vil derimot gjennomføres som normalt. Dette krever at hvert enkelt medlem gjør sitt beste for å prioritere avtalte møter og at gruppen har gode rutiner for å dokumentere arbeid.
+	
+	Om fravær ikke meldes innenfor fristen påfører dette to prikker.
+	
+	\subsubsection{}
+	\label{subsec:forsent}
+	Gruppen plikter seg til å møte opp presist. Opp til fem (5) minutters forsentkomming fører til en prikk, over det vil gi to.
+	
+	\subsubsection{}
+	\label{sec:prikker}
+	Gruppen innfører et prikksystem for å holde medlemmer ansvarlig til avtaler. Se seksjon~\ref{subsec:fravar},~\ref{subsec:forsent} og~\ref{sec:opplosning} for bruk og ansamling av prikker.
+	
+	Medlemmene er enige om at flere prikkbare forseelser kan legges til ved en enkel flertallsavgjørelse.
+	
+	\subsubsection{}
+	\label{subsec:individbasis}
+	Ref.~\ref{subsec:fravar} og~\ref{subsec:forsent} så har medlemmer forståelse for at uforutsette ting skjer. Hvert tilfelle vil bli vurdert på skjønn og på en ``case-by-case'' basis. Om det etablerer seg et mønster hos et medlem har andre medlemmer plikt til å ta opp dette i plenum og finne ut om en mulig tilrettelegging. Om problemet vedvarer må dette bringes til produkteier.
+	
+	\subsection{Kompetanse \& roller}
+	\label{subsec:kompetanse}
+	Medlemmene kommer fra ulik bakgrunn, erfaring, og har ulik kompetanse. Gruppen setter ikke en formell opplæringsplan, men medlemmene plikter seg til å være behjelpelig med opplæring om det viser seg å være et stort kompetansesprik. Om ingen av medlemmene har særlig erfaring med et tema vil gruppen kunne avtale en felles arbeidstid hvor man blir kjent med stoffet.
+	
+	\label{subsec:roller}
+	Gruppen utnevner en rullerende Scrum-master som varer like lenge som en sprint. Det utnevnes også en referent for hvert formelle møte. 
+	
+	Gruppen er enige om at det er ulike kompetansenivåer, men det utpekes ikke en technical-lead for produktet. Se seksjon \ref{sec:beslutninger} for videre diskusjon om dette. 
+	
+	Medlem T.~Seyffarth utnevnes som konfliktmekler for gruppen.
+	
+	
+	\subsection{Motivasjon \& ambisjon}
+	\label{subsec:motivasjon}
+	%   Riktig bruk av semikolon på engelsk, men jeg vet ikke hvordan det er på norsk?
+	Gruppen er ekstremt motivert til å få til et godt samarbeid; ha tillitt til de andre; bli komfortabel nok til å spørre om, og tilby, hjelp. Medlemmene er overbevist om at dette vil føre til et godt resultat og et produkt alle kan være fornøyd med. 
+	
+	Gruppen ønsker også å arrangere sosiale aktiviteter. 
+	%  Forslag? Øl-koding, avslutningsfest, parkoding, middagskoding? Codekata kveld? Noe ikke-koderelatert?
+	
+	\section{Arbeidskoordinering}
+	\subsection{Digitale rutiner}
+	Gruppen bruker følgende digitale hjelpemidler: GitLab, Slack, Zoom, LucidCharts, Overleaf, og en kanbantavle for å kommunisere digitalt. Det er et felles ønske om at så mange møter som mulig foregår fysisk (seksjon~\ref{subsec:moter}).
+	\label{subsec:moter}
+	Det er fastsatt stramme rammer rundt møter for å gi medlemmene en forutsigbarhet ift.~andre fag og aktiviteter. Se seksjon \ref{subsec:fravar} for rutiner rundt å endre møtetidspunkt.
+	
+	\subsection{Smidige rutiner}
+	\label{subsec:agile}
+	Gruppen plikter seg til å innlede en form for smidig arbeidsprosess, men den er ikke fastsatt hvilket system som ønskes implementert eller hvilke Scrum-prosesser som kan fungere for gruppen. Det pliktes å ha en løpende vurdering om hva som fungerer, som kan knyttes opp mot Scrums introspeksjon ved endte sprints. Dette vil bli diskutert videre i L2.
+	
+	\subsection{Tilbakemelding}
+	Medlemmenes motivasjon til et godt samarbeid, ref punkt \ref{subsec:motivasjon}, og tillitt vil lede til åpen og ærlig tilbakemelding. Dette vil være en naturlig følge av at man blir bedre kjent og dermed får et bedre samarbeid (Solem og Hermundsgård 2015, s. 121). 
+	
+	%%%%%%%%Dette vil også bli videre fastsatt når smidige rutiner utvikles, seksjon \ref{subsec:agile}.
+	%konkretiseres?
+	%Viktig at Ivar får meg seg dette! 
+	
+	\subsection{Beslutninger \& dokumentasjon}
+	\label{sec:beslutninger}
+	Beslutninger tas hovedsakelig gjennom en demokratisk avstemming. Gruppen har også valgt å legge større vekt på meningen til medlemmer som har mye teknisk erfaring på områder de har en ekspertise, i henhold til anbefalingene i (Solem og Hermundsgård 2015, s. 94).
+	% Potensiell omskrivning: Gruppen plikter å legge større vekt på meningen til medlemmer som har mye teknisk erfaring på et gitt tema.
+	% Synes vetorett kan være litt vel. Enig!
+	
+	\subsection{Ferdigstilling}
+	En issue vil regnes som ferdigstilt når koden er klar til å merges til master. Koden skal være gjennomgått av en annen dersom koden skrives alene.
+	
+	%%%%%% Denne delen må enda defineres
+	Produktet er ferdigstilt når alle brukerhistorier oppfylles og gruppen i samarbeid med produkteier mener at produktet oppfyller spesifikasjoner i oppgavebeskrivelsen.
+	
+	\section{Konflikter}
+	
+	Uenigheter løses primært ved å la begge parter fremlegge sine synspunkt og deretter komme til enighet. Som nevnt i \ref{subsec:roller}
+	har Torunn blitt tildelt rollen som mekler som benyttes om de involverte partene ikke blir enige. 
+	
+	Dersom man likevel ikke klarer å løse konflikten tas den først til produkteier, og dersom den er svært alvorlig vil vi også kontakte fagansvarlig om den ikke løses ved hjelp av produkteier. 
+	
+	Ved kontraktsbrudd vil vi følge samme prosedyre som ved andre konflikter, først finne en løsning internt og deretter ta det videre avhengig av alvorlighetsgrad.
+	
+	Ved grovt kontraktsbrudd eller mislighold med overlegg kan et medlem bli fjernet av gruppen, og får ikke være med på å levere produktet. Dette krever en avstemning blant de resterende medlemmene med 100\% oppslutning og minst 80\% som støtter forslaget. Deretter vil dette diskuteres med produkteier og evt.~fagansvarlig.
+	
+	\section{Produkt}
+	Produktet lages under Apache-2.0 lisensen (Open Source Initiativ, 2004) og eies i lik grad av hele gruppen. Eventuelle domener, hosting og andre eksterne tjenester eies utelukkende av medlemmer som ønsker å betale for dette, som absolutt ikke er et krav for prosjektet, men eieren(e) plikter seg til at eventuelle tjenester blir operative gjennom prosjektets gang. 
+	
+	Ved gruppens oppløsning vil det være et møte hvor produktets fremtid blir diskutert. Det skal være en mulighet for at deler av gruppen kan fortsette å utvikle og vedlikeholde prosjektet, men retningslinjene for dette vil ikke bli fastsatt før etter innlevert sluttrapport.
+	
+	\section{Gruppens oppløsning}
+	\label{sec:opplosning}
+	%   HEHEhe.
+	Gruppen oppløses etter rapporten er innlevert og gruppen pliktes til å ha en avslutningsfest om COVID-19-restriksjoner tillater det. Prikksystemet beskrevet i \ref{subsec:forsent} vil bli evaluert og medlemmer ``straffet'' ved å måtte supplere festartikler.
+	
+	
+	%%%%%
+	% Foreløpig er teksten 'for lang' med sidetall. Jeg skal kødde litt med marg og utforming for å få ned andel whitespace.
+	
+	
+	%%%%%%%%
+	% M: Også passe på 3 siders grensen, selv om våres rapport er veldig lett lest. 
+	
+	%-------------------------------------------------
+	%	SIGNATUR OG DATO
+	%-------------------------------------------------
+	\newpage %For referanse
+	
+	\begin{thebibliography}{9}
+		\bibitem{Fasilitering} \label{kilde:Fasilitering}
+		Solem, A. og Hermundsgård, M. (2015) \textit{Fasilitering}. 1. utgave. Oslo: Gyldendal Norsk Forlag.
+		
+		\bibitem{Apache License, Version 2.0} \label{kilde:apache}
+		Open Source Initiativ, 2004. \emph{https://opensource.org/licenses/Apache-2.0}
+		
+	\end{thebibliography}
+	
+	
+	
+	%-------------------------------------------------
+	%	SIGNATUR OG DATO
+	%-------------------------------------------------
+	\newpage % For Signaturer
+	
+	\section*{Signaturer}
+	\vfill
+	\SignatureAndDate{Joakim Schäffer}
+	\vfill
+	\SignatureAndDate{Torunn Elisabeth Seyffarth}
+	\vfill
+	\SignatureAndDate{Eskild G. Hansen}
+	\vfill
+	\SignatureAndDate{Lars Tønder}
+	\vfill
+	\SignatureAndDate{Karen Hompland}
+	\vfill
+	\SignatureAndDate{Marius Arhaug}
+	\vfill
+	\SignatureAndDate{Ivar Carlsen}
+	
+	
+	
+\end{document}
