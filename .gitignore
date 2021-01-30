@@ -1,2 +1,6 @@
 ## MacOS spesefik fil
 .DS_Store
+
+## VScode spesefik
+.editorconfig
+.eslintrc.json
