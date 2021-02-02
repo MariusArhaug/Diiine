@@ -47,7 +47,7 @@ Dette blir til sammen seks programvarer som vil snakke sammen for å lage et hel
 ## Produktarkitektur
 Figuren viser et veldig overordnet bilde av prosessene som er beskrevet i seksjonen over. Dette gir et klart bilde over hva vi trenger og danner grunnlaget for utviklingsplanen.
 
-FIGUR HER
+![Oversikt over arkitektur](https://gitlab.stud.idi.ntnu.no/tdt4140/landsby-3/gruppe-40/middagsdeling/-/blob/3dd2c4f02403154956abaf928aa77824438169f7/resources/images/architecture-dependencies.png)
 
 Følgende seksjoner utvider figuren og går gjennom avhengigheter mellom systemene. De vil bli tatt for seg i rangert rekkefølge, der færre avhengigheter rangeres høyere.
 
