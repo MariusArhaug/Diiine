@@ -47,7 +47,7 @@ Dette blir til sammen seks programvarer som vil snakke sammen for å lage et hel
 ## Produktarkitektur
 Figuren viser et veldig overordnet bilde av prosessene som er beskrevet i seksjonen over. Dette gir et klart bilde over hva vi trenger og danner grunnlaget for utviklingsplanen.
 
-![Oversikt over arkitektur](https://gitlab.stud.idi.ntnu.no/tdt4140/landsby-3/gruppe-40/middagsdeling/-/blob/3dd2c4f02403154956abaf928aa77824438169f7/resources/images/architecture-dependencies.png)
+![Architecture Dependencies](./resources/images/architecture-dependencies.png)
 
 Følgende seksjoner utvider figuren og går gjennom avhengigheter mellom systemene. De vil bli tatt for seg i rangert rekkefølge, der færre avhengigheter rangeres høyere.
 
@@ -71,6 +71,11 @@ En admin er en vanlig bruker, med utvidet funksjonalitet. Den er derfor avhengig
 
 ### REST og Socket API
 Gruppen er klar over at deler av appen må opperere i real-time. Dette kan gjøres gjennom en Socket API som for eksempel håndterer chatfunksjonalitet. Det er derimot enda ikke helt klart om det ønskes en REST API eller om bare hele appen vil kunne gjøres real-time. Dette avhenger av hvor mye tid som ønskes brukt på denne funksjonen, og hvor komplekst de to ulike APIene er å implementere.
+
+### Prosjektets kodearkitektur
+Her følger en figur som presenterer hvordan gruppen ser for seg å strukturere kodebasen.
+
+![Code structure](./resources/images/code-structure.png)
 
 ## Utviklingsfaser
 Gruppen blir å bruke en smidig tilnærming til utvikling og har tatt sikte på seks utviklingssykluser (Sprints), på to uker hver. Utviklingen vil også gjøres i flere faser. En fase kan ta en eller flere sprints å implementere, og de vil variere i størrelse.
