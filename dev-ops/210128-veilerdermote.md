@@ -13,10 +13,15 @@ Det er blitt laget GitLab-grupper for oss. Får vel en lenke til
 
 Git historikk vil antagelig ikke bli vurdert, men det kan være nyttig å bruke verktøyene så godt som mulig.
 
-TIL NESTE GANG:
-Sindre høre om potensielle annonsører skal ha faktisk funkjonalitet eller bare en link til kommunikasjon med admins
+# TIL NESTE GANG:
+## Som veileder:
+* Sindre høre om potensielle annonsører skal ha faktisk funkjonalitet eller bare en link til kommunikasjon med admins
+* Sindre: Hva er en admin? Site-wide eller community driven?
 
-Sindre: Hva er en admin? Site-wide eller community driven?
+## Som produkteier:
+
+* Sindre, hvem og hva ønsker du å nå ved denne tjenesten? Skal det føles eksklusivt og litt high-end, eller lavterskel og litt folkelig design?
+* Hva ser du som det største problemet vi kan møte på under utvikling, eller dere under deployment?
 ________________
 
 Forslag av tech som er nevnt: 
