@@ -29,4 +29,4 @@ Appen kan releases i Alfa/Beta-versjon når 1-5 er dekket
 Spør Studass om vi skal tidsestimere alle oppgaver eller bare dem til første iterasjon
 Skal profil komme først eller som nummer 3 i forbindelse med databasen, selv om det ikke er det aller viktigste for appens funksjonalitet
 Tidsestimatet inkluderer tech stories
-Når vi kommer inn i det tar ikke ting like lang tid
+Når vi kommer inn i det tar ikke ting like lang tid.
