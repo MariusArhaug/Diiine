@@ -3,6 +3,8 @@ Utviklingsprosessen ble slått fast i [Leveranse 2]. Dette er et dokument som re
 
 Mer informasjon kan finnes i repoets [README].
 
+
+
 ## GitLab
 Gruppen bruker GitLab som Version Control System og har en del rutiner knyttet til dette. Inspirasjon for hvordan en Agil utviklingsprosess overføres til GitLab er tatt fra [denne GitLab] artikelen.
 
@@ -35,7 +37,47 @@ Når en task er ferdigstilt vil den merges inn i brukerhistorien (issue #X i dia
 
 Når en sprint eller fase er over, passerer alle tester, blitt reviewed og testet av gruppens medlemmer vil den merges med main branchen. Dette er da en brukerhistorie som er klar for presentasjon til produkteier.
 
+Det er viktig at en ny gren blir splittet av fra den grenen den skal merges inn i. Dette vises med stiplete grå linjer i diagrammet. Eksempelvis må grenen 1-3 splittes av fra gren A (issue #X).
 
+## Utvikling
+Hver oppgave skal på dette stadiet være et tenkt konkret stykke arbeid.
+Dette arbeidet skal skje i en egen gren i git, og det skal skrives både tester og
+eventuell dokumentasjon. Man trenger ikke dogmatisk følge testdrevet utvikling,
+men all kode som skal inn i prosjektet skal ha enhetstester.
+
+For hver oppgave har GitLab et forslag til gren-navn på formen
+```
+71-vurdere-om-vi-skal-kreve-oppgave-nummer-i-commitmessage
+```
+Denne blir fort litt lang, men så lenge issue nummer er med på starten
+vil GitLab forstå at grenen hører til oppgaven når tiden er inne for merging.
+I tillegg skal alle commits være navngitt deskriptivt etter reglene i
+[conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).
+Dette vil si at alle commit messages er på formen
+```
+feat(#43): legge til statuslinje for nettverksoprasjoner
+
+Beskrivelse av forandringen, kun dersom det trengs.
+Inni parantesen skrives oppgavenummeret bunten jobber mot.
+Merk at resten av linjen er i infinitiv, har liten forbokstav og er uten tegnsetting.
+Linjen skal passe inn i setningen:
+  
+  Hvis denne commiten flettes inn i kodebasen vil den <melding>.
+  
+BREAKING CHANGES: ødelegger funksjonalitet og må derfor ha denne linjen
+```
+Commits med automatiske meldinger (`revert `, `merge `) trenger ikke følge reglene.
+
+## Kanban-tavle
+_Her må vi sammen gå igjennom regler._
+
+## Testing
+_Her må vi sammen gå igjennom regler._
+
+## Språk
+_Her må vi sammen gå igjennom regler._
+
+Jeg foreslår å holde git-terminologi på engelsk, samt variabelnavn og kommentarer. Dokumentasjon, wiki og .md dokumenter vil være på norsk.
 
 [denne GitLab]: https://about.gitlab.com/blog/2018/03/05/gitlab-for-agile-software-development/
 [Leveranse 2]: rapporter/L2/L2_TDT4140_Programvareutvikling.pdf
