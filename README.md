@@ -2,6 +2,14 @@
 
 Dette er mappeevaluering for gruppe 40 i faget TDT4140 Programvareutvikling, våren 2021.
 
+**Oppgaven** kan finnes [her](OPPGAVEBESKRIVELSE.md).
+
+Rutiner og standarder for å **contribute** finnes [her](CONTRIBUTING.md).
+
+Gruppens **gruppekontrakt** finnes [her](rapporter/L1/gruppekkontrakt.pdf)
+
+En oversikt over **prikksystemet** vårt, som beskrives i gruppekontrakten, finnes [her](dev-ops/PRIKKER.md).
+
 ## Gruppen består av:
 * Ivar Carlsen, ivarhc@stud.ntnu.no
 * Marius Arhaug, mariuhar@stud.ntnu.no
