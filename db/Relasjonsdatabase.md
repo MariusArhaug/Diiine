@@ -1,11 +1,11 @@
 # Relasjonsdatabase
 
 ## Bruker
-BrukerID_, Navn, Adresse, E-post, Min_Middag, (updated at, created at), erAdmin, Allergier
+**BrukerID**, Navn, Adresse, E-post, Min_Middag, (updated at, created at), erAdmin, Allergier
 
 
 ## Middag
-Middags_ID_, Navn, Adresse, Kategori (brukes til vegan/meat), Allergener, Deltagere, erÅpen, *middagsEier*, blirSpleiset, Utgifter
+**Middags_ID**, Navn, Adresse, Kategori (brukes til vegan/meat), Allergener, Deltagere, erÅpen, *middagsEier*, blirSpleiset, Utgifter
 
  
 ## Rating
