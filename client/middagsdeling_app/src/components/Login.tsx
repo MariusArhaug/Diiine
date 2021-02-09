@@ -1,17 +1,30 @@
 import React, { Component } from 'react';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 export default class Login extends Component<{}, {}> {
+
+    constructor(props: any){
+        super(props)
+
+        this.login = this.login.bind(this)
+        
+    }
+
+    private login(){
+
+    }
 
     render() {
         return <div>
             <h1>Login</h1>
-            <span>Brukernavn </span>
-            <input type="text" name="" id=""/>
+            <TextField label="Username" />
             <br/>
-            <span>Passord </span>
-            <input type="text" name="" id=""/>
+            <TextField label="Password" />
             <br/>
-            <input type="button" value="Log in"/>
+            <Button onClick={this.login} variant="contained" color="primary">
+                Log in
+            </Button>
         </div>
     }
 }
