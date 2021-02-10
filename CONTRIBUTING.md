@@ -1,67 +1,59 @@
-# Utvikling og bidrag
+# Utviklingsprosessen
+Utviklingsprosessen ble slått fast i [Leveranse 2]. Dette er et dokument som representerer avgjørelser tatt for denne innleveringen, men vil også oppdateres for å reflektere den nåværende prosessen for gruppen.
 
-Dette prosjektet utvikles av gruppe 10 i faget IT1901 på NTNU høsten 2020.
-Gruppen har signert gruppekontrakt, og skal bruke smidige metoder, beskrevet i dette dokumentet.
+Mer informasjon kan finnes i repoets [README].
 
-## Prosjektplanlegging
 
-I repoet ligger markdown-filer med brukerhistorier. Brukerhistoriene beskriver funksjonaliteten, og er på formen
-```
-Som en ___ trenger jeg ___ sånn at jeg ___.
-```
-Brukerhistoriene har en assosiert prioritet, og om de er ferdig implementert eller ikke.
-Det er et poeng å ikke planlegge for mye før man begynner å implementere ting, for å
-slippe å bruke mye ressurser på å forutse alle tenkelige situasjoner, og lettere kunne
-endre plan underveis, for eksempel hvis mål endrer seg, eller hvis svakheter oppdages underveis.
 
-## Sprintplanlegging
+## GitLab
+Gruppen bruker GitLab som Version Control System og har en del rutiner knyttet til dette. Inspirasjon for hvordan en Agil utviklingsprosess overføres til GitLab er tatt fra [denne GitLab] artikelen.
 
-Arbeidet med implementering er delt inn i Sprinter, der hver sprint begynner 
-med en sprintplanlegging og slutter med en milepæl i GitLab.
-På sprintplanleggingen blir brukerhistorier for perioden valgt ut og omgjort til én eller flere oppgaver (GitLab issues).
-Inndelingen er slik at hver oppgave blir så individuell som mulig, men likevel implementerer en konkret kodebit.
-Oppgaven får en merkelapp med brukerhistorien, og blir tilordnet sprint-milepælen.
+| Agile begrep    | GitLab feature       |
+| --------------- | -------------------- |
+| User story      | Issues               |
+| Task            | Task list            |
+| Epics / Phases  | Epic                 |
+| Product backlog | Issue lists & labels |
+| Sprint          | Milestones           |
+| Kanban Board    | Issue boards         |
 
-En sprint kan også inneholde oppgaver fra etterslep-lista, selv om de ikke hører til en brukerhistorie.
-Etterslep-lista består av alle oppgaver som ikke er tilordnet milepæl, og utviklere
-kan når som helst legge til nye oppgaver på etterslep-lista.
+En User story kan ha tasks eller tech-stories under seg, som må implementeres for at brukerhistorien kan fullføres. Gruppen bruker GitLabs task lists.
 
-Alle oppgaver i en sprint får tildelt poeng som et estimat på arbeidsmengde. Vi bruker GitLab sin `/estimate`-kommando.
-Når sprintplanleggingen er ferdig kan man se alle oppgaver i sprinten ved å gå til GitLab-tavla
-[Utvikling](https://gitlab.stud.idi.ntnu.no/it1901/groups-2020/gr2010/gr2010/-/boards/2107)
-og søke etter `milestone=<navn på sprint>`. Dette er da sprintens smidig-tavle.
+Gruppen bruker faser for å organisere User Stories og utviklingen av produktet.
 
-## Underveis i sprinten
+Resten av listen er forhåpentligvis selv-dokumenterende.
 
-Minst to ganger i uka skal gruppen ha samlingsmøte, der medlemmene deler hva de har gjort siden sist,
-og hva de skal jobbe med videre. Man ser på sprint-tavla og blir enige om hvem som skal tildeles
-hvilke oppgaver. Tavla er delt inn i kolonner. Til å begynne med er alle oppgaver kun "åpne",
-og krever mer eller mindre diskusjon i gruppa før et gruppemedlem kan begynne implementasjon.
-Alle trenger ikke være med på all diskusjon, men alle kan komme med innspill på oppgavens GitLab-side.
+## Branching
+En branchingstrategi som gruppen har blitt enig om vil bli fulgt. Diagrammet er basert på denne [Coding Garden videoen].
 
-Når diskusjoner er ferdig får oppgaven merkelappen "Utviklingsklar", som er en egen kolonne på tavla.
-Da kan et gruppemedlem få oppgaven tildelt, og den flyttes til kolonnen "Under utvikling".
-Ting kan selvfølgelig oppstå underveis, men ideelt sett utvikles da oppgaven ferdig.
+![Banching Strategy](resources/images/branching-strategy.png)
 
-### Utvikling
+Branch I, J, [...], M er tasks som hører til en brukerhistorie. Det kan være fordelaktig å gjøre det på denne måten, slik at flere kan jobbe sammtidig på en brukerhistorie, da de kan være ganske store.
+Grenene vil bli navngitt etter issue id (brukerhistorie) og tasknummer. 
 
+Et eksempel, basert på [issue 5][1], vil være `5-1.1` for issue fem, task 1, subtask 1.
+
+Når en task er ferdigstilt vil den merges inn i brukerhistorien (issue #X i diagrammet) og kun når en brukerhistorie er ferdig vil den merges inn i develop branchen. 
+
+Når en sprint eller fase er over, passerer alle tester, blitt reviewed og testet av gruppens medlemmer vil den merges med main branchen. Dette er da en brukerhistorie som er klar for presentasjon til produkteier.
+
+Det er viktig at en ny gren blir splittet av fra den grenen den skal merges inn i. Dette vises med stiplete grå linjer i diagrammet. Eksempelvis må grenen 1-3 splittes av fra gren A (issue #X).
+
+## Utvikling
 Hver oppgave skal på dette stadiet være et tenkt konkret stykke arbeid.
 Dette arbeidet skal skje i en egen gren i git, og det skal skrives både tester og
 eventuell dokumentasjon. Man trenger ikke dogmatisk følge testdrevet utvikling,
 men all kode som skal inn i prosjektet skal ha enhetstester.
-I tillegg skal man forsøke å ha integrasjonstester for testing av APIer, både
-på klient og tjener. Integrasjonstester betyr her tester som starter programmet
-for å intragere med det, men som kun simulerer kommunikasjon mellom klient og tjener.
 
 For hver oppgave har GitLab et forslag til gren-navn på formen
 ```
-71-vurdere-om-vi-skal-kreve-oppgave-nummer-i-buntmeldinger
+71-vurdere-om-vi-skal-kreve-oppgave-nummer-i-commitmessage
 ```
-Denne blir fort litt lang, men så lenge oppgavenummeret er med på starten
-vil GitLab forstå at grenen hører til oppgaven når tiden er inne for fletting.
-I tillegg skal alle kodebunter være navngitt deskriptivt etter reglene i
+Denne blir fort litt lang, men så lenge issue nummer er med på starten
+vil GitLab forstå at grenen hører til oppgaven når tiden er inne for merging.
+I tillegg skal alle commits være navngitt deskriptivt etter reglene i
 [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).
-Dette vil si at alle buntmeldinger er på formen
+Dette vil si at alle commit messages er på formen
 ```
 feat(#43): legge til statuslinje for nettverksoprasjoner
 
@@ -70,59 +62,25 @@ Inni parantesen skrives oppgavenummeret bunten jobber mot.
 Merk at resten av linjen er i infinitiv, har liten forbokstav og er uten tegnsetting.
 Linjen skal passe inn i setningen:
   
-  Hvis denne bunten flettes inn i kodebasen vil den <melding>.
+  Hvis denne commiten flettes inn i kodebasen vil den <melding>.
   
 BREAKING CHANGES: ødelegger funksjonalitet og må derfor ha denne linjen
 ```
-Vi holder oss til de definerte engelske nøkkelordene for maskinlesbarheten sin del:
+Commits med automatiske meldinger (`revert `, `merge `) trenger ikke følge reglene.
 
-`feat`, `fix`, `chore`, `build`, `test`, `refactor`, `perf`, `style`, `ci`, `docs`.
+## Kanban-tavle
+_Her må vi sammen gå igjennom regler._
 
-Bunter med automatiske meldinger (`revert `, `merge `) trenger ikke følge reglene.
+## Testing
+_Her må vi sammen gå igjennom regler._
 
-### Kontrollering
+## Språk
+_Her må vi sammen gå igjennom regler._
 
-Etter utvikling lages en fletteforespørsel (GitLab Merge request) fra utviklingsgrenen til hovedgrenen.
-Fletteforespørselen skal ha en fornuftig tittel, og beskrivelen skal kort beskrive forandingen
-og *hvorfor* forandringen er blitt gjort.
-Hva som er blitt gjort skal være beskrevet i buntmeldingene. Fletteforespørselen skal også
-referere til oppgaven den løser med `Fixes #58`, som GitLab forstår.
-Så fremt man har brukt GitLab sitt forslag til gren-navn på oppgaven vil fletteforespørselen
-automatisk få merkelapper og `Closes #<oppgavenr>` i beskrivelsen.
+Jeg foreslår å holde git-terminologi på engelsk, samt variabelnavn og kommentarer. Dokumentasjon, wiki og .md dokumenter vil være på norsk.
 
-Oppgaven på sprint-tavlen flyttes til "Til vurdering"-kolonnen, og et annet gruppemedlem
-skal bli bedt om å vurdere fletteforespørselen, gjennom å få den tilegnet. Vidre forbedringer og forandringer skal
-legges på utviklingsgrenen, og når grenen er klar skal den flettes inn i hovedgrenen.
-
-Dersom forandringer har skjedd på hovedgrenen i mellomtiden må utviklingsgrenen enten sammeflettes
-eller lempes om (rebase) med hovedgrenens nye innhold før fletteforespørselen kan flettes.
-
-#### CI/CD
-
-Prosjektet skal bruke en GitLab-pipeline for å automatisk kjøre testene i utviklingsgrener,
-og raportere testdekning. Denne statistikken skal helst vises på README-siden.
-Andre verktøy vi bruker, f.eks. sjekk av kodekvalitet og formatering, skal også kjøres
-i Pipeline og godkjennes for hver fletteforespørsel. Hvis noen av sjekkene mislykkes skal 
-Pipelinen feile.
-
-## Sprintretrospektiv
-
-Når sprinten er ferdig skal gruppen samles for å vise det de har gjort
-og diskutere hvordan sprinten gikk. Uavhengig av hvordan sprinten går skal hovedgrenen til prosjektet til enhver
-tid være i en kjørbar tilstand, selv om det ikke nødvendigvis tilfredsstiller alle krav enda.
-Dersom prosjektet krever mer jobbing, skal en ny sprint planlegges. Før det skal alle skrive ned
-hva de vil ha mer av / ta med vidre, og hva de vil ha mindre av. Ønskene tas opp i plenum.
-
-# Språk
-
-Vi bruker norsk som språk på GitLab og i dokumentasjon, og nynorsk og bokmål er sidestilt.
-Variabelnavn og kommentarer i kode er på engelsk, og i noen *få* tilfeller brukes engelske ord
-der det ikke er enighet om norske utgaver. Forslag:
-
- - issue -> **oppgave** (issue task list kalles **underoppgaver**)
- - tag -> **git-merkelapp**
- - label -> **GitLab-merkelapp**
- - commit -> **bunt**
- - merge request -> **fletteforespørsel**
- - merge -> **sammenflette**
- - rebase -> **lempe om**
+[denne GitLab]: https://about.gitlab.com/blog/2018/03/05/gitlab-for-agile-software-development/
+[Leveranse 2]: rapporter/L2/L2_TDT4140_Programvareutvikling.pdf
+[README]: README.md
+[Coding Garden videoen]: https://youtu.be/Lj_jAFwofLs
+[1]: https://gitlab.stud.idi.ntnu.no/tdt4140/landsby-3/gruppe-40/middagsdeling/-/issues/5
