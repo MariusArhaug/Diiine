@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import logo_colored from '../media/logo_colored.svg'
+import Allergy from './Allergy';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -22,8 +23,11 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         logo: {
             flex: "0 1 auto",
+            alignSelf: "start",
             marginBottom: "auto",
-            marginTop: theme.spacing(15)
+            marginLeft: theme.spacing(3),
+            marginTop: theme.spacing(3),
+            height: "50px"
         },
         login: {
             flex: "0 1 auto",
@@ -45,14 +49,23 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: "start",
             justifyContent: "center",
             padding: "10px",
+        },
+        names: {
+            display: "flex",
+            justifyContent: "space-between",
+        },
+        nameInput: {
+            width: "48%"
         }
     }),
 );
 
 
-export default function Login() {
+export default function Register() {
 
     const classes = useStyles();
+
+    let allergies = []
 
     const [state, setState] = React.useState({
         checked: false
@@ -62,16 +75,30 @@ export default function Login() {
         setState({ ...state, [event.target.name]: event.target.checked });
     };
 
+    const deleteAllergy = (allergy: typeof Allergy) => {
+
+    }
+
     return (
         <div className={classes.wrapper}>
             <img src={logo_colored} alt="logo" className={classes.logo}/>
             <Paper className={classes.login}>
                 <Avatar className={classes.icon}><PersonAddIcon /></Avatar>
-                <h1>Sign in</h1>
-                <TextField label="Username" placeholder='Enter username' />
-                <br />
+                <h1>Register</h1>
+                <div className={classes.names}>
+                    <TextField className={classes.nameInput} label="First name" placeholder='Enter first name' />
+                    <TextField className={classes.nameInput} label="Last name" placeholder='Enter last name' />
+                </div>
+                
+                <TextField label="E-mail" placeholder='Enter e-mail' />
+                <TextField label="Phone number" placeholder='Enter phone number' />
+                <TextField label="Address" placeholder='Enter address' />
                 <TextField label="Password" placeholder='Enter password' />
-                <br />
+
+                <Button>Add allergy</Button>
+
+                {/* <Allergy deleteSelf={deleteAllergy} /> */}
+
                 <FormControlLabel
                     control={
                         <Checkbox
@@ -81,14 +108,13 @@ export default function Login() {
                             color="primary"
                         />
                     }
-                    label="Remember me"
+                    label="Is user admin?"
                 />
                 <Button variant="contained" color="primary">
-                    Log in
+                    Register
                 </Button>
                 <div className={classes.links}>
-                    <Link>Forgot password?</Link>
-                    <span>Don't have an account yet? <Link>Sign up</Link></span>
+                    <span>Already have an account? <Link>Sign in</Link></span>
                 </div>
             </Paper>
         </div>
