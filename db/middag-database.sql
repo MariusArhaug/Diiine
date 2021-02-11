@@ -5,48 +5,42 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema middagsdelingsdb
 -- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema testdb
--- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `middagsdelingsdb` DEFAULT CHARACTER SET latin1 ;
+USE `middagsdelingsdb` ;
 
 -- -----------------------------------------------------
--- Schema testdb
+-- Table `middagsdelingsdb`.`users`
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `testdb` DEFAULT CHARACTER SET latin1 ;
-USE `testdb` ;
-
--- -----------------------------------------------------
--- Table `testdb`.`users`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `testdb`.`users` (
+CREATE TABLE IF NOT EXISTS `middagsdelingsdb`.`users` (
   `user_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `full_name` VARCHAR(255) NOT NULL,
-  `created_at` TIMESTAMP NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL,
-  `isAdmin` TINYINT(1) NULL DEFAULT NULL,
-  `Allergies` VARCHAR(255) NOT NULL,
-  `has_dinners_id` INT(11) NOT NULL,
-  `rating_id` INT(11) NOT NULL,
-  `chatted_to` INT(11) NOT NULL,
+  `isAdmin` TINYINT(1) DEFAULT 0,
+  `Allergies` VARCHAR(255),
+  `has_dinners_id` INT(11),
+  `rating_id` INT(11) DEFAULT 0,
+  `chatted_to` INT(11),
   PRIMARY KEY (`user_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `testdb`.`dinner`
+-- Table `middagsdelingsdb`.`dinner`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `testdb`.`dinner` (
+CREATE TABLE IF NOT EXISTS `middagsdelingsdb`.`dinner` (
   `dinner_id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `adress` VARCHAR(255) NOT NULL,
   `type` VARCHAR(255) NOT NULL,
   `allergens` VARCHAR(255) NOT NULL,
   `attendants` INT(11) NOT NULL,
-  `isDivided` TINYINT(1) NULL DEFAULT 0,
-  `isOpen` TINYINT(1) NULL DEFAULT 0,
+  `isDivided` TINYINT(1) DEFAULT 0,
+  `isOpen` TINYINT(1) DEFAULT 0,
   `expenses` DOUBLE NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date` DATE NOT NULL,
@@ -54,11 +48,10 @@ CREATE TABLE IF NOT EXISTS `testdb`.`dinner` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-
 -- -----------------------------------------------------
--- Table `testdb`.`attendingDinner`
+-- Table `middagsdelingsdb`.`attendingDinner`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `testdb`.`attendingDinner` (
+CREATE TABLE IF NOT EXISTS `middagsdelingsdb`.`attendingDinner` (
   `user_id` INT(11) NOT NULL,
   `dinner_id` INT(11) NOT NULL,
   INDEX `user_id_idx` (`user_id` ASC),
@@ -66,21 +59,48 @@ CREATE TABLE IF NOT EXISTS `testdb`.`attendingDinner` (
   PRIMARY KEY (`user_id`, `dinner_id`),
   CONSTRAINT `user_id`
     FOREIGN KEY (`user_id`)
-    REFERENCES `testdb`.`users` (`user_id`)
-    ON DELETE NO ACTION
+    REFERENCES `middagsdelingsdb`.`users` (`user_id`)
+    ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `dinner_id`
     FOREIGN KEY (`dinner_id`)
-    REFERENCES `testdb`.`dinner` (`dinner_id`)
-    ON DELETE NO ACTION
+    REFERENCES `middagsdelingsdb`.`dinner` (`dinner_id`)
+    ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
 -- -----------------------------------------------------
--- Table `testdb`.`hasDinners`
+-- Table `middagsdelingsdb`.`rating`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `testdb`.`hasDinners` (
+CREATE TABLE IF NOT EXISTS `middagsdelingsdb`.`rating` (
+  `rated_of` INT(11) NOT NULL,
+  `rated_by` INT(11) NOT NULL,
+  `rating_value` INT(11) NOT NULL,
+  `Description` VARCHAR(255) NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL,
+  INDEX `rated_of_idx` (`rated_of` ASC),
+  INDEX `rated_by_idx` (`rated_by` ASC),
+  PRIMARY KEY (`rated_of`, `rated_by`),
+  CONSTRAINT `rated_of`
+    FOREIGN KEY (`rated_of`)
+    REFERENCES `middagsdelingsdb`.`dinner` (`dinner_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `rated_by`
+    FOREIGN KEY (`rated_by`)
+    REFERENCES `middagsdelingsdb`.`user` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `middagsdelingsdb`.`hasDinners`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `middagsdelingsdb`.`hasDinners` (
   `dinner_id` INT(11) NOT NULL,
   `user_id` INT(11) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -89,23 +109,23 @@ CREATE TABLE IF NOT EXISTS `testdb`.`hasDinners` (
   INDEX `dinner_idx` (`dinner_id` ASC),
   INDEX `user_id_idx` (`user_id` ASC),
   PRIMARY KEY (`user_id`, `dinner_id`),
+  CONSTRAINT `user_id_idx`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `middagsdelingsdb`.`users` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `dinner_idx`
     FOREIGN KEY (`dinner_id`)
-    REFERENCES `testdb`.`dinner` (`dinner_id`)
-    ON DELETE NO ACTION
-    ON UPDATE CASCADE,
-  CONSTRAINT `user_idx`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `testdb`.`users` (`user_id`)
-    ON DELETE NO ACTION
+    REFERENCES `middagsdelingsdb`.`dinner` (`dinner_id`)
+    ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
 -- -----------------------------------------------------
--- Table `testdb`.`chat`
+-- Table `middagsdelingsdb`.`chat`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `testdb`.`chat` (
+CREATE TABLE IF NOT EXISTS `middagsdelingsdb`.`chat` (
   `chat_to` INT(11) NOT NULL,
   `chat_from` INT(11) NOT NULL,
   `message` VARCHAR(255) NOT NULL,
@@ -115,40 +135,13 @@ CREATE TABLE IF NOT EXISTS `testdb`.`chat` (
   PRIMARY KEY (`chat_to`, `chat_from`),
   CONSTRAINT `chat_to`
     FOREIGN KEY (`chat_to`)
-    REFERENCES `testdb`.`users` (`user_id`)
-    ON DELETE SET NULL
+    REFERENCES `middagsdelingsdb`.`users` (`user_id`)
+    ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `chat_from`
     FOREIGN KEY (`chat_from`)
-    REFERENCES `testdb`.`users` (`user_id`)
-    ON DELETE SET NULL
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
--- Table `testdb`.`rating`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `testdb`.`rating` (
-  `rating_of` INT(11) NOT NULL,
-  `rating_value` INT(11) NOT NULL,
-  `Description` VARCHAR(255) NOT NULL,
-  `rated_by` INT(11) NOT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP NOT NULL,
-  INDEX `rating_of_idx` (`rating_of` ASC),
-  INDEX `rated_by_idx` (`rated_by` ASC),
-  PRIMARY KEY (`rated_by`, `rating_of`))
-  CONSTRAINT `rating_of`
-    FOREIGN KEY (`rating_of`)
-    REFERENCES `testdb`.`dinner` (`dinner_id`)
-    ON DELETE SET NULL
-    ON UPDATE CASCADE,
-  CONSTRAINT `rated_by`
-    FOREIGN KEY (`rated_by`)
-    REFERENCES `testdb`.`users` (`user_id`)
-    ON DELETE SET NULL
+    REFERENCES `middagsdelingsdb`.`users` (`user_id`)
+    ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
