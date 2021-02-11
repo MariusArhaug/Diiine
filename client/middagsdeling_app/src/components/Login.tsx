@@ -21,7 +21,7 @@ export default class Login extends Component<{}, {}> {
     render() {
         return <div>
             <h1>Sign in</h1>
-            <Avatar><PersonAddIcon/></Avatar>
+            <Avatar><PersonAddIcon/></Avatar>  
             <TextField label="Username" placeholder ='Enter username'/>
             <br/>
             <TextField label="Password" placeholder ='Enter password' />
