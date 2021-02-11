@@ -116,12 +116,12 @@ CREATE TABLE IF NOT EXISTS `testdb`.`chat` (
   CONSTRAINT `chat_to`
     FOREIGN KEY (`chat_to`)
     REFERENCES `testdb`.`users` (`user_id`)
-    ON DELETE NO ACTION
+    ON DELETE SET NULL
     ON UPDATE CASCADE,
   CONSTRAINT `chat_from`
     FOREIGN KEY (`chat_from`)
     REFERENCES `testdb`.`users` (`user_id`)
-    ON DELETE NO ACTION
+    ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
@@ -140,6 +140,16 @@ CREATE TABLE IF NOT EXISTS `testdb`.`rating` (
   INDEX `rating_of_idx` (`rating_of` ASC),
   INDEX `rated_by_idx` (`rated_by` ASC),
   PRIMARY KEY (`rated_by`, `rating_of`))
+  CONSTRAINT `rating_of`
+    FOREIGN KEY (`rating_of`)
+    REFERENCES `testdb`.`dinner` (`dinner_id`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
+  CONSTRAINT `rated_by`
+    FOREIGN KEY (`rated_by`)
+    REFERENCES `testdb`.`users` (`user_id`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
