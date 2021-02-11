@@ -8,5 +8,27 @@ export class Users extends Service {
       ...options,
       name: 'users'
     });
+
+    // CRUD - Create, Read, Update, Delete.
+
+    /* {
+      user_id: 
+      email: 
+      password_hash:
+      allergener:
+
+      create(userObject) {
+        user_id = tildatabese.save(); 
+        ...
+
+      }
+
+      findAll() {
+        // admin hente ut en liste av brukere. 
+      }
+
+    } */
+
+
   }
 }

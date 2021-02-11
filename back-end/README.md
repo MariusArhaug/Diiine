@@ -1,6 +1,9 @@
 # back-end
 
-> Middagsdeling back-end
+> 
+
+# YEYEYE
+* For å teste trenger man å starte en mysql server. Sånn som
 
 ## About
 

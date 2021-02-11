@@ -2,6 +2,8 @@
 // Don't remove this comment. It's needed to format import lines nicely.
 
 export default {
+
+  // CRUD API - Create, Read, Update, Delete
   before: {
     all: [],
     find: [],

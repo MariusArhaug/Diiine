@@ -10,15 +10,15 @@ import express from '@feathersjs/express';
 import socketio from '@feathersjs/socketio';
 
 
-import { Application } from './declarations';
+import { Application } from './declarations'; // Type-definitions 
 import logger from './logger';
 import middleware from './middleware';
 import services from './services';
 import appHooks from './app.hooks';
 import channels from './channels';
-import { HookContext as FeathersHookContext } from '@feathersjs/feathers';
+import { HookContext as FeathersHookContext } from '@feathersjs/feathers'; // Type Def
 import authentication from './authentication';
-import knex from './knex';
+import knex from './knex'; // ORM mellom MySql og Feathers
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const app: Application = express(feathers());
