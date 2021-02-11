@@ -1,34 +1,78 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { Avatar } from '@material-ui/core';
+import { Avatar, Link } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import Paper from '@material-ui/core/Paper';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        wrapper: {
+            display: "flex",
+            flexDirection: "column",
+            width: "500px",
+            height: "400px",
+            padding: "20px",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)"
+        },
+        icon: {
+            alignSelf: "center"
+        },
+        links: {
+            display: "flex",
+            flexDirection: "column",
+            flexGrow: 1,
+            alignItems: "start",
+            justifyContent: "center"
+        }
+    }),
+);
 
 
-export default class Login extends Component<{}, {}> {
+export default function Login() {
 
-    constructor(props: any){
-        super(props)
+    const classes = useStyles();
 
-        this.login = this.login.bind(this)
-        
-    }
+    const [state, setState] = React.useState({
+        checked: false
+    });
 
-    private login(){
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setState({ ...state, [event.target.name]: event.target.checked });
+    };
 
-    }
-
-    render() {
-        return <div>
+    return (
+        <Paper className={classes.wrapper}>
+            <Avatar className={classes.icon}><PersonAddIcon /></Avatar>
             <h1>Sign in</h1>
-            <Avatar><PersonAddIcon/></Avatar>  
-            <TextField label="Username" placeholder ='Enter username'/>
-            <br/>
-            <TextField label="Password" placeholder ='Enter password' />
-            <br/>
-            <Button onClick={this.login} variant="contained" color="primary">
+            <TextField label="Username" placeholder='Enter username' />
+            <br />
+            <TextField label="Password" placeholder='Enter password' />
+            <br />
+            <FormControlLabel
+                control={
+                    <Checkbox
+                        checked={state.checked}
+                        onChange={handleChange}
+                        name="checked"
+                        color="primary"
+                    />
+                }
+                label="Remember me"
+            />
+            <Button variant="contained" color="primary">
                 Log in
             </Button>
-        </div>
-    }
+            <div className={classes.links}>
+                <Link>Forgot password?</Link>
+                <span>Don't have an account yet? <Link>Sign up</Link></span>
+            </div>
+        </Paper>)
+
 }
