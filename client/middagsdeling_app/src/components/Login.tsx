@@ -1,5 +1,4 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Avatar, Link } from '@material-ui/core';
@@ -8,46 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import logo_colored from '../media/logo_colored.svg'
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        wrapper: {
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            position: "relative",
-            height: "100vh",
-            width: "100vw"
-        },
-        logo: {
-            flex: "0 1 auto",
-            marginBottom: "auto",
-            marginTop: theme.spacing(15)
-        },
-        login: {
-            flex: "0 1 auto",
-            display: "flex",
-            flexDirection: "column",
-            position: "absolute",
-            top: "50%",
-            transform: "translate(0, -50%)",
-            width: "500px",
-            padding: "20px",
-        },
-        icon: {
-            alignSelf: "center"
-        },
-        links: {
-            display: "flex",
-            flexDirection: "column",
-            flexGrow: 1,
-            alignItems: "start",
-            justifyContent: "center",
-            padding: "10px",
-        }
-    }),
-);
+import { useStyles } from '../styles';
 
 
 export default function Login() {
@@ -69,9 +29,7 @@ export default function Login() {
                 <Avatar className={classes.icon}><PersonAddIcon /></Avatar>
                 <h1>Sign in</h1>
                 <TextField label="Username" placeholder='Enter username' />
-                <br />
                 <TextField label="Password" placeholder='Enter password' />
-                <br />
                 <FormControlLabel
                     control={
                         <Checkbox

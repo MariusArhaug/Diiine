@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FunctionComponent} from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -43,8 +43,8 @@ const allergies = [
     },
 ];
 
-type AllergyProps = {
-    deleteSelf: () => typeof Allergy
+interface AllergyProps {
+    // handleDelete: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 export default function Allergy(props: AllergyProps) {
@@ -71,9 +71,12 @@ export default function Allergy(props: AllergyProps) {
                     </MenuItem>
                 ))}
             </TextField>
-            <IconButton onClick={props.deleteSelf}>
+            <IconButton onClick={() => {console.log("clicked")}}>
                 <ClearIcon />
             </IconButton >
+            {/* <IconButton onClick={props.handleDelete}>
+                <ClearIcon />
+            </IconButton > */}
         </div>
         )
 

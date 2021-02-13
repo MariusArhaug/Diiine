@@ -35,3 +35,14 @@
   border-right: 2px solid red;
   height: 100vh;
 }
+
+.VerticalForm {
+  flex: "0 1 auto";
+  display: "flex";
+  flex-direction: "column";
+  position: "absolute";
+  top: "50%";
+  transform: "translate(0, -50%)";
+  width: "500px";
+  padding: "20px";
+}
