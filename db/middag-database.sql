@@ -1,5 +1,3 @@
--- MySQL Workbench Forward Engineering
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -18,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`users` (
   `name` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP NOT NULL,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `isAdmin` TINYINT(1) DEFAULT 0,
   `Allergies` VARCHAR(255),
   `has_dinners_id` INT(11),
@@ -43,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`dinner` (
   `isOpen` TINYINT(1) DEFAULT 0,
   `expenses` DOUBLE NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date` DATE NOT NULL,
   PRIMARY KEY (`dinner_id`))
 ENGINE = InnoDB
@@ -79,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`rating` (
   `rating_value` INT(11) NOT NULL,
   `Description` VARCHAR(255) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP NOT NULL,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   INDEX `rated_of_idx` (`rated_of` ASC),
   INDEX `rated_by_idx` (`rated_by` ASC),
   PRIMARY KEY (`rated_of`, `rated_by`),
@@ -104,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`hasDinners` (
   `dinner_id` INT(11) NOT NULL,
   `user_id` INT(11) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP NOT NULL,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `average_rating` INT(11) NOT NULL,
   INDEX `dinner_idx` (`dinner_id` ASC),
   INDEX `user_id_idx` (`user_id` ASC),
