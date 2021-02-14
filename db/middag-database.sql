@@ -5,15 +5,15 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema middagsdelingsdb
+-- Schema fs_tdt4140_1_gruppe40_mddb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `middagsdelingsdb` DEFAULT CHARACTER SET latin1 ;
-USE `middagsdelingsdb` ;
+CREATE SCHEMA IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb` DEFAULT CHARACTER SET latin1 ;
+USE `fs_tdt4140_1_gruppe40_mddb` ;
 
 -- -----------------------------------------------------
--- Table `middagsdelingsdb`.`users`
+-- Table `fs_tdt4140_1_gruppe40_mddb`.`users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `middagsdelingsdb`.`users` (
+CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`users` (
   `user_id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
@@ -30,9 +30,9 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `middagsdelingsdb`.`dinner`
+-- Table `fs_tdt4140_1_gruppe40_mddb`.`dinner`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `middagsdelingsdb`.`dinner` (
+CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`dinner` (
   `dinner_id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `adress` VARCHAR(255) NOT NULL,
@@ -49,9 +49,9 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
 -- -----------------------------------------------------
--- Table `middagsdelingsdb`.`attendingDinner`
+-- Table `fs_tdt4140_1_gruppe40_mddb`.`attendingDinner`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `middagsdelingsdb`.`attendingDinner` (
+CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`attendingDinner` (
   `user_id` INT(11) NOT NULL,
   `dinner_id` INT(11) NOT NULL,
   INDEX `user_id_idx` (`user_id` ASC),
@@ -59,21 +59,21 @@ CREATE TABLE IF NOT EXISTS `middagsdelingsdb`.`attendingDinner` (
   PRIMARY KEY (`user_id`, `dinner_id`),
   CONSTRAINT `user_id`
     FOREIGN KEY (`user_id`)
-    REFERENCES `middagsdelingsdb`.`users` (`user_id`)
+    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`users` (`user_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `dinner_id`
     FOREIGN KEY (`dinner_id`)
-    REFERENCES `middagsdelingsdb`.`dinner` (`dinner_id`)
+    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`dinner` (`dinner_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
 -- -----------------------------------------------------
--- Table `middagsdelingsdb`.`rating`
+-- Table `fs_tdt4140_1_gruppe40_mddb`.`rating`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `middagsdelingsdb`.`rating` (
+CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`rating` (
   `rated_of` INT(11) NOT NULL,
   `rated_by` INT(11) NOT NULL,
   `rating_value` INT(11) NOT NULL,
@@ -85,12 +85,12 @@ CREATE TABLE IF NOT EXISTS `middagsdelingsdb`.`rating` (
   PRIMARY KEY (`rated_of`, `rated_by`),
   CONSTRAINT `rated_of`
     FOREIGN KEY (`rated_of`)
-    REFERENCES `middagsdelingsdb`.`dinner` (`dinner_id`)
+    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`dinner` (`dinner_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `rated_by`
     FOREIGN KEY (`rated_by`)
-    REFERENCES `middagsdelingsdb`.`user` (`user_id`)
+    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`user` (`user_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -98,9 +98,9 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `middagsdelingsdb`.`hasDinners`
+-- Table `fs_tdt4140_1_gruppe40_mddb`.`hasDinners`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `middagsdelingsdb`.`hasDinners` (
+CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`hasDinners` (
   `dinner_id` INT(11) NOT NULL,
   `user_id` INT(11) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -111,21 +111,21 @@ CREATE TABLE IF NOT EXISTS `middagsdelingsdb`.`hasDinners` (
   PRIMARY KEY (`user_id`, `dinner_id`),
   CONSTRAINT `user_id_idx`
     FOREIGN KEY (`user_id`)
-    REFERENCES `middagsdelingsdb`.`users` (`user_id`)
+    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`users` (`user_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `dinner_idx`
     FOREIGN KEY (`dinner_id`)
-    REFERENCES `middagsdelingsdb`.`dinner` (`dinner_id`)
+    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`dinner` (`dinner_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
 -- -----------------------------------------------------
--- Table `middagsdelingsdb`.`chat`
+-- Table `fs_tdt4140_1_gruppe40_mddb`.`chat`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `middagsdelingsdb`.`chat` (
+CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`chat` (
   `chat_to` INT(11) NOT NULL,
   `chat_from` INT(11) NOT NULL,
   `message` VARCHAR(255) NOT NULL,
@@ -135,12 +135,12 @@ CREATE TABLE IF NOT EXISTS `middagsdelingsdb`.`chat` (
   PRIMARY KEY (`chat_to`, `chat_from`),
   CONSTRAINT `chat_to`
     FOREIGN KEY (`chat_to`)
-    REFERENCES `middagsdelingsdb`.`users` (`user_id`)
+    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`users` (`user_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `chat_from`
     FOREIGN KEY (`chat_from`)
-    REFERENCES `middagsdelingsdb`.`users` (`user_id`)
+    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`users` (`user_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
