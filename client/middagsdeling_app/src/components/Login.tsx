@@ -28,9 +28,12 @@ export default function Login() {
             <Paper className={classes.login}>
                 <div className={classes.flexerVertical}>
                     <Avatar className={classes.icon}><PersonAddIcon /></Avatar>
+
                     <h1>Sign in</h1>
+
                     <TextField label="Username" placeholder='Enter username' />
                     <TextField label="Password" placeholder='Enter password' />
+
                     <FormControlLabel
                         control={
                             <Checkbox
@@ -42,13 +45,16 @@ export default function Login() {
                         }
                         label="Remember me"
                     />
+
                     <Button component={RouterLink} to="/" variant="contained" color="primary">
                         Log in
                     </Button>
+
                     <div className={classes.links}>
                         {/* <Link>Forgot password?</Link> */}
                         <span>Don't have an account yet? <Link component={RouterLink} to="/register">Sign up</Link></span>
                     </div>
+
                 </div>
             </Paper>
         </div>
