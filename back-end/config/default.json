@@ -7,6 +7,13 @@
     "max": 50
   },
   "authentication": {
+    "oauth": {
+      "redirect": "/",
+      "github": {
+        "key": "46d5ee57b0d226f59e7b",
+        "secret": "c4a8925d15679450da0d4dab3ea0d068feddcdbc"
+      }
+    },
     "entity": "user",
     "service": "users",
     "secret": "cUVMXHLKZwIuGECC43hq/GGEPqo=",
@@ -27,6 +34,7 @@
       "usernameField": "email",
       "passwordField": "password"
     }
+
   },
   "mysql": {
     "client": "mysql2",

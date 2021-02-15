@@ -9,7 +9,6 @@ import configuration from '@feathersjs/configuration';
 import express from '@feathersjs/express';
 import socketio from '@feathersjs/socketio';
 
-
 import { Application } from './declarations'; // Type-definitions 
 import logger from './logger';
 import middleware from './middleware';
@@ -19,8 +18,10 @@ import channels from './channels';
 import { HookContext as FeathersHookContext } from '@feathersjs/feathers'; // Type Def
 import authentication from './authentication';
 import knex from './knex'; // ORM mellom MySql og Feathers
+import dotenv from 'dotenv';
 // Don't remove this comment. It's needed to format import lines nicely.
 
+dotenv.config();
 const app: Application = express(feathers());
 export type HookContext<T = any> = { app: Application } & FeathersHookContext<T>;
 
