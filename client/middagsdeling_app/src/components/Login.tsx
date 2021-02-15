@@ -8,7 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import logo_colored from '../media/logo_colored.svg'
 import { useStyles } from '../styles';
-
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function Login() {
 
@@ -24,32 +24,34 @@ export default function Login() {
 
     return (
         <div className={classes.wrapper}>
-            <img src={logo_colored} alt="logo" className={classes.logo}/>
+            <img src={logo_colored} alt="logo" className={classes.logo} />
             <Paper className={classes.login}>
-                <Avatar className={classes.icon}><PersonAddIcon /></Avatar>
-                <h1>Sign in</h1>
-                <TextField label="Username" placeholder='Enter username' />
-                <TextField label="Password" placeholder='Enter password' />
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={state.checked}
-                            onChange={handleChange}
-                            name="checked"
-                            color="primary"
-                        />
-                    }
-                    label="Remember me"
-                />
-                <Button variant="contained" color="primary">
-                    Log in
-                </Button>
-                <div className={classes.links}>
-                    <Link>Forgot password?</Link>
-                    <span>Don't have an account yet? <Link>Sign up</Link></span>
+                <div className={classes.flexerVertical}>
+                    <Avatar className={classes.icon}><PersonAddIcon /></Avatar>
+                    <h1>Sign in</h1>
+                    <TextField label="Username" placeholder='Enter username' />
+                    <TextField label="Password" placeholder='Enter password' />
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={state.checked}
+                                onChange={handleChange}
+                                name="checked"
+                                color="primary"
+                            />
+                        }
+                        label="Remember me"
+                    />
+                    <Button component={RouterLink} to="/" variant="contained" color="primary">
+                        Log in
+                    </Button>
+                    <div className={classes.links}>
+                        {/* <Link>Forgot password?</Link> */}
+                        <span>Don't have an account yet? <Link component={RouterLink} to="/register">Sign up</Link></span>
+                    </div>
                 </div>
             </Paper>
         </div>
-        )
+    )
 
 }

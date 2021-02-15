@@ -16,7 +16,7 @@ export default function Allergies() {
         gluten: false,
         eggs: false,
         nuts: false,
-        other: false
+        test: false
     });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,29 +26,26 @@ export default function Allergies() {
     const { lactose, gluten, eggs, nuts } = state;
     
     return (
-        <div>
-            <FormControl component="fieldset" className={classes.flexerVertical}>
-                <FormLabel component="legend">Assign responsibility</FormLabel>
-                <FormGroup>
-                    <FormControlLabel
-                        control={<Checkbox checked={lactose} onChange={handleChange} name="lactose" />}
-                        label="Lactose"
-                    />
-                    <FormControlLabel
-                        control={<Checkbox checked={gluten} onChange={handleChange} name="gluten" />}
-                        label="Gluten"
-                    />
-                    <FormControlLabel
-                        control={<Checkbox checked={eggs} onChange={handleChange} name="eggs" />}
-                        label="Eggs"
-                    />
-                    <FormControlLabel
-                        control={<Checkbox checked={nuts} onChange={handleChange} name="nuts" />}
-                        label="Nuts"
-                    />
-                </FormGroup>
-                <FormHelperText>Be careful</FormHelperText>
-            </FormControl>
+        <div className={classes.flexerVertical}>
+            <FormLabel component="legend">Choose allergies</FormLabel>
+            <FormGroup>
+                <FormControlLabel
+                    control={<Checkbox checked={lactose} onChange={handleChange} name="lactose" />}
+                    label="Lactose"
+                />
+                <FormControlLabel
+                    control={<Checkbox checked={gluten} onChange={handleChange} name="gluten" />}
+                    label="Gluten"
+                />
+                <FormControlLabel
+                    control={<Checkbox checked={eggs} onChange={handleChange} name="eggs" />}
+                    label="Eggs"
+                />
+                <FormControlLabel
+                    control={<Checkbox checked={nuts} onChange={handleChange} name="nuts" />}
+                    label="Nuts"
+                />
+            </FormGroup>
         </div>
     )
 }

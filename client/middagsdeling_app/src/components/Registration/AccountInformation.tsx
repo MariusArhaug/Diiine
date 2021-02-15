@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { useStyles } from '../../styles';
+import FormLabel from '@material-ui/core/FormLabel';
 
 export default function AccountInformation() {
 
@@ -18,7 +19,10 @@ export default function AccountInformation() {
     };
 
     return (
-        <div className={classes.flexerVertical} style={{padding: 0}}>
+        <div className={classes.flexerVertical}>
+
+            <FormLabel component="legend">Input account information</FormLabel>
+
             <div className={classes.names}>
                 <TextField className={classes.nameInput} label="First name" placeholder='Enter first name' />
                 <TextField className={classes.nameInput} label="Last name" placeholder='Enter last name' />

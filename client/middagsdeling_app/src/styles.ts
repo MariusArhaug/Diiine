@@ -46,6 +46,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         names: {
             display: "flex",
             justifyContent: "space-between",
+            margin: 0,
         },
         nameInput: {
             width: "48%"

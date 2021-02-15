@@ -12,6 +12,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { Link as RouterLink } from 'react-router-dom';
 
 function getSteps() {
     return ['Account information', 'Allergies'];
@@ -90,9 +91,18 @@ export default function Register() {
                     >
                         Back
                     </Button>
-                    <Button variant="contained" color="primary" onClick={handleNext}>
-                        {activeStep === steps.length - 1 ? 'Register' : 'Next'}
-                    </Button>
+                    {
+                        activeStep < steps.length - 1 && 
+                        <Button variant="contained" color="primary" onClick={handleNext}>
+                            Next
+                        </Button>
+                    }
+                    {
+                        activeStep === steps.length - 1 && 
+                        <Button component={RouterLink} to="/login" variant="contained" color="primary" onClick={handleNext}>
+                            Register
+                        </Button>
+                    }
                 </div>
 
                 {/* <div className={classes.links}>
