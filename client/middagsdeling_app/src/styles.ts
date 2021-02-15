@@ -21,12 +21,14 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
         login: {
             flex: "0 1 auto",
-            display: "flex",
-            flexDirection: "column",
             position: "absolute",
             top: "50%",
             transform: "translate(0, -50%)",
             width: "500px",
+        },
+        flexerVertical: {
+            display: "flex",
+            flexDirection: "column",
             padding: "10px",
             "& >*": {
                 margin: "10px",
@@ -47,6 +49,13 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
         nameInput: {
             width: "48%"
-        }
+        },
+        instructions: {
+          marginTop: theme.spacing(1),
+          marginBottom: theme.spacing(1),
+        },
+        backButton: {
+          marginRight: theme.spacing(1),
+        },
     }),
 );
