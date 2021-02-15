@@ -2,8 +2,9 @@
 
 > 
 
-# YEYEYE
-* For å teste trenger man å starte en mysql server. Sånn som
+# Koble til Database:
+* i ./config/default.json, helt nederst ligger navnet på databasen. Altså lenken til å koble seg på.
+* Start en mysql server (fra terminalen `mysql.server.start` => )
 
 ## About
 

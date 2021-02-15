@@ -30,6 +30,6 @@
   },
   "mysql": {
     "client": "mysql2",
-    "connection": "mysql://root:@localhost:3306/back_end"
+    "connection": "mysql://root:@localhost:3306/back_end" // Bytte test_middag til det den heter idk.
   }
 }
