@@ -38,6 +38,12 @@
   },
   "mysql": {
     "client": "mysql2",
-    "connection": "mysql://root:@localhost:3306/back_end" // Bytte test_middag til det den heter idk.
+    "connection": {
+      "host": "mysql.stud.ntnu.no",
+      "user": "fs_tdt4140_1_gruppe40",
+      "password": "vielskerPUlol40",
+      "database": "fs_tdt4140_1_gruppe40_mddb"
+    }
+    // mysql -A -h mysql.stud.ntnu.no -u fs_tdt4140_1_gruppe40 -p fs_tdt4140_1_gruppe40_mddb
   }
 }
