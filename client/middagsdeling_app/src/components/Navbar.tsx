@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import logo_white from '../media/logo_white.svg';
 import { Link as RouterLink, useRouteMatch } from 'react-router-dom';
-import AddIcon from '@material-ui/icons/Add';
+
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -26,9 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
         profile: {
             marginLeft: "auto",
         },
-        newDinner: {
-            marginLeft: "auto",
-        }
     }),
 );
 
@@ -52,9 +49,6 @@ export default function ButtonAppBar() {
                     <Tab component={RouterLink} to="/my_dinners" label="My Dinners" />
                     <Tab component={RouterLink} to="/chat" label="Chats" />
                 </Tabs>   
-                <IconButton component={RouterLink} to='/newdinner' className={classes.newDinner} color="inherit" aria-label="add">
-                    <AddIcon />
-                </IconButton>
                 <IconButton component={RouterLink} to="/profile" className={classes.profile} color="inherit" aria-label="menu">
                     <AccountCircle />
                 </IconButton>

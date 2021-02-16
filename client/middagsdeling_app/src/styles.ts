@@ -58,5 +58,8 @@ export const useStyles = makeStyles((theme: Theme) =>
         backButton: {
           marginRight: theme.spacing(1),
         },
-    }),
+        newDinner: {
+            marginLeft: "auto",
+        }
+    })
 );
