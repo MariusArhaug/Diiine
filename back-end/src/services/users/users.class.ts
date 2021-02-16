@@ -1,74 +1,43 @@
-//import { Service, KnexServiceOptions } from 'feathers-knex';
+import { Service, KnexServiceOptions } from 'feathers-knex';
 import { Application } from '../../declarations';
-import { Params } from '@feathersjs/feathers';
+import { Params, Id, ServiceMethods } from '@feathersjs/feathers';
 
-//let allergensMap = new Map();
-
-const mysql = require('mysql');
-const connection = mysql.createConnection({
-  host  : 'mysql.stud.ntnu.no',
-  user  : 'fs_tdt4140_1_gruppe40',
-  password: 'vielskerPUlol40',
-  database: 'fs_tdt4140_1_gruppe40_mddb'
-})
-
-/*connection.connect( (err: any) => {
-  if (err) throw err;
-  connection.query(`INSERT INTO users VALUES ()`, (err: any, results: any, fields: any) => {
-    if (err) throw err;
-      console.log("funker:)")
-      console.log(results[0])
-  })
-})
- */
-// Type interface for user
+// A type interface for our user (no valdiation) 
 interface UserData {
-  userId?: string;
-  email: string;
-  passwordHash: string;
-  name?: string;
-  allergens?: Map<string, boolean>;
+  id?: number,
+  email: string,
+  password: string,
+  name: string,
+  created_at: Date,
+  updated_at: Date,
+  allergens: string
 }
 
-export class createUser {
-  
-  /* const mysql = require('mysql');
-  const connection = this.mysql.createConnection({
-    host  : 'mysql.stud.ntnu.no',
-    user  : 'fs_tdt4140_1_gruppe40',
-    password: 'vielskerPUlol40',
-    database: 'fs_tdt4140_1_gruppe40_mddb'
-  }) */
-/*   this.connection.connect( (err: any) => {
-    if (err) throw err;
-    connection.query(`INSERT INTO users VALUES ("userID", name, email, password, created_at, updated_at, is_admin, allergens)`, (err: any, results: any, fields: any) => {
-      if (err) throw err;
-        console.log("funker:)")
-        console.log(results[0])
-    })
-  })   */
-}
 
-/* export class Users extends Service {
+export class Users extends Service<UserData> {
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   constructor(options: Partial<KnexServiceOptions>, app: Application) {
     super({
       ...options,
       name: 'users'
-    });}
+    });
+  }
+    async update(id: Id, data: UserData, params: Params) {
+      
+      data.updated_at = new Date();
+      
+      return super.update(id, data, params);
+    }
   
-  create (data: UserData, params?: Params) {
-    const { email, passwordHash, name, allergens } = data;
-    const userData = {
-      email,
-      passwordHash,
-      name,
-      allergens
+    async create(data: UserData, params?: Params) {
+      const { email, password, name, allergens } = data;
+      const userData = {
+        email,
+        password,
+        name,
+        allergens
       };
-
-    // Call the original `create` method with existing `params` and new data
-    return super.create(userData, params);
-  } */
-
-    // CRUD - Create, Read, Update, Delete.
-//}
+      // Call original `create` method with existing params and new data.
+      return super.create(userData, params);
+    }
+}

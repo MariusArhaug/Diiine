@@ -5,12 +5,14 @@ import { HookContext } from '@feathersjs/feathers';
 
 const { authenticate } = feathersAuthentication.hooks;
 const { hashPassword, protect } = local.hooks;
-const createdAt = async (context: HookContext) => {
-  context.data.createdAt = new Date();
-  return context;
-};
-const updatedAt = async (context: HookContext) => {
-  context.data.updatedAt = new Date();
+const allergensString = async (context: HookContext) => {
+  let result: string = "";
+  Object.keys(JSON.parse(context.data.allergens)).forEach(function(key, state) {
+    if(state==1){
+      result+=","+key;
+    }
+  });
+  context.data.allergens = result;
   return context;
 };
 
@@ -19,9 +21,9 @@ export default {
     all: [],
     find: [ authenticate('jwt') ],
     get: [ authenticate('jwt') ],
-    create: [ hashPassword('password'), createdAt ], //må evt endre til createUser
-    update: [ hashPassword('password'),  authenticate('jwt'), updatedAt ],
-    patch: [ hashPassword('password'),  authenticate('jwt') ],
+    create: [ hashPassword('password'), allergensString ], 
+    update: [ hashPassword('password'),  authenticate('jwt'), allergensString ],
+    patch: [ hashPassword('password'),  authenticate('jwt'), allergensString ],
     remove: [ authenticate('jwt') ]
   },
 
