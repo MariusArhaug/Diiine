@@ -25,18 +25,37 @@ export default function (app: Application): Knex {
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1; 
 */
-  
+/* 
+  // Clean up our data. This is optional and is here
+  // because of our integration tests
+  db.schema.dropTableIfExists('users').then(() => {
+    console.log('Dropped users table');
+
+    // Initialize your table
+    return db.schema.createTable('users', table => {
+      console.log('Creating users table');
+      table.increments('id');
+      table.string('name');
+      table.string('email');
+      table.string('password');
+      table.boolean('isAdmin');
+
+      // TODO: Hook for created at and updated at
+    });
+  }).then(() => {
+    // Create a dummy Message
+    app.service('users').create({
+      name: 'joakim',
+      email: 'joakim@middag.no',
+      password: 'supersecret'
+    }).then(user => console.log('Created user', user));
+  }); */
+
   db.schema.hasTable(tableName).then(exists => {
     if(!exists) {
       db.schema.createTable(tableName, table => {
         table.increments('id');
-        
-        table.string('name').notNullable;
-        table.string('email').unique();
-        table.string('password');
-        table.boolean('isAdmin');
-      
-      
+        table.string('text');
       })
         .then(() => console.log(`Created ${tableName} table`))
         .catch(e => console.error(`Error creating ${tableName} table`, e));

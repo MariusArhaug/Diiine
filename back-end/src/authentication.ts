@@ -20,7 +20,7 @@ class GitHubStrategy extends OAuthStrategy {
       name: profile.login,
       email: profile.email
     };
-  }
+  } 
 }
 
 export default function(app: Application): void {
