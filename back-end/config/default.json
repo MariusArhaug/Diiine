@@ -26,7 +26,7 @@
         "typ": "access"
       },
       "audience": "https://yourdomain.com",
-      "issuer": "feathers",
+      "issuer": "middagsdeling",
       "algorithm": "HS256",
       "expiresIn": "1d"
     },

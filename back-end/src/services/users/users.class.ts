@@ -5,13 +5,14 @@ import { Params, Id, ServiceMethods } from '@feathersjs/feathers';
 
 // A type interface for our user (no valdiation) 
 interface UserData {
-  _id?: string,
+  _id?: number,
   email: string,
   password: string,
   name: string,
   created_at: Date,
   updated_at: Date,
-  allergenes: string
+  allergenes: string,
+  isAdmin: boolean,
 }
 
 
@@ -24,33 +25,20 @@ export class Users extends Service<UserData> {
     });
   }
 
-    async find(params: Params) {
-      return [];
+  async create (data: UserData, params?: Params) {
+    // This is the information we want from the user signup data
+    const { email, password, name, isAdmin } = data;
+    
+    // The complete user
+    const userData = {
+      email,
+      name,
+      password,
+      isAdmin,
     };
 
-    async update(id: Id, data: UserData, params: Params) {
-      
-      data.updated_at = new Date();
-      
-      return super.update(id, data, params);
-    }
+    // Call the original `create` method with existing `params` and new data
+    return super.create(userData, params);
+  }
 
-    async get(id: Id, params: Params) : Promise<any> {
-      return {
-        id, 
-        text: 'get test'
-      };
-    };
-  
-    async create(data: UserData, params?: Params) {
-      const { email, password, name } = data;
-      const userData = {
-        email,
-        name,
-        password
-      };
-
-      // Call original `create` method with existing params and new data.
-      return super.create(userData, params);
-    }
 }

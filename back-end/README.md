@@ -3,8 +3,19 @@
 > 
 
 # Koble til Database:
-* i ./config/default.json, helt nederst ligger navnet på databasen. Altså lenken til å koble seg på.
-* Start en mysql server (fra terminalen `mysql.server.start` => )
+* Bruk NTNU vpn
+* Lim inn denne strengen i terminalen: `mysql -A -h mysql.stud.ntnu.no -u fs_tdt4140_1_gruppe40 -p fs_tdt4140_1_gruppe40_mddb`
+* Bruk passord `vielskerPUlol40`
+* Da er man koblet til serveren.
+* Bruk kommando `show databases;`
+* Resultatet er antagelig to databaser. Vi ønsker å bruke vår, I guess xD
+* `use fs_tdt4140_1_gruppe40_mddb;`
+
+Nå er databasen klar for å teste.
+Eksempel bruk `select * from users` for å få en liste over alle brukere.
+
+# Starte feathers:
+Om man bruker branchen `8-users` skal feathers kunne kjøre, om man er koblet på vpn. Kjør derfor bare `npm start dev`for å starte serveren. Nå kjører den på `localahost:3030`
 
 ## About
 
