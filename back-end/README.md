@@ -16,7 +16,7 @@ Eksempel bruk `select * from users` for å få en liste over alle brukere.
 
 # Koble til Database via MySQL Workbench:
 * Bruk NTNU vpn
-* Klikk på add pluss tegnet ved "MySQL connections" og fyll inn følgende:
+* Klikk på plusstegnet ved "MySQL connections" og fyll inn følgende:
 * Connection Method: `Standard (TCP/IP)`
 * Hostname: `mysql.stud.ntnu.no`
 * Port: `3306`
