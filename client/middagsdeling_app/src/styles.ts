@@ -11,6 +11,11 @@ export const useStyles = makeStyles((theme: Theme) =>
             height: "100vh",
             width: "100vw"
         },
+        container: {
+            backgroundColor: "#e9eef2",
+            padding: "10px",
+            textAlign: "left",
+        },
         logo: {
             flex: "0 1 auto",
             alignSelf: "start",
@@ -34,6 +39,14 @@ export const useStyles = makeStyles((theme: Theme) =>
                 margin: "10px",
             },
         },
+        flexerHorizontal: {
+            justifyContent: "space-between",
+            display: "flex",
+            padding: "10px 0",
+            "& >*": {
+                margin: "0 10px",
+            },
+        },
         icon: {
             alignSelf: "center"
         },
@@ -52,11 +65,17 @@ export const useStyles = makeStyles((theme: Theme) =>
             width: "48%"
         },
         instructions: {
-          marginTop: theme.spacing(1),
-          marginBottom: theme.spacing(1),
+            marginTop: theme.spacing(1),
+            marginBottom: theme.spacing(1),
         },
         backButton: {
-          marginRight: theme.spacing(1),
+            marginRight: theme.spacing(1),
+        },
+        dinnerImage: {
+            width: "100%",
+            height: "15em",
+            backgroundColor: "#e9eef2",
+            margin: "auto",
         },
     }),
 );
