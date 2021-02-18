@@ -16,6 +16,9 @@ export const useStyles = makeStyles((theme: Theme) =>
             padding: "10px",
             textAlign: "left",
         },
+        spacer: {
+            padding: theme.spacing(3)
+        },
         logo: {
             flex: "0 1 auto",
             alignSelf: "start",
@@ -84,5 +87,13 @@ export const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: "#e9eef2",
             margin: "auto",
         },
+        avatarGroup: {
+            paddingLeft: "30px",
+            "& > *": {
+                width: "30px",
+                height: "30px",
+                border: "1px solid gray"
+            }
+        }
     }),
 );
