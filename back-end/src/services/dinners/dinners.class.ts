@@ -44,8 +44,10 @@ export class Dinners extends Service {
     // This is the information we want from the user signup data
     const { name, adress, type, allergens } = data;
     const dinnerData = {
-      ...data,
-
+      name,
+      adress,
+      type,
+      allergens
     };
 
     // Call the original `create` method with existing `params` and new data
