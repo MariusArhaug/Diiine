@@ -1,3 +1,4 @@
+import { Params } from '@feathersjs/feathers';
 import { Service, KnexServiceOptions } from 'feathers-knex';
 import { Application } from '../../declarations';
 /* 

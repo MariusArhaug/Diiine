@@ -7,7 +7,7 @@ import { Application } from '../declarations';
 
 export default function (app: Application): Knex {
   const db: Knex = app.get('knexClient');
-  const tableName = 'dinner';
+  const tableName = 'dinners';
   db.schema.hasTable(tableName).then(exists => {
     if(!exists) {
       db.schema.createTable(tableName, table => {
