@@ -5,9 +5,22 @@ import { Dinner } from './DinnerList';
 export default function ListComponent(props : Dinner) {
 
     return (
-        <Paper>
-            <p>{props.name} + {props.description}</p>
+        <Paper elevation={3} >
+            <p>{props.name}: {props.description}</p>
         </Paper>
     );
+
+    /*
+        name
+        adress
+        type (veggi, meaty)
+        allergens
+        attendants
+        isDivided
+        isOpen
+        expenses
+        date
+        description
+    */
 }
 
