@@ -1,5 +1,8 @@
+import { Container } from '@material-ui/core';
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import DinnerList from '../components/DinnerList';
+import DinnerPage from '../components/DinnerPage';
 import Navbar from '../components/Navbar';
 
 export default function Home() {
@@ -9,10 +12,10 @@ export default function Home() {
     return (
         <div>
             <Navbar />
-            <div className="MainContainer">
+            <Container maxWidth="lg" className="MainContainer">
                 <Switch>
                     <Route path="/dinners">
-                        Dinner list
+                        <DinnerList />
                     </Route>
                     <Route path="/my_dinners">
                         My dinners
@@ -23,8 +26,11 @@ export default function Home() {
                     <Route path="/profile">
                         Profile
                     </Route>
+                    <Route path="/dinner/:dinnerId">
+                        <DinnerPage />
+                    </Route>
                 </Switch>
-            </div>
+            </Container>
         </div>
     )
 }
