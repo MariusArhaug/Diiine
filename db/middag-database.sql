@@ -28,10 +28,10 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `fs_tdt4140_1_gruppe40_mddb`.`dinner`
+-- Table `fs_tdt4140_1_gruppe40_mddb`.`dinners`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`dinner` (
-  `dinner_id` INT(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`dinners` (
+  `dinners_id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `adress` VARCHAR(255) NOT NULL,
   `type` VARCHAR(255) NOT NULL,
@@ -43,27 +43,27 @@ CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`dinner` (
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date` DATE NOT NULL,
-  PRIMARY KEY (`dinner_id`))
+  PRIMARY KEY (`dinners_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
 -- -----------------------------------------------------
--- Table `fs_tdt4140_1_gruppe40_mddb`.`attendingDinner`
+-- Table `fs_tdt4140_1_gruppe40_mddb`.`attendingdinners`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`attendingDinner` (
+CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`attendingdinners` (
   `user_id` INT(11) NOT NULL,
-  `dinner_id` INT(11) NOT NULL,
+  `dinners_id` INT(11) NOT NULL,
   INDEX `user_id_idx` (`user_id` ASC),
-  INDEX `dinner_id_idx` (`dinner_id` ASC),
-  PRIMARY KEY (`user_id`, `dinner_id`),
+  INDEX `dinners_id_idx` (`dinners_id` ASC),
+  PRIMARY KEY (`user_id`, `dinners_id`),
   CONSTRAINT `user_id`
     FOREIGN KEY (`user_id`)
     REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`users` (`user_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `dinner_id`
-    FOREIGN KEY (`dinner_id`)
-    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`dinner` (`dinner_id`)
+  CONSTRAINT `dinners_id`
+    FOREIGN KEY (`dinners_id`)
+    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`dinners` (`dinners_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`rating` (
   `rated_of` INT(11) NOT NULL,
   `rated_by` INT(11) NOT NULL,
   `rating_value` INT(11) NOT NULL,
-  `Description` VARCHAR(255) NOT NULL,
+  `description` VARCHAR(255) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   INDEX `rated_of_idx` (`rated_of` ASC),
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`rating` (
   PRIMARY KEY (`rated_of`, `rated_by`),
   CONSTRAINT `rated_of`
     FOREIGN KEY (`rated_of`)
-    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`dinner` (`dinner_id`)
+    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`dinners` (`dinners_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `rated_by`
@@ -97,25 +97,25 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `fs_tdt4140_1_gruppe40_mddb`.`hasDinners`
+-- Table `fs_tdt4140_1_gruppe40_mddb`.`hasdinnerss`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`hasDinners` (
-  `dinner_id` INT(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`hasdinners` (
+  `dinners_id` INT(11) NOT NULL,
   `user_id` INT(11) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `average_rating` INT(11) NOT NULL,
-  INDEX `dinner_idx` (`dinner_id` ASC),
+  INDEX `dinners_idx` (`dinners_id` ASC),
   INDEX `user_id_idx` (`user_id` ASC),
-  PRIMARY KEY (`user_id`, `dinner_id`),
+  PRIMARY KEY (`user_id`, `dinners_id`),
   CONSTRAINT `user_id_idx`
     FOREIGN KEY (`user_id`)
     REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`users` (`user_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `dinner_idx`
-    FOREIGN KEY (`dinner_id`)
-    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`dinner` (`dinner_id`)
+  CONSTRAINT `dinners_idx`
+    FOREIGN KEY (`dinners_id`)
+    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`dinners` (`dinners_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
