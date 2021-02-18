@@ -50,6 +50,13 @@ export const useStyles = makeStyles((theme: Theme) =>
         icon: {
             alignSelf: "center"
         },
+        textIcon: {
+            display: "flex",
+            alignItems: "center",
+            "& > span": {
+                margin: "0 10px",
+            },
+        },
         links: {
             display: "flex",
             flexDirection: "column",
