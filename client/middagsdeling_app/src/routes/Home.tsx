@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import DinnerList from '../components/DinnerList';
 
 export default function Home() {
 
@@ -12,7 +13,7 @@ export default function Home() {
             <div className="MainContainer">
                 <Switch>
                     <Route path="/dinners">
-                        Dinner list
+                        <DinnerList></DinnerList>
                     </Route>
                     <Route path="/my_dinners">
                         My dinners
