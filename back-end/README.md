@@ -2,7 +2,7 @@
 
 > 
 
-# Koble til Database:
+# Koble til Database via SSH shell:
 * Bruk NTNU vpn
 * Lim inn denne strengen i terminalen: `mysql -A -h mysql.stud.ntnu.no -u fs_tdt4140_1_gruppe40 -p fs_tdt4140_1_gruppe40_mddb`
 * Bruk passord `vielskerPUlol40`
@@ -13,6 +13,18 @@
 
 Nå er databasen klar for å teste.
 Eksempel bruk `select * from users` for å få en liste over alle brukere.
+
+# Koble til Database via MySQL Workbench:
+* Bruk NTNU vpn
+* Klikk på plusstegnet ved "MySQL connections" og fyll inn følgende:
+* Connection Method: `Standard (TCP/IP)`
+* Hostname: `mysql.stud.ntnu.no`
+* Port: `3306`
+* Username: `fs_tdt4140_1_gruppe40`
+* Trykk "Ok" og skriv in passord: `vielskerPUlol40`
+* Vi kommer kun til å ta i bruk databasen `fs_tdt4140_1_gruppe40_mddb` den andre er kun for testning. 
+
+Du kan velge en tabell i databasen og velge `Select rows limit 1000` og se hvilke verdier som er lagret i tabellen. 
 
 # Starte feathers:
 Om man bruker branchen `8-users` skal feathers kunne kjøre, om man er koblet på vpn. Kjør derfor bare `npm start dev`for å starte serveren. Nå kjører den på `localahost:3030`

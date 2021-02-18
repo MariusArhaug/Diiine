@@ -11,8 +11,11 @@ export default function (app: Application): Knex {
   db.schema.hasTable(tableName).then(exists => {
     if(!exists) {
       db.schema.createTable(tableName, table => {
-        table.increments('id');
-        table.string('text');
+        table.increments('chat_to');
+        table.increments('chat_from');
+        table.string('message');
+        table.timestamp('created_at').defaultTo(db.fn.now());
+        table.timestamp('updated_at').defaultTo(db.fn.now());
       })
         .then(() => console.log(`Created ${tableName} table`))
         .catch(e => console.error(`Error creating ${tableName} table`, e));
