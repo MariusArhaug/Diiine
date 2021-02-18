@@ -9,6 +9,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import logo_colored from '../media/logo_colored.svg'
 import { useStyles } from '../styles';
 import { Link as RouterLink } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid/Grid';
 
 export default function Login() {
 
@@ -26,30 +27,48 @@ export default function Login() {
         <div className={classes.wrapper}>
             <img src={logo_colored} alt="logo" className={classes.logo} />
             <Paper className={classes.login}>
-                <div className={classes.flexerVertical}>
-                    <Avatar className={classes.icon}><PersonAddIcon /></Avatar>
-                    <h1>Sign in</h1>
-                    <TextField label="Username" placeholder='Enter username' />
-                    <TextField label="Password" placeholder='Enter password' />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={state.checked}
-                                onChange={handleChange}
-                                name="checked"
-                                color="primary"
-                            />
-                        }
-                        label="Remember me"
-                    />
-                    <Button component={RouterLink} to="/" variant="contained" color="primary">
-                        Log in
-                    </Button>
-                    <div className={classes.links}>
-                        {/* <Link>Forgot password?</Link> */}
+                <Grid container spacing={3} alignContent="center">
+
+                    {/* <Grid item xs={12}>
+                        <Avatar className={classes.icon}><PersonAddIcon /></Avatar>
+                    </Grid> */}
+
+                    <Grid item xs={12}>
+                        <h1>Sign in</h1>
+                    </Grid>
+
+
+                    <Grid item xs={12}>
+                        <TextField className={classes.input} label="Username" placeholder='Enter username' />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField className={classes.input} label="Password" placeholder='Enter password' />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={state.checked}
+                                    onChange={handleChange}
+                                    name="checked"
+                                    color="primary"
+                                />
+                            }
+                            label="Remember me"
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button component={RouterLink} to="/" variant="contained" color="primary">
+                            Log in
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
                         <span>Don't have an account yet? <Link component={RouterLink} to="/register">Sign up</Link></span>
-                    </div>
-                </div>
+                    </Grid>
+                </Grid>
             </Paper>
         </div>
     )

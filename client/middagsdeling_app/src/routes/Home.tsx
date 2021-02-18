@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { Container } from '@material-ui/core';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import DinnerList from '../components/DinnerList';
+import DinnerPage from '../components/DinnerPage';
 import Navbar from '../components/Navbar';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,10 +16,10 @@ export default function Home() {
     return (
         <div>
             <Navbar />
-            <div className="MainContainer">
+            <Container maxWidth="lg" className="MainContainer">
                 <Switch>
                     <Route path="/dinners">
-                        Dinner list
+                        <DinnerList />
                     </Route>
                     <Route path="/my_dinners">
                         <br/>
@@ -37,8 +40,11 @@ export default function Home() {
                     <Route path="/newdinner">
                         <NewDinner />
                   </Route>
+                    <Route path="/dinner/:dinnerId">
+                        <DinnerPage />
+                    </Route>
                 </Switch>
-            </div>
+            </Container>
         </div>
     )
 }
