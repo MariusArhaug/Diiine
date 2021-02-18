@@ -10,9 +10,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import logo_colored from '../media/logo_colored.svg'
 import { useStyles } from '../styles';
 import { Link as RouterLink } from 'react-router-dom';
+import Allergies from './Registration/Allergies';
 
 
-export default function newDinner() {
+
+export default function NewDinner() {
     
     const classes = useStyles();
 
@@ -26,7 +28,6 @@ export default function newDinner() {
 
     return(
         <div className={classes.wrapper}>
-            <img src={logo_colored} alt="logo" className={classes.logo} />
             <Paper className={classes.newDinner}>
                 <div className={classes.flexerVertical}>
                     <Avatar className={classes.icon}><FastfoodIcon /></Avatar>
@@ -37,6 +38,7 @@ export default function newDinner() {
                     <TextField label="Location" placeholder='Enter location' />
                     <TextField label="Maximum guests" placeholder='Enter maximum guests' />
                     <TextField label="Allergies" placeholder='Enter allergies' />
+                    {/*Refer to allergies comp? */}
                     <FormControlLabel
                         control={
                             <Checkbox

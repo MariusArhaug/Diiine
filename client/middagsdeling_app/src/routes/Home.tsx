@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import { Link as RouterLink } from 'react-router-dom';
-import newDinner from '../components/newDinner';
+import NewDinner from '../components/NewDinner';
 
 export default function Home() {
 
@@ -35,10 +35,8 @@ export default function Home() {
                         Profile
                     </Route>
                     <Route path="/newdinner">
-                        {/*<div>            must refer to newDinner component(?)
-                        <newDinner />
-                        </div>*/}
-                    </Route>
+                        <NewDinner />
+                  </Route>
                 </Switch>
             </div>
         </div>
