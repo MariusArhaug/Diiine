@@ -39,4 +39,16 @@ export class Dinners extends Service {
       name: 'dinners'
     });
   }
+
+  async create (data: DinnerData, params?: Params) {
+    // This is the information we want from the user signup data
+    const { name, adress, type, allergens } = data;
+    const dinnerData = {
+      ...data,
+
+    };
+
+    // Call the original `create` method with existing `params` and new data
+    return super.create(dinnerData, params);
+  }
 }
