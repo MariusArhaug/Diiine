@@ -5,13 +5,9 @@ export type Dinner = {
     description: string;
     address: string;
     type: string;
-    allergens: string[];
+    allergens: string;
     attendants: User[];
     date: Date;
-    ingredients: {
-        name: string;
-        price: number;
-    }[];
 }
 
 export type User = {

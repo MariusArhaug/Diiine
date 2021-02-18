@@ -54,20 +54,16 @@ const User5 = {
 }
 
 
-const fakeDinner1 = {
+const fakeDinner1:  Dinner = {
     dinnerId: 1,
     name: "Title",
     owner: User1,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     address: "Fake address",
     type: "Vegan",
-    allergens: ["Lactose", "Gluten"],
+    allergens: "Lactose, Gluten",
     attendants: [User1, User2, User3, User4, User5],
-    date: new Date(),
-    ingredients: [
-        { name: "Flour", price: 25.99 },
-        { name: "Water", price: 0 }
-    ]
+    date: new Date()
 }
 
 const getDinner = (id: string) => {
@@ -127,7 +123,7 @@ export default function DinnerPage() {
                             <AvatarGroup max={3} className={classes.avatarGroup}>
                                 {dinner.attendants.map(
                                     a => (
-                                        <Tooltip title={a.name}>
+                                        <Tooltip title={a.name} placement="bottom">
                                             <Avatar>{a.name.charAt(0)}</Avatar>
                                         </Tooltip>
                                     )
@@ -157,7 +153,7 @@ export default function DinnerPage() {
                                 <Grid item><LocalHospitalIcon /></Grid>
                                 <Grid item>
                                     <Typography variant="subtitle1">
-                                        Allergens: {dinner.allergens.join(', ')}
+                                        Allergens: {dinner.allergens}
                                     </Typography>
                                 </Grid>
                             </Grid>
@@ -168,9 +164,6 @@ export default function DinnerPage() {
                     <Grid item xs={12} md={6}>
                         <Paper className={classes.container}>
                             <Typography variant="h6">Ingredients</Typography>
-                            {dinner.ingredients.map(i => (
-                                <Typography variant="subtitle1">{i.name + ": " + i.price + " kr"}</Typography>
-                            ))}
                         </Paper>
                     </Grid>
 

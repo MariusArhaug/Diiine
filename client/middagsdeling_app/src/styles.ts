@@ -33,6 +33,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             top: "50%",
             transform: "translate(0, -50%)",
             width: "500px",
+            padding: theme.spacing(3)
         },
         flexerVertical: {
             display: "flex",
@@ -52,6 +53,9 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
         icon: {
             alignSelf: "center"
+        },
+        input: {
+            width: "100%"
         },
         textIcon: {
             display: "flex",
@@ -83,7 +87,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
         dinnerImage: {
             width: "100%",
-            height: "15em",
+            height: "15vh",
             backgroundColor: "#e9eef2",
             margin: "auto",
         },
