@@ -60,4 +60,15 @@ export class Users extends Service<UserData> {
       // Call original `create` method with existing params and new data.
     return super.create(userData, params);
   }
+
+  async find(params: Params) {
+
+    this.knex.select('dinner_id').from('hasDinners').where('user_id', params.user);
+
+    /* params på formen:
+    user_id: 12
+    */
+
+    return super.find(params);
+  }
 }
