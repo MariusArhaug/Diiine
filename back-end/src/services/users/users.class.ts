@@ -40,23 +40,23 @@ export class Users extends Service<UserData> {
       name: 'users'
     });
   }
-    async update(id: Id, data: UserData, params: Params) {
+  async update(id: Id, data: UserData, params: Params) {
       
-      data.updated_at = new Date();
+    data.updated_at = new Date();
       
-      return super.update(id, data, params);
-    }
+    return super.update(id, data, params);
+  }
   
-    async create(data: UserData, params?: Params) {
-      const { email, password, name, allergens, isAdmin } = data;
-      const userData = {
-        email,
-        password,
-        name,
-        allergens,
-        isAdmin
-      };
+  async create(data: UserData, params?: Params) {
+    const { email, password, name, allergies, isAdmin } = data;
+    const userData = {
+      email,
+      password,
+      name,
+      allergies,
+      isAdmin
+    };
       // Call original `create` method with existing params and new data.
-      return super.create(userData, params);
-    }
+    return super.create(userData, params);
+  }
 }
