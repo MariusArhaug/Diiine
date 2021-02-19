@@ -44,6 +44,5 @@
       "password": "vielskerPUlol40",
       "database": "fs_tdt4140_1_gruppe40_mddb"
     }
-    // mysql -A -h mysql.stud.ntnu.no -u fs_tdt4140_1_gruppe40 -p fs_tdt4140_1_gruppe40_mddb
   }
 }
