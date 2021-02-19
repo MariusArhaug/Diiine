@@ -5,7 +5,7 @@ import { Params, Id, ServiceMethods } from '@feathersjs/feathers';
 
 // A type interface for our user (no valdiation) 
 interface UserData {
-  _id?: number,
+  user_id: number,
   email: string,
   password: string,
   name: string,

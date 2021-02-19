@@ -20,7 +20,7 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1; */
 
 interface DinnerData {
- dinner_id: number,
+ dinners_id: number,
  name: string,
  adress: string,
  type: string,
@@ -43,12 +43,14 @@ export class Dinners extends Service {
 
   async create (data: DinnerData, params?: Params) {
     // This is the information we want from the user signup data
-    const { name, adress, type, allergens } = data;
+    const { name, adress, type, allergens, attendants, date } = data;
     const dinnerData = {
       name,
       adress,
       type,
-      allergens
+      allergens,
+      attendants,
+      date
     };
 
     // Call the original `create` method with existing `params` and new data
