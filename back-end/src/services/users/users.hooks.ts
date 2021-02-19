@@ -16,7 +16,7 @@ export default {
     create: [hashPassword('password'), parseObjectToString('allergies')], 
     update: [ hashPassword('password'),  authenticate('jwt') ],
     patch: [ hashPassword('password'),  authenticate('jwt') ],
-    remove: [authenticate('jwt'), isAdmin()]
+    remove: [ ]
   },
 
   after: {
