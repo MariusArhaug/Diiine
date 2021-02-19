@@ -1,7 +1,7 @@
 import * as feathersAuthentication from '@feathersjs/authentication';
 import * as local from '@feathersjs/authentication-local';
-import { HookContext } from '@feathersjs/feathers';
 import parseObjectToString from '../../hooks/parse-object-to-string';
+import isAdmin from '../../hooks/is-admin';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = feathersAuthentication.hooks;
@@ -16,7 +16,7 @@ export default {
     create: [hashPassword('password'), parseObjectToString('allergies')], 
     update: [ hashPassword('password'),  authenticate('jwt') ],
     patch: [ hashPassword('password'),  authenticate('jwt') ],
-    remove: [ authenticate('jwt') ]
+    remove: [authenticate('jwt'), isAdmin()]
   },
 
   after: {

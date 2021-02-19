@@ -43,12 +43,13 @@ export class Dinners extends Service {
 
   async create (data: DinnerData, params?: Params) {
     // This is the information we want from the user signup data
-    const { name, adress, type, allergens } = data;
+    const { name, adress, type, allergens, attendants } = data;
     const dinnerData = {
       name,
       adress,
       type,
-      allergens
+      allergens,
+      attendants
     };
 
     // Call the original `create` method with existing `params` and new data

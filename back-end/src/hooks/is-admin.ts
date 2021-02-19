@@ -3,12 +3,13 @@
 import { Hook, HookContext } from '@feathersjs/feathers';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default (field: string): Hook => {
+export default (options = {}): Hook => {
   return async (context: HookContext): Promise<HookContext> => {
-    const { data } = context;
+    const { user } = context.params;
 
-    const result = Object.keys(data[field]).filter(key => data[field][key] === 1);
-    context.data[field] = result.join();
+    if (user.isAdmin == 0) {
+      throw new Error('You need administrator privileges to use this operation'); 
+    }
 
     return context;
   };
