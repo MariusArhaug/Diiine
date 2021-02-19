@@ -6,13 +6,8 @@ import { HookContext } from '@feathersjs/feathers';
 const { authenticate } = feathersAuthentication.hooks;
 const { hashPassword, protect } = local.hooks;
 const allergensString = async (context: HookContext) => {
-  let result: string = "";
-  Object.keys(JSON.parse(context.data.allergens)).forEach(function(key, state) {
-    if(state==1){
-      result+=","+key;
-    }
-  });
-  context.data.allergens = result;
+  let result = Object.keys(context.data.allergens).filter(key => context.data.allergens[key] === 1);
+  context.data.allergens = result.join();
   return context;
 };
 
