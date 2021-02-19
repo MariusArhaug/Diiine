@@ -19,6 +19,24 @@ CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`dinner` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1; */
 
+/*
+  Incoming dinner object
+  {
+    name: string,
+    adress: string,
+    type(tags): string,
+    allergens: [
+      {
+        "gluten": 1,
+        "nuts": 0,
+        ...
+      }
+    ],
+    attendants: integer,
+    date: string
+  }
+*/
+
 interface DinnerData {
  dinners_id: number,
  name: string,

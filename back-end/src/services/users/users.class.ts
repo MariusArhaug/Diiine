@@ -2,6 +2,22 @@ import { Service, KnexServiceOptions } from 'feathers-knex';
 import { Application } from '../../declarations';
 import { Params, Id, ServiceMethods } from '@feathersjs/feathers';
 
+/*
+  Incoming user object
+  {
+    name: string,
+    email: string,
+    password: string,
+    isAdmin: boolean,
+    allergies: [
+      {
+        "gluten": 0,
+        "nuts": 1
+      }
+    ]
+  }
+*/
+
 
 // A type interface for our user (no valdiation) 
 interface UserData {
@@ -11,7 +27,7 @@ interface UserData {
   name: string,
   created_at: Date,
   updated_at: Date,
-  allergens: string,
+  allergies: string,
   isAdmin: boolean,
 }
 
