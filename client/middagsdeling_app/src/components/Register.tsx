@@ -13,6 +13,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link as RouterLink } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
 
 function getSteps() {
     return ['Account information', 'Allergies'];
@@ -53,44 +54,52 @@ export default function Register() {
         <div className={classes.wrapper}>
 
         <img src={logo_colored} alt="logo" className={classes.logo} />
+
             <Paper className={classes.login}>
 
-            <div className={classes.flexerVertical}>
-                <Avatar className={classes.icon}>
+            <Grid container spacing={3}>
+                {/* <Grid item xs={12}>
+                    <Avatar className={classes.icon}>
                         <PersonAddIcon />
                     </Avatar>
+                </Grid> */}
+                <Grid item xs={12}>
+                    <h1>Register</h1>
+                </Grid>
 
-                <h1>Register</h1>
+                <Grid item xs={12}>
+                    {activeStep === steps.length ? (
+                        <div>
+                            <Typography className={classes.instructions}>All steps completed</Typography>
+                            <Button onClick={handleReset}>Reset</Button>
+                        </div>
+                    ) : (
+                        <div>
+                            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                        </div>
+                        )}
+                </Grid>
 
-                <div>
-                {activeStep === steps.length ? (
-                    <div>
-                        <Typography className={classes.instructions}>All steps completed</Typography>
-                        <Button onClick={handleReset}>Reset</Button>
-                    </div>
-                ) : (
-                    <div>
-                        <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-                    </div>
-                    )}
-                </div>
+                <Grid item xs={12}>
+                    <Stepper activeStep={activeStep}    >
+                        {steps.map((label) => (
+                        <Step key={label}>
+                            <StepLabel>{label}</StepLabel>
+                        </Step>
+                        ))}
+                    </Stepper>
+                </Grid>
 
-                <Stepper activeStep={activeStep}    >
-                    {steps.map((label) => (
-                    <Step key={label}>
-                        <StepLabel>{label}</StepLabel>
-                    </Step>
-                    ))}
-                </Stepper>
-
-                <div>
+                <Grid item xs={6}>
                     <Button
-                        disabled={activeStep === 0}
-                        onClick={handleBack}
-                        className={classes.backButton}
-                    >
-                        Back
+                            disabled={activeStep === 0}
+                            onClick={handleBack}
+                            className={classes.backButton}
+                        >
+                            Back
                     </Button>
+                </Grid>
+                <Grid item xs={6}>
                     {
                         activeStep < steps.length - 1 && 
                         <Button variant="contained" color="primary" onClick={handleNext}>
@@ -103,12 +112,8 @@ export default function Register() {
                             Register
                         </Button>
                     }
-                </div>
-
-                {/* <div className={classes.links}>
-                        <span>Already have an account? <Link>Sign in</Link></span>
-                    </div> */}
-            </div>
+                </Grid>
+            </Grid>
 
             </Paper>
         </div>
