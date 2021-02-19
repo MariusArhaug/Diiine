@@ -1,4 +1,5 @@
 import * as authentication from '@feathersjs/authentication';
+import parseObjectToString from '../../hooks/parse-object-to-string';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
@@ -8,9 +9,9 @@ export default {
     all: [ authenticate('jwt') ],
     find: [],
     get: [],
-    create: [],
-    update: [],
-    patch: [],
+    create: [ parseObjectToString('allergens') ],
+    update: [ parseObjectToString('allergens') ],
+    patch: [ parseObjectToString('allergens') ],
     remove: []
   },
 
