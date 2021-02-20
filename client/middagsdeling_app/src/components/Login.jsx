@@ -1,18 +1,8 @@
 import React, { useState } from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import { /* Avatar, */ Link } from '@material-ui/core';
-// import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import Paper from '@material-ui/core/Paper';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import logo_colored from '../media/logo_colored.svg'
 import { useStyles } from '../styles';
 import { Link as RouterLink } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid/Grid';
 
 import client from '../feathers';
-// import { SettingsBackupRestoreOutlined } from '@material-ui/icons';
 
 export default function Login() {
 
@@ -49,7 +39,9 @@ export default function Login() {
 
     const handleSubmit = async(event) => {
         event.preventDefault();
-        try {
+
+        return client.authenticate({strategy: 'local', ...credentials});
+       /*  try {
             await client.authenticate({
                 strategy: 'local',
                 ...credentials
@@ -63,7 +55,7 @@ export default function Login() {
             
         } catch (error) {
             throw Error(error); 
-        }
+        } */
     }
 
     const handleSignOut = async () => {
