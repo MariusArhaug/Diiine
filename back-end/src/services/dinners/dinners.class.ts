@@ -78,4 +78,18 @@ export class Dinners extends Service {
 
     return super.create(dinnerData, params);
   }
+
+  async find (params: Params) {
+    /* 
+      params.query {
+        from-date: YYYY-MM-DD
+      }
+      skal returnere middager fra dato.
+
+      params.query {user_id}
+      skal hente ut middager som har user_id
+    */
+
+    return super.find(params);
+  }
 }

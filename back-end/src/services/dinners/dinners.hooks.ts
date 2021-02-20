@@ -1,6 +1,5 @@
 import * as authentication from '@feathersjs/authentication';
 import parseObjectToString from '../../hooks/parse-object-to-string';
-import setUserIdOnDinner from '../../hooks/set-user-id-on-dinner';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
