@@ -30,6 +30,7 @@ interface DinnerData {
  isOpen: boolean,
  expenses: number,
  date: Date,
+ owner_id: number
 }
 
 export class Dinners extends Service {
@@ -43,12 +44,14 @@ export class Dinners extends Service {
 
   async create (data: DinnerData, params?: Params) {
     // This is the information we want from the user signup data
-    const { name, adress, type, allergens } = data;
+    const { name, adress, type, allergens, attendants, owner_id } = data;
     const dinnerData = {
       name,
       adress,
       type,
-      allergens
+      allergens,
+      attendants,
+      owner_id,
     };
 
     // Call the original `create` method with existing `params` and new data

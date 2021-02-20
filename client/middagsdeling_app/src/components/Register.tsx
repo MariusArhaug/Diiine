@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import logo_colored from '../media/logo_colored.svg';
@@ -14,6 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link as RouterLink } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
+import App from '../App';
+import client from '../feathers';
+
 
 function getSteps() {
     return ['Account information', 'Allergies'];
@@ -30,93 +33,120 @@ function getStepContent(stepIndex: Number) {
     }
 }
 
-export default function Register() {
+/*function useMyStyles(Component: Component) : Component {
+    return function WrappedComponent(props: IProps) {
+        const classes = useStyles();
+        return <Component {}, {...props} classes={classes} />;
+    }
+}*/
 
-    const classes = useStyles();
+interface IProps {
+}
 
-    const [activeStep, setActiveStep] = React.useState(0);
+interface IState {
+    activeStep: number,
+    userInfo: object,
+}
 
-    const steps = getSteps();
+export default class Register extends Component<IProps, IState> {
+    constructor(props : IProps) {
+        super(props);
+        this.state = {
+            activeStep: 0,
+            userInfo : {
+                name: '',
+                email: '',
+                password: '',
+                allergies: '',
+                isAdmin: '',
+            }
+        };
+    }
 
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      };
+    handleNext = () : void => { 
+        this.setState((prevState) => ({
+            activeStep: prevState.activeStep + 1
+        }))
+    };
+
+    handleBack = () : void => {
+        this.setState((prevState) => ({
+            activeStep: prevState.activeStep - 1
+        }))
+    };
+
+    handleReset = () : void => {
+        this.setState({ activeStep: 0});
+    };
+
+    handleSubmit = () : void => { //needs validation
+        let user : any = {};
+        user = this.state.userInfo;
+        client.service('users').create(user);
+    }
+
+    render() {
+
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const classes = useStyles();
+
+        //const [activeStep, setActiveStep] = React.useState(0);
+
+        const steps = getSteps();
     
-      const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-      };
-    
-      const handleReset = () => {
-        setActiveStep(0);
-      };
+        return(
+            <div className={classes.wrapper}>
+            <img src={logo_colored} alt="logo" className={classes.logo} />
+                <Paper className={classes.login}>
+                <Grid container spacing={3}> 
+                    <Grid item xs={12}>
+                        <h1>Register</h1>
+                    </Grid>
+                    <Grid item xs={12}>
+                        {this.state.activeStep === steps.length ? (
+                            <div>
+                                <Typography className={classes.instructions}>All steps completed</Typography>
+                                <Button onClick={this.handleReset}>Reset</Button>
+                            </div>
+                        ) : (
+                            <div>
+                                <Typography className={classes.instructions}>{getStepContent(this.state.activeStep)}</Typography>
+                            </div>
+                            )}
+                    </Grid>
 
-    return(
-        <div className={classes.wrapper}>
+                    <Grid item xs={12}>
+                        <Stepper activeStep={this.state.activeStep}>
+                            {steps.map((label) => (
+                            <Step key={label}>
+                                <StepLabel>{label}</StepLabel>
+                            </Step>
+                            ))}
+                        </Stepper>
+                    </Grid>
 
-        <img src={logo_colored} alt="logo" className={classes.logo} />
-
-            <Paper className={classes.login}>
-
-            <Grid container spacing={3}>
-                {/* <Grid item xs={12}>
-                    <Avatar className={classes.icon}>
-                        <PersonAddIcon />
-                    </Avatar>
-                </Grid> */}
-                <Grid item xs={12}>
-                    <h1>Register</h1>
-                </Grid>
-
-                <Grid item xs={12}>
-                    {activeStep === steps.length ? (
-                        <div>
-                            <Typography className={classes.instructions}>All steps completed</Typography>
-                            <Button onClick={handleReset}>Reset</Button>
-                        </div>
-                    ) : (
-                        <div>
-                            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-                        </div>
-                        )}
-                </Grid>
-
-                <Grid item xs={12}>
-                    <Stepper activeStep={activeStep}    >
-                        {steps.map((label) => (
-                        <Step key={label}>
-                            <StepLabel>{label}</StepLabel>
-                        </Step>
-                        ))}
-                    </Stepper>
-                </Grid>
-
-                <Grid item xs={6}>
-                    <Button
-                            disabled={activeStep === 0}
-                            onClick={handleBack}
-                            className={classes.backButton}
-                        >
+                    <Grid item xs={6}>
+                        <Button disabled={this.state.activeStep === 0} onClick={this.handleBack} className={classes.backButton}>
                             Back
-                    </Button>
-                </Grid>
-                <Grid item xs={6}>
-                    {
-                        activeStep < steps.length - 1 && 
-                        <Button variant="contained" color="primary" onClick={handleNext}>
-                            Next
                         </Button>
-                    }
-                    {
-                        activeStep === steps.length - 1 && 
-                        <Button component={RouterLink} to="/login" variant="contained" color="primary" onClick={handleNext}>
-                            Register
-                        </Button>
-                    }
+                    </Grid>
+                    <Grid item xs={6}>
+                        {
+                            this.state.activeStep < steps.length - 1 && 
+                            <Button variant="contained" color="primary" onClick={this.handleNext}>
+                                Next
+                            </Button>
+                        }
+                        {
+                            this.state.activeStep === steps.length - 1 && 
+                            <Button component={RouterLink} to="/login" variant="contained" color="primary" type="submit" onClick={() => {this.handleNext(); this.handleSubmit()}}>
+                                Register
+                            </Button>
+                        }
+                    </Grid>
                 </Grid>
-            </Grid>
-
-            </Paper>
-        </div>
-    )
-
+                </Paper>
+            </div>
+        )
+    }
 }

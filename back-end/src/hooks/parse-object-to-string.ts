@@ -10,7 +10,6 @@ export default (field: string): Hook => {
     const result = Object.keys(data[field]).filter(key => data[field][key] === 1);
     context.data[field] = result.join();
 
-    console.log(context.data[field]);
     return context;
   };
 };
