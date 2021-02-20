@@ -6,6 +6,8 @@ import { useStyles } from '../../styles';
 import FormLabel from '@material-ui/core/FormLabel';
 import Grid from '@material-ui/core/Grid';
 
+
+//Main register form
 export default function AccountInformation() {
 
     const classes = useStyles();
@@ -21,30 +23,29 @@ export default function AccountInformation() {
 
     return (
         <div>
-
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <FormLabel component="legend">Input account information</FormLabel>
                 </Grid>
 
                 <Grid item xs={6}>
-                    <TextField className={classes.input} label="First name" placeholder='Enter first name' />
+                    <TextField className={classes.input} label="First name" placeholder='Enter first name' id="first name"/>
                 </Grid>
                 <Grid item xs={6}>
-                    <TextField className={classes.input} label="Last name" placeholder='Enter last name' />
+                    <TextField className={classes.input} label="Last name" placeholder='Enter last name' id="last name"/>
                 </Grid>
 
                 <Grid item xs={12}>
-                    <TextField className={classes.input} label="E-mail" placeholder='Enter e-mail' />
+                    <TextField className={classes.input} label="E-mail" placeholder='Enter e-mail' id="e-mail" />
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField className={classes.input} label="Phone number" placeholder='Enter phone number' />
+                    <TextField className={classes.input} label="Phone number" placeholder='Enter phone number' id="phone number" />
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField className={classes.input} label="Address" placeholder='Enter address' />
+                    <TextField className={classes.input} label="Address" placeholder='Enter address' id="address" />
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField className={classes.input} label="Password" placeholder='Enter password' />
+                    <TextField className={classes.input} label="Password" placeholder='Enter password' id="password"/>
                 </Grid>
 
                 <Grid item xs={12}>
@@ -55,6 +56,7 @@ export default function AccountInformation() {
                                 onChange={handleChange}
                                 name="checked"
                                 color="primary"
+                                id="isAdmin"
                             />
                         }
                         label="Is user admin?"
