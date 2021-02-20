@@ -61,8 +61,11 @@ export class Dinners extends Service {
   }
 
   async create (data: DinnerData, params?: Params) {
-    // This is the information we want from the user signup data
-    const { name, adress, type, allergens, attendants, date, user_id } = data;
+    const { name, adress, type, allergens, attendants, date } = data;
+    
+    // set user_id to the incoming user
+    const user_id = params?.user?.user_id;
+
     const dinnerData = {
       name,
       adress,
@@ -73,7 +76,6 @@ export class Dinners extends Service {
       user_id
     };
 
-    // Call the original `create` method with existing `params` and new data
     return super.create(dinnerData, params);
   }
 }
