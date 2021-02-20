@@ -58,17 +58,4 @@ app.use(express.notFound());
 app.use(express.errorHandler({ logger } as any));
 app.hooks(appHooks);
 
-//test for sending user data
-
-/*
-app.service('users').create({
-  email: "mariusarhaug@hotmail.com",
-  password: "123",
-  name: "Marius Arhaug",
-  created_at: new Date(),
-  updated_at: new Date(),
-  allergies: "None",
-  isAdmin: true
-})
-*/
 export default app;
