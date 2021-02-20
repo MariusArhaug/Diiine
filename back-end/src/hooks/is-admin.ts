@@ -7,10 +7,10 @@ export default (options = {}): Hook => {
   return async (context: HookContext): Promise<HookContext> => {
     const { user } : any = context.params;
 
-    if (user.isAdmin) {
-      throw new Error('You need administrator privileges to use this operation'); 
+    if (!user?.isAdmin) {
+      throw new Error('You must be an admin to do this.'); 
     }
-
+    
     return context;
   };
 };

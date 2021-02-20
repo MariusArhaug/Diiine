@@ -1,6 +1,6 @@
 import { Service, KnexServiceOptions } from 'feathers-knex';
 import { Application } from '../../declarations';
-import { Params, Id, ServiceMethods } from '@feathersjs/feathers';
+import { Params, Id, NullableId, ServiceMethods } from '@feathersjs/feathers';
 
 
 // A type interface for our user (no valdiation) 
@@ -43,4 +43,5 @@ export class Users extends Service<UserData> {
       // Call original `create` method with existing params and new data.
     return super.create(userData, params);
   }
+
 }
