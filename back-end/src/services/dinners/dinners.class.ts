@@ -1,41 +1,6 @@
 import { Params } from '@feathersjs/feathers';
 import { Service, KnexServiceOptions } from 'feathers-knex';
 import { Application } from '../../declarations';
-/* 
-CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`dinner` (
-  `dinner_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
-  `adress` VARCHAR(255) NOT NULL,
-  `type` VARCHAR(255) NOT NULL,
-  `allergens` VARCHAR(255) NOT NULL,
-  `attendants` INT(11) NOT NULL,
-  `isDivided` TINYINT(1) DEFAULT 0,
-  `isOpen` TINYINT(1) DEFAULT 0,
-  `expenses` DOUBLE NOT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date` DATE NOT NULL,
-  PRIMARY KEY (`dinner_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1; */
-
-/*
-  Incoming dinner object
-  {
-    name: string,
-    adress: string,
-    type(tags): string,
-    allergens: [
-      {
-        "gluten": 1,
-        "nuts": 0,
-        ...
-      }
-    ],
-    attendants: integer,
-    date: string
-  }
-*/
 
 interface DinnerData {
  dinners_id: number,
@@ -82,9 +47,11 @@ export class Dinners extends Service {
   async find (params: Params) {
     /* 
       params.query {
-        from-date: YYYY-MM-DD
+        date: {
+          $gte: YYYY-MM-DD
+        }
       }
-      skal returnere middager fra dato.
+      skal returnere middager fra og med dato.
 
       params.query {user_id}
       skal hente ut middager som har user_id
