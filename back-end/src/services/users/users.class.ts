@@ -1,11 +1,32 @@
 import { Service, KnexServiceOptions } from 'feathers-knex';
 import { Application } from '../../declarations';
+<<<<<<< HEAD
 import { Params, Id, NullableId, ServiceMethods } from '@feathersjs/feathers';
+=======
+import { Params, Id, ServiceMethods } from '@feathersjs/feathers';
+import app from '../../app';
+
+/*
+  Incoming user object
+  {
+    name: string,
+    email: string,
+    password: string,
+    isAdmin: boolean,
+    allergies: [
+      {
+        "gluten": 0,
+        "nuts": 1
+      }
+    ]
+  }
+*/
+>>>>>>> 11-dinners-view
 
 
 // A type interface for our user (no valdiation) 
 interface UserData {
-  _id?: number,
+  user_id: number,
   email: string,
   password: string,
   name: string,
@@ -44,4 +65,17 @@ export class Users extends Service<UserData> {
     return super.create(userData, params);
   }
 
+<<<<<<< HEAD
+=======
+  async find(params: Params) {
+
+    this.knex.select('dinner_id').from('hasDinners').where('user_id', params.user);
+
+    /* params på formen:
+    user_id: 12
+    */
+
+    return super.find(params);
+  }
+>>>>>>> 11-dinners-view
 }

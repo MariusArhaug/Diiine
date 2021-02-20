@@ -14,10 +14,17 @@ export default {
     all: [],
     find: [ authenticate('jwt') ],
     get: [ authenticate('jwt') ],
+<<<<<<< HEAD
     create: [hashPassword('password'), parseObjectToString('allergies')], 
     update: [ hashPassword('password'),  authenticate('jwt'), isAdminOrSelfOwned() ],
     patch: [ hashPassword('password'),  authenticate('jwt'), isAdminOrSelfOwned() ],
     remove: [authenticate('jwt'), isAdminOrSelfOwned()]
+=======
+    create: [hashPassword('password'), parseObjectToString('allergies') ], 
+    update: [ hashPassword('password'),  authenticate('jwt'), parseObjectToString('allergies') ],
+    patch: [ hashPassword('password'),  authenticate('jwt'), parseObjectToString('allergies') ],
+    remove: [ authenticate('jwt') ]
+>>>>>>> 11-dinners-view
   },
 
   after: {
