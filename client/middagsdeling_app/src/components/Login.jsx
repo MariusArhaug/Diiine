@@ -40,7 +40,6 @@ export default function Login() {
     const handleSubmit = async(event) => {
         event.preventDefault();
 
-        return client.authenticate({strategy: 'local', ...credentials});
        /*  try {
             await client.authenticate({
                 strategy: 'local',
