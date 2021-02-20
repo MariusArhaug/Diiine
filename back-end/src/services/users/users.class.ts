@@ -1,8 +1,5 @@
 import { Service, KnexServiceOptions } from 'feathers-knex';
 import { Application } from '../../declarations';
-<<<<<<< HEAD
-import { Params, Id, NullableId, ServiceMethods } from '@feathersjs/feathers';
-=======
 import { Params, Id, ServiceMethods } from '@feathersjs/feathers';
 import app from '../../app';
 
@@ -21,7 +18,6 @@ import app from '../../app';
     ]
   }
 */
->>>>>>> 11-dinners-view
 
 
 // A type interface for our user (no valdiation) 
@@ -65,11 +61,7 @@ export class Users extends Service<UserData> {
     return super.create(userData, params);
   }
 
-<<<<<<< HEAD
-=======
   async find(params: Params) {
-
-    this.knex.select('dinner_id').from('hasDinners').where('user_id', params.user);
 
     /* params på formen:
     user_id: 12
@@ -77,5 +69,4 @@ export class Users extends Service<UserData> {
 
     return super.find(params);
   }
->>>>>>> 11-dinners-view
 }

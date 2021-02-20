@@ -10,7 +10,6 @@ export default (options = {}): Hook => {
     if(!query) {
       throw new Error('You must pass in a user_id')
     }
-    console.log(!user?.isAdmin, user?.user_id, query.user_id)
     if (!user?.isAdmin) {
       if (user?.user_id == query.user_id) {
         return context;

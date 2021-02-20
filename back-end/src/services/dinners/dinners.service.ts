@@ -16,12 +16,8 @@ export default function (app: Application): void {
   const options = {
     Model: createModel(app),
     paginate: app.get('paginate'),
-<<<<<<< HEAD
-    id: 'dinners_id'
-=======
     id: 'dinners_id',
     multi: true
->>>>>>> 11-dinners-view
   };
 
   // Initialize our service with any options it requires
