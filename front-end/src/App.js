@@ -2,8 +2,7 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 import './App.css';
@@ -11,7 +10,8 @@ import {ProvideAuth, useAuth} from './hooks/use-auth'
 
 import { DinnersPage } from './components/Dinners-page';
 import { Login } from './components/Login';
-import { Signup} from './components/Signup';
+import { Signup } from './components/Signup';
+import { Navbar } from './components/Navbar';
 import './feathers';
 
 function App() {
@@ -19,17 +19,19 @@ function App() {
         <ProvideAuth>
           <Router>
             <div className="App">
-            <Switch>
-              <Route path="/dinners">
-                <DinnersPage />
-              </Route>
-              <Route path="/login">
-                <Login />
-              </Route>
-              <Route path="/signup">
-                <Signup />
-              </Route>
-            </Switch>
+              <Navbar />
+
+              <Switch>
+                <Route path="/dinners">
+                  <DinnersPage />
+                </Route>
+                <Route path="/signin">
+                  <Login />
+                </Route>
+                <Route path="/signup">
+                  <Signup />
+                </Route>
+              </Switch>
             </div>
           </Router>
         </ProvideAuth>
