@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import client from '../feathers';
 
-export const Signup = () => {
+
+
+export default function Signup() {
     const [credentials, setCredentials] = useState({
         email: '',
         password: ''
@@ -10,14 +12,14 @@ export const Signup = () => {
     const [result, setResult] = useState(null);
 
 
-    const handleEmailInputChange = (event) => {
+    const handleEmailInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCredentials((credentials) => ({
             ...credentials,
             email: event.target.value,
         }));
     };
 
-    const handlePasswordChange = (event) => {
+    const handlePasswordChange = (event : React.ChangeEvent<HTMLInputElement>) => {
         setCredentials((credentials) => ({
             ...credentials,
             password: event.target.value,
@@ -26,7 +28,7 @@ export const Signup = () => {
 
 
 
-    const handleSubmit = async(event) => {
+    const handleSubmit = async(event: React.FormEvent) => {
         event.preventDefault();
 
         const userObject = {

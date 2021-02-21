@@ -1,6 +1,6 @@
 import client from '../feathers';
 
-export const DinnersPage = () => {
+export default function DinnersPage() {
     
     const findDinners = () => {
         const result = client.service('dinners').find();

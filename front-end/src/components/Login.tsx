@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import client from '../feathers';
 
-export const Login = () => {
+export function Login() {
 
     const [credentials, setCredentials] = useState({
         email: '',
@@ -12,14 +12,14 @@ export const Login = () => {
     const [result, setResult] = useState(null);
 
 
-    const handleEmailInputChange = (event) => {
+    const handleEmailInputChange = (event : React.ChangeEvent<HTMLInputElement>) : void => {
         setCredentials((credentials) => ({
             ...credentials,
             email: event.target.value,
         }));
     };
 
-    const handlePasswordChange = (event) => {
+    const handlePasswordChange = (event : React.ChangeEvent<HTMLInputElement>) : void => {
         setCredentials((credentials) => ({
             ...credentials,
             password: event.target.value,
@@ -28,7 +28,7 @@ export const Login = () => {
 
 
 
-    const handleSubmit = async(event) => {
+    const handleSubmit = async(event: React.FormEvent) : Promise<void> => {
         event.preventDefault();
 
         client.authenticate({
@@ -40,21 +40,7 @@ export const Login = () => {
             result ? setResult(temp) : setResult(null);
             console.log(result);
             }
-        ).catch((e) => console.log('error', e));
-
-        /* try {
-            await client.authenticate({
-                strategy: 'local',
-                ...credentials
-            });
-            const temp = await client.get('authentication');
-
-            result ? setResult(temp) : setResult(null);
-            console.log(result);
-            
-        } catch (error) {
-            console.log('error', error);
-        } */
+        ).catch((e: Error) => console.log('error', e));
     } 
 
     return (

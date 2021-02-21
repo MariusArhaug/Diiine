@@ -1,19 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
+import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
-
-import './App.css';
-
-import { DinnersPage } from './components/Dinners-page';
-import { Login } from './components/Login';
-import { Signup} from './components/Signup';
-import './feathers';
+import Login from './routes/LoginRoute';
+import Register from './routes/RegisterRoute';
+import Home from './routes/Home';
 
 function App() {
+  /*
   return (
     <Router>
       <div className="App">
@@ -49,6 +47,24 @@ function App() {
       </div>
     </Router>
   );
+  */
+ return (
+  <Router>
+    <div className="App">
+      <Switch>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/signup">
+          <Register />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </div>
+  </Router> 
+);
 }
 
 export default App;
