@@ -31,20 +31,31 @@ export const Login = () => {
     const handleSubmit = async(event) => {
         event.preventDefault();
 
-        try {
-            console.log(credentials);
+        client.authenticate({
+            strategy: 'local',
+            ...credentials
+        }).then( () => {
+            const temp = client.get('authentication');
+
+            result ? setResult(temp) : setResult(null);
+            console.log(result);
+            }
+        ).catch((e) => console.log('error', e));
+
+        /* try {
             await client.authenticate({
                 strategy: 'local',
                 ...credentials
             });
-            const result = await client.get('authentication');
+            const temp = await client.get('authentication');
 
-            result ? setResult(result) : setResult(null);
+            result ? setResult(temp) : setResult(null);
+            console.log(result);
             
         } catch (error) {
             console.log('error', error);
-        }
-    }
+        } */
+    } 
 
     return (
     <div>
