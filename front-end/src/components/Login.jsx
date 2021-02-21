@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
+import { useAuth } from '../hooks/use-auth';
 
 import client from '../feathers';
 
 export const Login = () => {
+    const auth = useAuth();
 
     const [credentials, setCredentials] = useState({
         email: '',
         password: ''
     });
-
-    const [result, setResult] = useState(null);
-
 
     const handleEmailInputChange = (event) => {
         setCredentials((credentials) => ({
@@ -26,67 +25,43 @@ export const Login = () => {
         }));
     };
 
-
-
     const handleSubmit = async(event) => {
         event.preventDefault();
+        const result = auth.signin(credentials);
+        console.log(result);
+    }
 
-        client.authenticate({
-            strategy: 'local',
-            ...credentials
-        }).then( () => {
-            const temp = client.get('authentication');
-
-            result ? setResult(temp) : setResult(null);
-            console.log(result);
-            }
-        ).catch((e) => console.log('error', e));
-
-        /* try {
-            await client.authenticate({
-                strategy: 'local',
-                ...credentials
-            });
-            const temp = await client.get('authentication');
-
-            result ? setResult(temp) : setResult(null);
-            console.log(result);
-            
-        } catch (error) {
-            console.log('error', error);
-        } */
-    } 
 
     return (
-    <div>
         <div>
+            <div>
                 Log in here
-        </div>
-        <div>
-            <form method='POST' onSubmit={handleSubmit}>
-                <input 
-                    id='email'
-                    className='form-field' 
-                    type='text'
-                    name='email'
-                    value={credentials.email}
-                    onChange={handleEmailInputChange}
-                />
+            </div>
+            <div>
+                <form method='POST' onSubmit={handleSubmit}>
+                    <input
+                        id='email'
+                        className='form-field'
+                        type='text'
+                        name='email'
+                        value={credentials.email}
+                        onChange={handleEmailInputChange}
+                    />
 
-                <input 
-                    id='password'
-                    className='form-field' 
-                    type='password'
-                    name='password'
-                    value={credentials.password}
-                    onChange={handlePasswordChange}
-                />
+                    <input
+                        id='password'
+                        className='form-field'
+                        type='password'
+                        name='password'
+                        value={credentials.password}
+                        onChange={handlePasswordChange}
+                    />
 
-                <button className='form-field' type='submit'>
-                    Log in!
-                </button>
-            </form> 
+                    <button className='form-field' type='submit'>
+                        Log in!
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
-    )
+    );
 }

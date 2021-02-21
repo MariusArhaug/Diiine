@@ -3,7 +3,7 @@ import client from '../feathers';
 export const DinnersPage = () => {
     
     const findDinners = () => {
-        const result = client.service('dinners').find();
+        const result = client.service('dinners').find().catch(e => {console.log('error', e);});
         console.log(result);
     }
     return (
