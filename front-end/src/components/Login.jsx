@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 
 import client from '../feathers';
 
-export default function Login () {
+export const Login = () => {
 
-    const [credentials, setCredentials, setResult] = useState({
+    const [credentials, setCredentials] = useState({
         email: '',
         password: ''
     });
+
+    const [result, setResult] = useState(null);
 
 
     const handleEmailInputChange = (event) => {
@@ -25,24 +26,23 @@ export default function Login () {
         }));
     };
 
+
+
     const handleSubmit = async(event) => {
         event.preventDefault();
 
         try {
+            console.log(credentials);
             await client.authenticate({
                 strategy: 'local',
                 ...credentials
-                // email: 'admin@middag.no',
-                // password: 'supersecret'
             });
-            console.log('we tryin hard');
             const result = await client.get('authentication');
-            console.log(result);
 
-            // result ? setResult(result) : setResult(null);
+            result ? setResult(result) : setResult(null);
             
         } catch (error) {
-            throw Error(error); 
+            console.log('error', error);
         }
     }
 
@@ -72,7 +72,7 @@ export default function Login () {
                 />
 
                 <button className='form-field' type='submit'>
-                    Log in
+                    Log in!
                 </button>
             </form> 
         </div>
