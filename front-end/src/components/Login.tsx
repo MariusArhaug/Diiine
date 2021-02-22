@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/use-auth';
-
+import { Link as RouterLink } from 'react-router-dom';
 import client from '../feathers-client';
 import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
 
@@ -16,10 +16,9 @@ export default function Login() {
 
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const input = event.target.name;
         setCredentials((credentials) => ({
             ...credentials,
-            [input]: event.target.value,
+            [event.target.name]: event.target.value,
         }));
     }
 
@@ -85,7 +84,8 @@ export default function Login() {
 
                             <Grid item xs={12}>
                                 <Typography variant="caption">
-                                    Don't have an account yet? <Link>Sign up</Link>
+                                    Don't have an account yet? <Link
+                                    component={RouterLink} to="signup">Sign up</Link>
                                 </Typography>
                             </Grid>
 

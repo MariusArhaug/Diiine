@@ -4,7 +4,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import logo_white from '../media/logo_colored.svg';
+import logo_white from '../media/logo_white.svg';
 import { Link as RouterLink, useRouteMatch } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 

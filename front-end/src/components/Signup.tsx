@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../hooks/use-auth';
 import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { Link as RouterLink } from 'react-router-dom';
 //import client from '../feathers';
 
 const allergies = [
@@ -22,10 +23,9 @@ export const Signup = () => {
     });
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const input = event.target.name;
         setCredentials((credentials) => ({
             ...credentials,
-            [input]: event.target.value,
+            [event.target.name]: event.target.value,
         }));
     }
 
@@ -126,7 +126,8 @@ export const Signup = () => {
 
                                 <Grid item xs={12}>
                                     <Typography variant="caption">
-                                        Already have an account? <Link>Log in</Link>
+                                        Already have an account? <Link
+                                        component={RouterLink} to="/login">Log in</Link>
                                     </Typography>
                                 </Grid>
 

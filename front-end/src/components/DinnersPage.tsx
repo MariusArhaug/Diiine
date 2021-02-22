@@ -18,7 +18,7 @@ export default function DinnersPage() {
                 //console.log(res.data)
                 //create dinnercard and store in array. 
                 res.data.forEach((dinner: Dinner) : void => {
-                    dinnerArray.push(DinnerCard(dinner));
+                    dinnerArray.push(dinner);
                 })
                 
                 console.log(dinnerArray)
@@ -31,7 +31,7 @@ export default function DinnersPage() {
             <ul>
                 {   //Need to render dinnerCards. @Lars
                     dinnerArray.map(dinner => (
-                        <li>{dinner}</li>
+                        <DinnerCard {...dinner} />
                     ))
                 }
             </ul>
