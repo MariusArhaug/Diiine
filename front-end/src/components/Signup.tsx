@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
-import client from '../feathers';
+import {useAuth} from '../hooks/use-auth'
+//import client from '../feathers';
 
+export const Signup = () => {
+    const auth = useAuth();
 
-
-export default function Signup() {
     const [credentials, setCredentials] = useState({
         email: '',
         password: ''
     });
-
-    const [result, setResult] = useState(null);
 
 
     const handleEmailInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,26 +29,8 @@ export default function Signup() {
 
     const handleSubmit = async(event: React.FormEvent) => {
         event.preventDefault();
-
-        const userObject = {
-            ...credentials,
-            "isAdmin": 0,
-            "allergies": {
-                "nuts": 1,
-                "lactose": 0,
-            },
-            "name": "test"
-
-        }
-
-        try {
-            console.log(credentials);
-            console.log(userObject);
-            const result = await client.service('users').create(userObject);
-            setResult(result);
-        } catch (error) {
-            console.log('error', error);
-        }
+        const result = await auth.signup(credentials);
+        console.log(result);
     }
 
     return (
