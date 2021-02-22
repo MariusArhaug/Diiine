@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/use-auth';
 import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 //import client from '../feathers';
+
+const allergies = [
+    {label: 'Lactose', value: 'lactose'},
+    {label: 'Gluten', value: 'gluten'},
+    {label: 'Nuts', value: 'nuts'},
+]
 
 export const Signup = () => {
     const auth = useAuth();
@@ -95,27 +102,31 @@ export const Signup = () => {
                                 </Grid>
 
                                 <Grid item xs={12}>
-                                    <TextField
-                                        id='password'
-                                        label='Password'
-                                        className='form-field'
-                                        type='password'
-                                        name='password'
-                                        value={credentials.allergies}
-                                        style={{ width: "100%" }}
-                                        onChange={handleInputChange}
+                                    <Autocomplete
+                                        multiple
+                                        id="tags-standard"
+                                        options={allergies}
+                                        getOptionLabel={(option) => option.label}
+                                        renderInput={(params) => (
+                                        <TextField
+                                            {...params}
+                                            variant="standard"
+                                            label="Allergies"
+                                            placeholder="Allergy"
+                                        />
+                                        )}
                                     />
                                 </Grid>
 
                                 <Grid item xs={12}>
                                     <Button type='submit' variant="contained" color="primary" style={{ width: "100%" }}>
-                                        Login
+                                        Sign Up
                                 </Button>
                                 </Grid>
 
                                 <Grid item xs={12}>
                                     <Typography variant="caption">
-                                        Don't have an account yet? <Link>Sign up</Link>
+                                        Already have an account? <Link>Log in</Link>
                                     </Typography>
                                 </Grid>
 
