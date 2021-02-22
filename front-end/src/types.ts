@@ -8,6 +8,7 @@ export type Dinner = {
     allergens: string;
     attendants: User[];
     date: Date;
+    pictureURL: string
 }
 
 export type User = {
@@ -17,6 +18,7 @@ export type User = {
     email: string;
     isAdmin: boolean;
     allergies: string[];
+    pictureURL: string,
 }
 
 export type Rating = {

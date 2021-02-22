@@ -52,6 +52,8 @@ export default function ButtonAppBar() {
                     </Tabs>
 
                     <IconButton component={RouterLink} to="/profile" className={classes.profile} color="inherit" aria-label="menu">
+                        {// We need to check whether someone is logged on to then take them to login page or show profile page
+                        }
                         <AccountCircle />
                     </IconButton>
                 </div>

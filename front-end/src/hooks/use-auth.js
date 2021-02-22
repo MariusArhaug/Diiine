@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
-import client from '../feathers';
+import client from '../feathers-client';
 
 const authContext = createContext();
 

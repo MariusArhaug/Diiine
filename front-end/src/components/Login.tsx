@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/use-auth';
 
-import client from '../feathers';
+import client from '../feathers-client';
 
 export default function Login() {
     const auth = useAuth();
@@ -28,24 +28,22 @@ export default function Login() {
         }));
     };
 
-
-
     const handleSubmit = async(event: React.FormEvent) : Promise<void> => {
         event.preventDefault();
         const result = await auth.signin(credentials);
         console.log(result);
     }
 
-        client.authenticate({
-            strategy: 'local',
-            ...credentials
-        }).then( () => {
-            const temp = client.get('authentication');
+    client.authenticate({
+        strategy: 'local',
+        ...credentials
+    }).then( () => {
+        const temp = client.get('authentication');
 
-            result ? setResult(temp) : setResult(null);
-            console.log(result);
-            }
-        ).catch((e: Error) => console.log('error', e));
+        result ? setResult(temp) : setResult(null);
+        console.log(result);
+        }
+    ).catch((e: Error) => console.log('error', e));
 
     return (
         <div>
