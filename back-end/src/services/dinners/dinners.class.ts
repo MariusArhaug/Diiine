@@ -13,7 +13,8 @@ interface DinnerData {
  isOpen: boolean,
  expenses: number,
  date: Date,
- user_id: number
+ user_id: number,
+ banner: string
 }
 
 export class Dinners extends Service {
