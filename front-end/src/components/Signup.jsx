@@ -27,9 +27,9 @@ export const Signup = () => {
 
 
 
-    const handleSubmit = async(event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const result = auth.signup(credentials);
+        const result = await auth.signup(credentials);
         console.log(result);
     }
 

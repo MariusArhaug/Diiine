@@ -27,7 +27,7 @@ export const Login = () => {
 
     const handleSubmit = async(event) => {
         event.preventDefault();
-        const result = auth.signin(credentials);
+        const result = await auth.signin(credentials);
         console.log(result);
     }
 

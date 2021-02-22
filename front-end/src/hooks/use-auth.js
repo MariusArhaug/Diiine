@@ -23,6 +23,8 @@ function useProvideAuth() {
             ...credentials
         }).then( response => {
             setUser(response.user);
+            console.log(response.user);
+            console.log(user);
             return response.user;
         }).catch((e) => {
             console.log('error signing in', e);

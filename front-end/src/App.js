@@ -5,10 +5,10 @@ import {
   Route
 } from "react-router-dom";
 
-import './App.css';
+import './styles/App.css';
 import {ProvideAuth, useAuth} from './hooks/use-auth'
 
-import { DinnersPage } from './components/Dinners-page';
+import { DinnersPage } from './components/DinnersPage';
 import { Login } from './components/Login';
 import { Signup } from './components/Signup';
 import { Navbar } from './components/Navbar';
