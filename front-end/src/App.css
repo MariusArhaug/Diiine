@@ -34,3 +34,10 @@
 .MainContainer {
   padding-bottom: 20px;
 }
+
+.verticalCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}

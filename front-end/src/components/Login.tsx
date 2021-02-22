@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../hooks/use-auth';
 
 import client from '../feathers-client';
+import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
 
 export default function Login() {
     const auth = useAuth();
@@ -14,21 +15,15 @@ export default function Login() {
     const [result, setResult] = useState(null);
 
 
-    const handleEmailInputChange = (event : React.ChangeEvent<HTMLInputElement>) : void => {
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const input = event.target.name;
         setCredentials((credentials) => ({
             ...credentials,
-            email: event.target.value,
+            [input]: event.target.value,
         }));
-    };
+    }
 
-    const handlePasswordChange = (event : React.ChangeEvent<HTMLInputElement>) : void => {
-        setCredentials((credentials) => ({
-            ...credentials,
-            password: event.target.value,
-        }));
-    };
-
-    const handleSubmit = async(event: React.FormEvent) : Promise<void> => {
+    const handleSubmit = async (event: React.FormEvent): Promise<void> => {
         event.preventDefault();
         const result = await auth.signin(credentials);
         console.log(result);
@@ -37,44 +32,67 @@ export default function Login() {
     client.authenticate({
         strategy: 'local',
         ...credentials
-    }).then( () => {
+    }).then(() => {
         const temp = client.get('authentication');
 
         result ? setResult(temp) : setResult(null);
         console.log(result);
-        }
+    }
     ).catch((e: Error) => console.log('error', e));
 
     return (
-        <div>
-            <div>
-                Log in here
-            </div>
-            <div>
-                <form method='POST' onSubmit={handleSubmit}>
-                    <input
-                        id='email'
-                        className='form-field'
-                        type='text'
-                        name='email'
-                        value={credentials.email}
-                        onChange={handleEmailInputChange}
-                    />
+        <div className="verticalCenter">
+            <Container maxWidth="xs">
+                <Paper style={{padding: "50px"}}>
+                    <form method='POST' onSubmit={handleSubmit}>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12}>
+                                <Typography variant="h4">
+                                    Login
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id='email'
+                                    label='Email'
+                                    className='form-field'
+                                    type='text'
+                                    name='email'
+                                    value={credentials.email}
+                                    style={{width: "100%"}}
+                                    onChange={handleInputChange}
+                                />
+                            </Grid>
 
-                    <input
-                        id='password'
-                        className='form-field'
-                        type='password'
-                        name='password'
-                        value={credentials.password}
-                        onChange={handlePasswordChange}
-                    />
+                            <Grid item xs={12}>
+                                <TextField
+                                    id='password'
+                                    label='Password'
+                                    className='form-field'
+                                    type='password'
+                                    name='password'
+                                    value={credentials.password}
+                                    style={{width: "100%"}}
+                                    onChange={handleInputChange}
+                                />
+                            </Grid>
 
-                    <button className='form-field' type='submit'>
-                        Log in!
-                    </button>
-                </form>
-            </div>
+                            <Grid item xs={12}>
+                                <Button type='submit' variant="contained" color="primary" style={{width: "100%"}}>
+                                    Login
+                                </Button>
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Typography variant="caption">
+                                    Don't have an account yet? <Link>Sign up</Link>
+                                </Typography>
+                            </Grid>
+
+                        </Grid>
+                    </form>
+                </Paper>
+            </Container>
         </div>
     );
 }
