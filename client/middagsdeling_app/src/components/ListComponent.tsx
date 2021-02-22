@@ -2,10 +2,8 @@ import {Grid} from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import React from 'react';
 import { Dinner } from '../types';
-import { createMuiTheme } from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -17,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
       margin: 'auto',
       maxWidth: 500,
-      backgroundColor: "#a9afff"
+      backgroundColor: "#ffffff"
     },
     image: {
       width: 128,
@@ -39,7 +37,7 @@ export default function ListComponent(props: Dinner) {
     return (
         <div className={classes.root}>
         <Paper className={classes.paper}>
-          <Grid container spacing={2}>
+          <Grid container spacing={3}>
             <Grid item>
               <p>{props.dinnerId}</p>
             </Grid>

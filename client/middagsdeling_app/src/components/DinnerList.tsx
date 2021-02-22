@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: theme.spacing(2),
             margin: 'auto',
             maxWidth: 10000,
-            backgroundColor: '#4d5398',
+            backgroundColor: '#b3cbb9',
         },
         image: {
             width: 128,
@@ -60,7 +60,7 @@ const user3: User = {
 const dinner1: Dinner = {
     dinnerId: 1,
     owner: user1,
-    name: "test",
+    name: "Andeconfit med fondue til forrett og sjokolademousse til dessert",
     description: "Nå sitter jeg og ser på skiskyting og lurer på hvordan den reagerer dersom jeg skriver mye tekst, om det vil bli slikt at det bli fortsatt bare en stor og lang tekstblokk, eller om det hopper ned",
     address: "Gloes",
     type: "Meat",
