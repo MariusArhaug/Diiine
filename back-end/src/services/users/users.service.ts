@@ -15,7 +15,8 @@ declare module '../../declarations' {
 export default function (app: Application): void {
   const options = {
     Model: createModel(app),
-    paginate: app.get('paginate')
+    paginate: app.get('paginate'),
+    id:'user_id'
   };
 
   // Initialize our service with any options it requires

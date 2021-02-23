@@ -5,12 +5,14 @@ import Tab from '@material-ui/core/Tab';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import logo_white from '../media/logo_white.svg';
+import { Link as RouterLink, useRouteMatch } from 'react-router-dom';
+import { Container } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         navbar: {
-            padding: "0 25vw",
-            backgroundColor: "#1d3557",
+            padding: "0",
+            backgroundColor: "#e76f51",
             color: "white",
         },
         navigation: {
@@ -30,20 +32,31 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ButtonAppBar() {
     const classes = useStyles();
 
+    let { url } = useRouteMatch();
+
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+        setValue(newValue);
+    };
+
     return (
         <div className={classes.navbar}>
-            <img src={logo_white} className={classes.logo}/>
-            <div className={classes.navigation}>
-                <Tabs>
-                    <Tab label="Dinners" />
-                    <Tab label="My Dinners" />
-                    <Tab label="Chats" />
-                </Tabs>
-                
-                <IconButton className={classes.profile} color="inherit" aria-label="menu">
-                    <AccountCircle />
-                </IconButton>
-            </div>
+            <img src={logo_white} className={classes.logo} />
+            <Container maxWidth="lg">
+                <div className={classes.navigation}>
+                    <Tabs value={value} onChange={handleChange}>
+                        <Tab component={RouterLink} to="/dinners" label="Dinners" />
+                        <Tab component={RouterLink} to="/my_dinners" label="My Dinners" />
+                        <Tab component={RouterLink} to="/chat" label="Chats" />
+                    </Tabs>
+
+                    <IconButton component={RouterLink} to="/profile" className={classes.profile} color="inherit" aria-label="menu">
+                        <AccountCircle />
+                    </IconButton>
+                </div>
+            </Container>
+            
         </div>
     );
 }

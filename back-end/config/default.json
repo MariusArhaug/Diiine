@@ -7,6 +7,13 @@
     "max": 50
   },
   "authentication": {
+    "oauth": {
+      "redirect": "/",
+      "github": {
+        "key": "46d5ee57b0d226f59e7b",
+        "secret": "c4a8925d15679450da0d4dab3ea0d068feddcdbc"
+      }
+    },
     "entity": "user",
     "service": "users",
     "secret": "cUVMXHLKZwIuGECC43hq/GGEPqo=",
@@ -19,7 +26,7 @@
         "typ": "access"
       },
       "audience": "https://yourdomain.com",
-      "issuer": "feathers",
+      "issuer": "middagsdeling",
       "algorithm": "HS256",
       "expiresIn": "1d"
     },
@@ -27,9 +34,16 @@
       "usernameField": "email",
       "passwordField": "password"
     }
+
   },
   "mysql": {
     "client": "mysql2",
-    "connection": "mysql://root:@localhost:3306/back_end"
+    "connection": {
+      "host": "mysql.stud.ntnu.no",
+      "user": "fs_tdt4140_1_gruppe40",
+      "password": "vielskerPUlol40",
+      "database": "fs_tdt4140_1_gruppe40_mddb"
+    }
+    // mysql -A -h mysql.stud.ntnu.no -u fs_tdt4140_1_gruppe40 -p fs_tdt4140_1_gruppe40_mddb
   }
 }

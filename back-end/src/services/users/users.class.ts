@@ -2,15 +2,17 @@ import { Service, KnexServiceOptions } from 'feathers-knex';
 import { Application } from '../../declarations';
 import { Params, Id, ServiceMethods } from '@feathersjs/feathers';
 
+
 // A type interface for our user (no valdiation) 
 interface UserData {
-  id?: number,
+  _id?: number,
   email: string,
   password: string,
   name: string,
   created_at: Date,
   updated_at: Date,
-  allergens: string
+  allergens: string,
+  isAdmin: boolean,
 }
 
 
@@ -30,12 +32,13 @@ export class Users extends Service<UserData> {
     }
   
     async create(data: UserData, params?: Params) {
-      const { email, password, name, allergens } = data;
+      const { email, password, name, allergens, isAdmin } = data;
       const userData = {
         email,
         password,
         name,
-        allergens
+        allergens,
+        isAdmin
       };
       // Call original `create` method with existing params and new data.
       return super.create(userData, params);
