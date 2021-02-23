@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import { Dinner } from '../types';
+import Avatar from '@material-ui/core/Avatar';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -27,6 +28,11 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: '100%',
       maxHeight: '100%',
     },
+    large: {
+      width: theme.spacing(20),
+      height: theme.spacing(20),
+      marginRight: 'auto'
+    }
   }),
 );
 
@@ -37,16 +43,16 @@ export default function ListComponent(props: Dinner) {
     return (
         <div className={classes.root}>
         <Paper className={classes.paper}>
-          <Grid container spacing={3}>
-            <Grid item>
-              <p>{props.dinnerId}</p>
-            </Grid>
+          <Grid container spacing={6}>
             <Grid item xs={12} sm container>
               <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
-                  <Typography gutterBottom variant="subtitle1">
+                  <Typography gutterBottom variant="h5">
                     {props.name}
                   </Typography>
+                <Grid item>
+                <Avatar alt="Illustrasjon" src="/static/images/avatar/1.jpg" className={classes.large} />
+                </Grid>
                   <Typography variant="body2" gutterBottom>
                     {props.address}
                   </Typography>
@@ -55,7 +61,7 @@ export default function ListComponent(props: Dinner) {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography variant="body2" style={{ cursor: 'pointer' }}>
+                  <Typography variant="button" color="initial" style={{cursor: 'pointer' }}>
                     Join
                   </Typography>
                 </Grid>
@@ -66,22 +72,5 @@ export default function ListComponent(props: Dinner) {
             </Grid>
           </Grid>
         </Paper>
-      </div>
-    );
-        /*
-        <Paper>
-            <p>Host: {props.owner.name} {props.description}</p>
-            <Grid>
-                <p>Location: {props.address}</p>
-                <Paper>
-                    <p>Address: {props.address}</p>
-                    
-                </Paper>
-            </Grid>
-        </Paper>
-        
-    );
-        */
-
-}
-
+        </div>
+    );}

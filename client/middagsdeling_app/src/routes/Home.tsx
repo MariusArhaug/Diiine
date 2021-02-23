@@ -7,7 +7,7 @@ import Navbar from '../components/Navbar';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import { Link as RouterLink } from 'react-router-dom';
-import NewDinner from '../components/NewDinner';
+import NewDinner from '../components/newDinner';
 
 export default function Home() {
 

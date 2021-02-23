@@ -97,9 +97,9 @@ export default function NewDinner() {
                                 color="primary"
                             />
                         }
-                        label="Share the recepit?"
+                        label="Share the receipt?"
                     />
-                    <Button component={RouterLink} to="/" variant="contained" color="primary">
+                    <Button component={RouterLink} to="/" variant="contained" >
                         Add dinner
                     </Button>
 
@@ -112,3 +112,4 @@ export default function NewDinner() {
 
 
 }    
+//remeber to add color to button
