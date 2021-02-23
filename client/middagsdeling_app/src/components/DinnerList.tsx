@@ -63,9 +63,10 @@ const dinner1: Dinner = {
     name: "Duck Confit",
     description: "Nå sitter jeg og ser på skiskyting og lurer på hvordan den reagerer dersom jeg skriver mye tekst, om det vil bli slikt at det bli fortsatt bare en stor og lang tekstblokk, eller om det hopper ned",
     address: "Angelltrøvegen 3, 7048 Trondheim",
-    type: "Meat",
-    allergens: "Celery",
+    tags: ["Meat"],
+    allergens: ["Celery", "Nuts"],
     attendants: [user2, user3],
+    maxAttendants: 10,
     date: new Date()
 }
 const dinner2: Dinner = {
@@ -74,9 +75,10 @@ const dinner2: Dinner = {
     name: "Taco Friday",
     description: "desc2",
     address: "Weidemanns vei 5B, 7014 Trondheim",
-    type: "Vegan",
-    allergens: "None",
+    tags: ["Vegan"],
+    allergens: [],
     attendants: [user3],
+    maxAttendants: 10,
     date: new Date()
 }
 const dinner3: Dinner = {
@@ -85,9 +87,10 @@ const dinner3: Dinner = {
     name: "Tapas Night",
     description: "desc3",
     address: "Høyskoleringen 1, 7030 Trondheim",
-    type: "Various",
-    allergens: "Gluten, Eggs, Soy, Mustard, Shellfish, Other",
+    tags: ["Various"],
+    allergens: ["Gluten", "Eggs", "Soy", "Mustard", "Shellfish", "Other"],
     attendants: [],
+    maxAttendants: 10,
     date: new Date()
 }
 

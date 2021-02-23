@@ -4,9 +4,10 @@ export type Dinner = {
     name: string;
     description: string;
     address: string;
-    type: string;
-    allergens: string;
+    tags: string[];
+    allergens: string[];
     attendants: User[];
+    maxAttendants: number;
     date: Date;
 }
 
