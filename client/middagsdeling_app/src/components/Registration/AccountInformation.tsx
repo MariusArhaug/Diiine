@@ -23,10 +23,6 @@ export default function AccountInformation() {
         <div>
 
             <Grid container spacing={3}>
-                <Grid item xs={12}>
-                    <FormLabel component="legend">Input account information</FormLabel>
-                </Grid>
-
                 <Grid item xs={6}>
                     <TextField className={classes.input} label="First name" placeholder='Enter first name' />
                 </Grid>

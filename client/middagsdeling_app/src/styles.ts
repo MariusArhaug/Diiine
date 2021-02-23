@@ -91,6 +91,9 @@ export const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: "#e9eef2",
             margin: "auto",
         },
+        newDinner: {
+            marginLeft: "auto",
+        },
         avatarGroup: {
             paddingLeft: "30px",
             "& > *": {
@@ -98,6 +101,6 @@ export const useStyles = makeStyles((theme: Theme) =>
                 height: "30px",
                 border: "1px solid gray"
             }
-        }
+        },
     }),
 );
