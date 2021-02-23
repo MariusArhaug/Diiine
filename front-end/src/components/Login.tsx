@@ -28,7 +28,7 @@ export default function Login() {
         console.log(result);
     }
 
-    client.authenticate({
+/*     client.authenticate({
         strategy: 'local',
         ...credentials
     }).then(() => {
@@ -37,7 +37,7 @@ export default function Login() {
         result ? setResult(temp) : setResult(null);
         console.log(result);
     }
-    ).catch((e: Error) => console.log('error', e));
+    ).catch((e: Error) => console.log('error', e)); */
 
     return (
         <div className="verticalCenter">
