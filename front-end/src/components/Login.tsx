@@ -84,6 +84,7 @@ export default function Login() {
                     </form>
                 </Paper>
             </Container>
+            <Button component={RouterLink} to='/dinners'>Dinners</Button>
         </div>
     );
 }

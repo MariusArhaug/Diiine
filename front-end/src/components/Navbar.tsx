@@ -49,6 +49,7 @@ export default function ButtonAppBar() {
                         <Tab component={RouterLink} to="/dinners" label="Dinners" />
                         <Tab component={RouterLink} to="/my_dinners" label="My Dinners" />
                         <Tab component={RouterLink} to="/chat" label="Chats" />
+                        <Tab component={RouterLink} to="/login" label="Login" />
                     </Tabs>
 
                     <IconButton component={RouterLink} to="/profile" className={classes.profile} color="inherit" aria-label="menu">

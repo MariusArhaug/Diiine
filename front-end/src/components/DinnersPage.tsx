@@ -13,16 +13,24 @@ export default function DinnersPage() {
             client.service('dinners')
             .find({})
             .then((res : any)  => {
-                //console.log(res.data)
-                //create dinnercard and store in array. 
-                res.data.forEach((dinner: any) : void => {
-                    setDinners(dinner);
-                })
+                console.log(res);
                 
-                console.log(dinners)
+                
             })
             .catch((e : Error) => { console.log('error', e); })
+        }, []);
+
+    useEffect(() => {
+        client.service('dinners').create({
+                "name": "waaat",
+                "adress": "coolstreet 14a, 7030, Trondheim",
+                "type": "vegan,byob",
+                "attendants": 4,
+                "allergens": "nuts",
+                "expenses": 0,
+                "date": "2021-02-20"
         })
+    })
         
     return (
         <div>

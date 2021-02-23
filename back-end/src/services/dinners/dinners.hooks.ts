@@ -9,7 +9,7 @@ export default {
     all: [],
     find: [],
     get: [],
-    create: [parseObjectToString('allergens') ],
+    create: [authenticate('jwt'), parseObjectToString('allergens') ],
     update: [ parseObjectToString('allergens') ],
     patch: [ parseObjectToString('allergens') ],
     remove: []
