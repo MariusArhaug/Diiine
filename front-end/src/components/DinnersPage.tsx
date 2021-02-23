@@ -8,8 +8,6 @@ import { LensTwoTone } from '@material-ui/icons';
 export default function DinnersPage() {
     const [dinners, setDinners] = useState();
 
-    const { authenticate } = require('@feathersjs/authentication');
-    let dinnerArray : any[] = [];
     //Load dinners when component is rendered.
     useEffect(() => {
             client.service('dinners')
@@ -17,11 +15,11 @@ export default function DinnersPage() {
             .then((res : any)  => {
                 //console.log(res.data)
                 //create dinnercard and store in array. 
-                res.data.forEach((dinner: Dinner) : void => {
-                    dinnerArray.push(dinner);
+                res.data.forEach((dinner: any) : void => {
+                    setDinners(dinner);
                 })
                 
-                console.log(dinnerArray)
+                console.log(dinners)
             })
             .catch((e : Error) => { console.log('error', e); })
         })
@@ -30,9 +28,9 @@ export default function DinnersPage() {
         <div>
             <ul>
                 {   //Need to render dinnerCards. @Lars
-                    dinnerArray.map(dinner => (
-                        <DinnerCard {...dinner} />
-                    ))
+                    // dinners.map(dinner => (
+                    //     <DinnerCard {...dinner} />
+                    // ))
                 }
             </ul>
         </div>

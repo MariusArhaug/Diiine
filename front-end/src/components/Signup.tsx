@@ -3,7 +3,6 @@ import { useAuth } from '../hooks/use-auth';
 import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Link as RouterLink } from 'react-router-dom';
-//import client from '../feathers';
 
 const allergies = [
     {label: 'Lactose', value: 'lactose'},

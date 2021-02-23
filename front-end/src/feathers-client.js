@@ -1,19 +1,17 @@
-import io from 'socket.io-client';
-import feathers from '@feathersjs/client';
+const io = require('socket.io-client');
+const feathers = require('@feathersjs/feathers');
+const socketio = require('@feathersjs/socketio-client');
+const auth = require('@feathersjs/authentication-client');
 
-const socket = io('http://localhost:3030', {
+const socket = io('localhost:3030', {
   transports: ['websocket'],
   forceNew: true
 });
 const client = feathers();
 
-//register socketio
-client.configure(feathers.socketio(socket));
+client.configure(socketio(socket));
+client.configure(auth({
+  
+}))
 
-//set up authentication with a store to cache auth token
-client.configure(feathers.authentication({
-  storage: window.localStorage,
-}));
-
-
-export default client;
+export default client; 

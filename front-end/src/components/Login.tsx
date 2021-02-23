@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/use-auth';
 import { Link as RouterLink } from 'react-router-dom';
-import client from '../feathers-client';
 import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
 
 export default function Login() {
@@ -26,18 +25,10 @@ export default function Login() {
         event.preventDefault();
         const result = await auth.signin(credentials);
         console.log(result);
-    }
 
-/*     client.authenticate({
-        strategy: 'local',
-        ...credentials
-    }).then(() => {
-        const temp = client.get('authentication');
-
-        result ? setResult(temp) : setResult(null);
-        console.log(result);
+        
+       
     }
-    ).catch((e: Error) => console.log('error', e)); */
 
     return (
         <div className="verticalCenter">
