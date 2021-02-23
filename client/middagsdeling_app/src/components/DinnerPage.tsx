@@ -60,9 +60,10 @@ const fakeDinner1:  Dinner = {
     owner: User1,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     address: "Fake address",
-    type: "Vegan",
-    allergens: "Lactose, Gluten",
+    tags: ["Vegan"],
+    allergens: ["Lactose", "Gluten"],
     attendants: [User1, User2, User3, User4, User5],
+    maxAttendants: 10,
     date: new Date()
 }
 
@@ -153,7 +154,7 @@ export default function DinnerPage() {
                                 <Grid item><LocalHospitalIcon /></Grid>
                                 <Grid item>
                                     <Typography variant="subtitle1">
-                                        Allergens: {dinner.allergens}
+                                        Allergens: {dinner.allergens.join(', ')}
                                     </Typography>
                                 </Grid>
                             </Grid>

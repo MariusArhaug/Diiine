@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@feathersjs/rest-client": "^4.5.11",
-    "axios": "^0.21.1"
-  }
-}
