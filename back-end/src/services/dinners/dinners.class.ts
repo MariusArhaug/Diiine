@@ -5,7 +5,7 @@ import { Application } from '../../declarations';
 interface DinnerData {
  dinners_id: number,
  name: string,
- adress: string,
+ address: string,
  type: string,
  allergens: string,
  attendants: number,
@@ -27,14 +27,14 @@ export class Dinners extends Service {
   }
 
   async create (data: DinnerData, params?: Params) {
-    const { name, adress, type, allergens, attendants, date } = data;
+    const { name, address, type, allergens, attendants, date } = data;
     
     // set user_id to the incoming user
     const user_id = params?.user?.user_id;
 
     const dinnerData = {
       name,
-      adress,
+      address,
       type,
       allergens,
       attendants,

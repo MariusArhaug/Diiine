@@ -5,7 +5,8 @@ export type Dinner = {
     description: string;
     address: string;
     tags: string[];
-    allergens: string[];
+    //change later to string Array
+    allergens: string;
     attendants: User[];
     maxAttendants: number;
     date: Date;

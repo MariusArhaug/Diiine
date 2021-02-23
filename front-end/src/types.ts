@@ -1,14 +1,14 @@
 export type Dinner = {
-    dinnerId: number;
+    dinners_id: number;
     owner: User;
     name: string;
     description: string;
     address: string;
-    type: string;
+    tags: string;
     allergens: string;
     attendants: User[];
     date: Date;
-    pictureURL: string
+    maxAttendants: number;
 }
 
 export type User = {
@@ -18,7 +18,6 @@ export type User = {
     email: string;
     isAdmin: boolean;
     allergies: string[];
-    pictureURL: string,
 }
 
 export type Rating = {

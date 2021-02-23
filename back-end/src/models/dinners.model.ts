@@ -13,7 +13,7 @@ export default function (app: Application): Knex {
       db.schema.createTable(tableName, table => {
         table.increments('dinner_id');
         table.string('name');
-        table.string('adress');
+        table.string('address');
         table.string('type');
         table.string('allergens');
         table.integer('attendants');
