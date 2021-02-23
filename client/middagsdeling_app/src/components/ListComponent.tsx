@@ -1,12 +1,16 @@
-import {Grid} from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import { Dinner } from '../types';
+import { Avatar, Link } from '@material-ui/core';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
+import { useStyles } from '../styles';
+import Button from '@material-ui/core/Button';
+import { Link as RouterLink } from 'react-router-dom';
 
-
-const useStyles = makeStyles((theme: Theme) =>
+const useStylesModified = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
@@ -32,56 +36,62 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ListComponent(props: Dinner) {
 
-    const classes = useStyles();
+  const classes = useStylesModified();
 
-    return (
-        <div className={classes.root}>
-        <Paper className={classes.paper}>
-          <Grid container spacing={3}>
-            <Grid item>
-              <p>{props.dinnerId}</p>
-            </Grid>
-            <Grid item xs={12} sm container>
-              <Grid item xs container direction="column" spacing={2}>
-                <Grid item xs>
-                  <Typography gutterBottom variant="subtitle1">
-                    {props.name}
-                  </Typography>
-                  <Typography variant="body2" gutterBottom>
-                    {props.address}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    {props.allergens}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography variant="body2" style={{ cursor: 'pointer' }}>
-                    Join
-                  </Typography>
-                </Grid>
+  const avatarClass = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <Paper className={classes.paper}>
+        <Grid container spacing={3}>
+          <Grid item>
+            <Avatar className={avatarClass.icon}><FastfoodIcon />
+            </Avatar>
+          </Grid>
+          <Grid item xs={12} sm container>
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1">
+                  <h1>{props.name}</h1>
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  {props.address}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  {props.allergens}
+                </Typography>
               </Grid>
               <Grid item>
-                <Typography variant="subtitle1">{props.type}</Typography>
+                <Button component={RouterLink} to="/" variant="contained" color="default">
+                  Join dinner
+                    </Button>
               </Grid>
             </Grid>
-          </Grid>
-        </Paper>
-      </div>
-    );
-        /*
-        <Paper>
-            <p>Host: {props.owner.name} {props.description}</p>
-            <Grid>
-                <p>Location: {props.address}</p>
-                <Paper>
-                    <p>Address: {props.address}</p>
-                    
-                </Paper>
+            <Grid item>
+              <Button component={RouterLink} to="/" variant="contained" color="default">
+                Join dinner
+                    </Button>
             </Grid>
-        </Paper>
-        
-    );
-        */
+          </Grid>
+        </Grid>
+
+      </Paper>
+    </div>
+  );
+  /*
+  <Paper>
+      <p>Host: {props.owner.name} {props.description}</p>
+      <Grid>
+          <p>Location: {props.address}</p>
+          <Paper>
+              <p>Address: {props.address}</p>
+              
+          </Paper>
+      </Grid>
+  </Paper>
+  
+);
+  */
 
 }
 
