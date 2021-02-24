@@ -2,7 +2,7 @@ import { Container } from '@material-ui/core';
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import DinnerList from '../components/DinnerList';
-import DinnerPage from '../components/Dinner';
+import DinnerPage from '../components/DinnerPage';
 import Navbar from '../components/Navbar';
 
 export default function Home() {

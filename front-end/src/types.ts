@@ -9,6 +9,7 @@ export type Dinner = {
     attendants: User[];
     date: Date;
     maxAttendants: number;
+    isOpen: boolean;
 }
 
 export type User = {

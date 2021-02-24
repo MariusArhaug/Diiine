@@ -112,53 +112,28 @@ export type Chat = {
 
 //const dinners: Dinner[] = [dinner1, dinner2, dinner3];
 
-const user1: User = {
-    userId: 10,
-    name: "Navn Navnesen",
-    address: "Moholt",
-    email: "mohotl@gmail.com",
-    isAdmin: false,
-    allergies: ["nuts", "milk"]
-}
-
-//bad solution
-const temp: Dinner = {
-    dinners_id: 1,
-    owner: user1,
-    name: "Duck Confit",
-    description: "Nå sitter jeg og ser på skiskyting og lurer på hvordan den reagerer dersom jeg skriver mye tekst, om det vil bli slikt at det bli fortsatt bare en stor og lang tekstblokk, eller om det hopper ned",
-    address: "Angelltrøvegen 3, 7048 Trondheim",
-    tags: "Meat",
-    allergens: "",
-    attendants: [],
-    maxAttendants: 10,
-    date: new Date()
-}
-
 export default function ComplexGrid() {
     const classes = useStyles();
-    const [dinners, setDinners] = useState([temp]);
+    const [dinners, setDinners] = useState([]);
     //let dinnersArray : Dinner[] = [];
+
     useEffect(() => {
         client.service('dinners')
         .find({})
         .then((res : any)  => {
             console.log(res.data);
-            //setDinners(res.data);
             setDinners(res.data);
     
         })
         .catch((e : Error) => { console.log('error', e); })
     }, []);
 
-    
-
     return (
         <div className={classes.root}>
             <Grid item xs={12}>
                 <Paper className={classes.paper}>
                     <Grid container spacing={3} direction="column" justify="space-evenly" alignItems="stretch">
-                        {dinners && dinners!.map((dinner : Dinner) => (
+                        {dinners.length && dinners!.map((dinner : Dinner) => (
                             <Grid item>
                                 <DinnerCard {...dinner} />
                             </Grid>
