@@ -129,7 +129,7 @@ export default function Profile () {
 
             <Grid item container spacing={1}>
                 <Typography variant="subtitle1">
-                Date and time: {temp.date.toUTCString}
+                Date and time: {temp.date.toString}
                 </Typography>
             </Grid>
 
