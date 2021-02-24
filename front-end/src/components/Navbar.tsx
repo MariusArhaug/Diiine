@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         navbar: {
             padding: "0",
-            backgroundColor: "#1d3557",
+            backgroundColor: "#e76f51",
             color: "white",
         },
         navigation: {
@@ -48,6 +48,7 @@ export default function ButtonAppBar() {
                     <Tabs value={value} onChange={handleChange}>
                         <Tab component={RouterLink} to="/dinners" label="Dinners" />
                         <Tab component={RouterLink} to="/my_dinners" label="My Dinners" />
+                        <Tab component={RouterLink} to="/chat" label="Chats" />
                         <Tab component={RouterLink} to="/login" label="Login" />
                     </Tabs>
 

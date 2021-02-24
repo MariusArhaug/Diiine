@@ -9,6 +9,7 @@ import {
 import Login from './routes/LoginRoute';
 import Register from './routes/RegisterRoute';
 import Home from './routes/Home';
+import Footer from './components/footer';
 
 class App extends Component {
 

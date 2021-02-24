@@ -32,6 +32,11 @@ const useStylesModified = makeStyles((theme: Theme) =>
       maxWidth: '100%',
       maxHeight: '100%',
     },
+    large: {
+      width: theme.spacing(20),
+      height: theme.spacing(20),
+      marginRight: 'auto'
+    }
   }),
 );
 

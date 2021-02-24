@@ -5,6 +5,7 @@ import DinnerList from '../components/DinnerList';
 import DinnerPage from '../components/DinnerPage';
 import Navbar from '../components/Navbar';
 import MyDinners from '../components/CreateDinner';
+import Profile from '../components/Profile';
 
 export default function Home() {
 
@@ -25,7 +26,7 @@ export default function Home() {
                         Chat
                     </Route>
                     <Route path="/profile">
-                        Profile
+                        <Profile />
                     </Route>
                     <Route path="/dinner/:dinnerId">
                         <DinnerPage />
