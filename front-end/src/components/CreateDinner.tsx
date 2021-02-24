@@ -8,6 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 import client from '../feathers-client'
+import { useStyles } from '../styles';
 //import { Link as RouterLink } from 'react-router-dom';
 
 const allergies = [
@@ -16,23 +17,9 @@ const allergies = [
     {label: 'Nuts', value: 'nuts'},
 ]
 
-/*const dinner = {
-            name: 'test',
-            address: '123',
-            description: 'lol',
-            date: '2000-01-01',
-            tags: ['tags'],
-            ingredients: ['ing'],
-            allergens: ['alg'],
-            attendants: 1,
-            isDivided: false,
-            isOpen: false,
-            expenses: 1000,
-            banner: '?'
-        }
-*/
-
 export default function MyDinners() {
+
+    const classes = useStyles();
 
     const [credentials, setCredentials] = useState({
         name: '',
@@ -80,131 +67,129 @@ export default function MyDinners() {
     }
 
     return(
-        <div>
-            <div className="verticalCenter">
-                <Container maxWidth="xs">
-                    <Paper style={{ padding: "50px" }}>
-                        <form method='POST' onSubmit={handleSubmit}>
-                            <Grid container spacing={3}>
-                                <Grid item xs={12}>
-                                    <Typography variant="h4">
-                                        Create Dinner
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Grid container spacing={3}>
-                                        <Grid item xs={6}>
-                                            <TextField
-                                                id='name'
-                                                label='Dinner name'
-                                                className='form-field'
-                                                type='text'
-                                                name='name'
-                                                value={credentials.name}
-                                                style={{ width: "100%" }}
-                                                onChange={handleInputChange}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={6}>
+        <div className={classes.spacer}>
+            <Container maxWidth="sm">
+                <Paper style={{ padding: "50px" }}>
+                    <form method='POST' onSubmit={handleSubmit}>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12}>
+                                <Typography variant="h4">
+                                    Create Dinner
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Grid container spacing={3}>
+                                    <Grid item xs={6}>
                                         <TextField
-                                            id="datetime-local"
-                                            label="Date"
-                                            type="datetime-local"
-                                            defaultValue={new Date().toLocaleDateString()}
+                                            id='name'
+                                            label='Dinner name'
                                             className='form-field'
-                                            style={{width: "100%" }}
-                                            InputLabelProps={{
-                                            shrink: true,
-                                            }}
+                                            type='text'
+                                            name='name'
+                                            value={credentials.name}
+                                            style={{ width: "100%" }}
+                                            onChange={handleInputChange}
                                         />
-                                        </Grid>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                    <TextField
+                                        id="datetime-local"
+                                        label="Date"
+                                        type="datetime-local"
+                                        defaultValue={new Date().toLocaleDateString()}
+                                        className='form-field'
+                                        style={{width: "100%" }}
+                                        InputLabelProps={{
+                                        shrink: true,
+                                        }}
+                                    />
                                     </Grid>
                                 </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        id='address'
-                                        label='Address'
-                                        className='form-field'
-                                        type='text'
-                                        name='address'
-                                        value={credentials.address}
-                                        style={{ width: "100%" }}
-                                        onChange={handleInputChange}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={12}>
-                                <TextField
-                                    id="outlined-multiline-static"
-                                    label="Description"
-                                    multiline
-                                    rows={4}
-                                    style={{ width: "100% "}}
-                                    defaultValue="Description"
-                                    variant="outlined"
-                                />
-                                </Grid>
-
-                                <Grid item xs={12}>
-                                    <FormGroup>
-                                        <FormControlLabel
-                                            control={<Checkbox checked={isDivided} onChange={handleChange} name="isDivided" color="primary" />}
-                                            label="Split the bill"
-                                        />
-                                        <FormControlLabel
-                                            control={<Checkbox checked={isOpen} onChange={handleChange} name="isOpen" color="primary"/>}
-                                            label="Open"
-                                        />
-                
-                                    </FormGroup>
-                                </Grid>
-
-                                <Grid item xs={12}>
-                                    <Autocomplete
-                                        multiple
-                                        id="tags-standard"
-                                        value={undefined}
-                                        options={allergies}
-                                        getOptionLabel={(option) => option.label}
-                                        renderInput={(params) => (
-                                        <TextField
-                                            {...params}
-                                            variant="standard"
-                                            label="Allergens"
-                                            placeholder="Allergy"
-                                        />
-                                        )}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Autocomplete
-                                        multiple
-                                        id="tags-standard"
-                                        value={undefined}
-                                        options={allergies}
-                                        getOptionLabel={(option) => option.label}
-                                        renderInput={(params) => (
-                                        <TextField
-                                            {...params}
-                                            variant="standard"
-                                            label="Tags"
-                                            placeholder="Tags"
-                                        />
-                                        )}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={12}>
-                                    <Button type='submit' variant="contained" color="primary" style={{ width: "100%" }}>
-                                        Create dinner!
-                                </Button>
-                                </Grid>
-
                             </Grid>
-                        </form>
-                    </Paper>
-                </Container>
-            </div>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id='address'
+                                    label='Address'
+                                    className='form-field'
+                                    type='text'
+                                    name='address'
+                                    value={credentials.address}
+                                    style={{ width: "100%" }}
+                                    onChange={handleInputChange}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                            <TextField
+                                id="outlined-multiline-static"
+                                label="Description"
+                                multiline
+                                rows={4}
+                                style={{ width: "100% "}}
+                                defaultValue="Description"
+                                variant="outlined"
+                            />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <FormGroup>
+                                    <FormControlLabel
+                                        control={<Checkbox checked={isDivided} onChange={handleChange} name="isDivided" color="primary" />}
+                                        label="Split the bill"
+                                    />
+                                    <FormControlLabel
+                                        control={<Checkbox checked={isOpen} onChange={handleChange} name="isOpen" color="primary"/>}
+                                        label="Open"
+                                    />
+            
+                                </FormGroup>
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Autocomplete
+                                    multiple
+                                    id="tags-standard"
+                                    value={undefined}
+                                    options={allergies}
+                                    getOptionLabel={(option) => option.label}
+                                    renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        variant="standard"
+                                        label="Allergens"
+                                        placeholder="Allergy"
+                                    />
+                                    )}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Autocomplete
+                                    multiple
+                                    id="tags-standard"
+                                    value={undefined}
+                                    options={allergies}
+                                    getOptionLabel={(option) => option.label}
+                                    renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        variant="standard"
+                                        label="Tags"
+                                        placeholder="Tags"
+                                    />
+                                    )}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Button type='submit' variant="contained" color="primary" style={{ width: "100%" }}>
+                                    Create dinner!
+                            </Button>
+                            </Grid>
+
+                        </Grid>
+                    </form>
+                </Paper>
+            </Container>
         </div>
     )
 }
