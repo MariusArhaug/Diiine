@@ -9,6 +9,8 @@ import {ProvideAuth, useAuth} from './hooks/use-auth'
 import Login from './routes/LoginRoute';
 import Register from './routes/RegisterRoute';
 import Home from './routes/Home';
+import Profile from './routes/ProfileRoute'
+import Footer from './components/Footer';
 
 export default function App() {
   return (
@@ -22,10 +24,14 @@ export default function App() {
             <Route path="/signup">
               <Register />
             </Route>
+            <Route path="/profile">
+              <Profile />
+            </Route>
             <Route path="/">
               <Home />
             </Route>
           </Switch>
+          <Footer/>
         </div>
       </Router>
     </ProvideAuth>
