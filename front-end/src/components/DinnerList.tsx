@@ -135,7 +135,7 @@ export default function ComplexGrid() {
                     <Grid container spacing={3} direction="column" justify="space-evenly" alignItems="stretch">
                         {dinners.length && dinners!.map((dinner : Dinner) => (
                             <Grid item>
-                                <DinnerCard {...dinner} />
+                                <DinnerCard {...dinner} key={dinner.dinners_id}/>
                             </Grid>
                         ))}
                     </Grid>

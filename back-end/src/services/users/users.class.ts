@@ -23,13 +23,16 @@ import app from '../../app';
 // A type interface for our user (no valdiation) 
 interface UserData {
   user_id: number,
+  name: string,
   email: string,
   password: string,
-  name: string,
   created_at: Date,
   updated_at: Date,
-  allergies: string,
   isAdmin: boolean,
+  allergies: string[],
+  rating_id: number,
+  chatted_to: number,
+  avatar: string,
 }
 
 
@@ -49,13 +52,19 @@ export class Users extends Service<UserData> {
   }
   
   async create(data: UserData, params?: Params) {
-    const { email, password, name, allergies, isAdmin } = data;
+    const { email, password, name, allergies, isAdmin} = data;
+
+    //Turn allergies into string
+    let allergiesString = allergies.join(', ');
+
     const userData = {
       email,
       password,
       name,
-      allergies,
-      isAdmin
+      created_at: new Date(),
+      updated_at: new Date(),
+      allergiesString,
+      isAdmin,
     };
       // Call original `create` method with existing params and new data.
     return super.create(userData, params);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { InputHTMLAttributes, useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import { useStyles } from '../styles';
@@ -10,8 +10,9 @@ import PlaceIcon from '@material-ui/icons/Place';
 import EventIcon from '@material-ui/icons/Event';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import { useParams } from 'react-router-dom';
-import { Dinner } from '../types';
+import { Dinner, User } from '../types';
 import client from '../feathers-client';
+import Rating from '@material-ui/lab/Rating';
 
 // {dinnerId, name, address, type, allergens, attendants, date}: DinnerProps
 
@@ -19,12 +20,14 @@ export default function DinnerPage() {
 
     const classes = useStyles();
     let { dinnerId }: { dinnerId: string } = useParams();
+    const [ratingValue, setRatingValue] = useState(0);
 
     const [dinners, setDinners] = useState([]);
 
     let dinner: Dinner = dinners[0];
 
     useEffect(() => {
+        //Find dinner that we clicked on
         client.service('dinners')
             .get(dinnerId)
             .then((res: never) => {
@@ -32,6 +35,12 @@ export default function DinnerPage() {
                 setDinners(temp);
             })
             .catch((e: Error) => { console.log('error', e); })
+        //Check if user has joined or not
+        /*client.service('attendingDinners')
+            .get(user_id)
+            .then((res: never) => {
+            
+            })*/
     }, []);
 
     return (
@@ -39,7 +48,8 @@ export default function DinnerPage() {
             <Paper className={classes.spacer} style={{ textAlign: "left" }}>
                 {dinners.length &&
                     <Grid container spacing={3} direction="row" alignItems="stretch">
-
+                        
+                        {/*---------------HEADER IMG-------------------------*/}
                         <Grid item xs={12}>
                             <Paper className={classes.dinnerImage} />
                         </Grid>
@@ -50,6 +60,7 @@ export default function DinnerPage() {
                                 <Typography variant="caption" color="textSecondary">
                                     {dinner.address}
                                 </Typography>
+                                {/*---------------DINNER NAME ETC-------------------------*/}
                                 <Typography variant="h4">{dinner.name}</Typography>
                                 <Grid item container spacing={1} justify="flex-start">
                                     {dinner.tags.split(',').map(a => (
@@ -59,7 +70,8 @@ export default function DinnerPage() {
                                     ))}
                                 </Grid>
                             </Grid>
-
+                            
+                            {/*---------------DATE / PRIVATE DINNER-------------------------*/}
                             <Grid xs item container alignItems="center" justify="flex-end">
                                 <Grid item container spacing={1} alignItems="center" justify="flex-end">
                                     <Grid item>
@@ -74,7 +86,7 @@ export default function DinnerPage() {
                                 <Grid item container spacing={1} alignItems="center" justify="flex-end">
                                     <Grid item>
                                         <Typography variant="subtitle2">
-                                            {new Date(dinner.date).toDateString()}
+                                            {dinner.date}
                                         </Typography>
                                     </Grid>
                                     <Grid item>
@@ -83,15 +95,9 @@ export default function DinnerPage() {
                                 </Grid>
                             </Grid>
 
-
-
-
                         </Grid>
-
-
-
-
-
+                        
+                        {/*-------------------------DETAILS-------------------------*/}
                         <Grid item xs={12} md={6}>
                             <Paper className={classes.container}>
                                 <Typography variant="h6" className={classes.textIcon}>Details</Typography>
@@ -104,18 +110,19 @@ export default function DinnerPage() {
                                         </Typography>
                                     </Grid>
                                 </Grid>
-
-                                {/* Need to update attendants-type in back-end */}
-                                {/* <AvatarGroup max={3} className={classes.avatarGroup}>
-                                    {dinner.attendants.map(
-                                        a => (
+                                
+                                {/* Attendants */}
+                                {/* Need to update attendants-type in back-end
+                                <AvatarGroup max={3} className={classes.avatarGroup}>
+                                    dinner.attendants.map((a: User) => (
                                             <Tooltip title={a.name} placement="bottom">
                                                 <Avatar>{a.name.charAt(0)}</Avatar>
                                             </Tooltip>
                                         )
 
-                                    )}
-                                </AvatarGroup> */}
+                                    )
+                                </AvatarGroup> 
+                                    */}
 
                                 {/* <Grid container spacing={1} alignItems="center" justify="flex-start">
                                     <Grid item><EventIcon /></Grid>
@@ -137,23 +144,33 @@ export default function DinnerPage() {
 
                             </Paper>
                         </Grid>
-
+                        {/*------------------------------INGREDIENTS--------------------- */}
                         <Grid item xs={12} md={6}>
                             <Paper className={classes.container}>
                                 <Typography variant="h6">Ingredients</Typography>
+                                <Typography variant="body1">{dinner.ingredients}</Typography>
                             </Paper>
                         </Grid>
-
+                        {/*------------------------------DESCRIPTION--------------------- */}
                         <Grid item xs={12} md={6}>
                             <Paper className={classes.container}>
                                 <Typography variant="h6">Description</Typography>
                                 <Typography variant="body1">{dinner.description}</Typography>
                             </Paper>
                         </Grid>
+                        {/*------------------------------RATING--------------------- */}
                         <Grid item xs={12} md={6}>
                             <Paper className={classes.container}>
-                                <Typography variant="h6">Description</Typography>
-                                <Typography variant="body1">{dinner.description}</Typography>
+                                <Typography variant="h6">Rating</Typography>
+                                <Typography variant="body1">
+                                <Rating
+                                    name="simple-controlled"
+                                    value={ratingValue}
+                                    onChange={undefined/*(event, newValue) => {
+                                        setRatingValue(newValue);
+                                      }*/}
+                                    />
+                                </Typography>
                             </Paper>
                         </Grid>
                     </Grid>

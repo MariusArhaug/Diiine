@@ -4,6 +4,7 @@ export type Dinner = {
     name: string;
     description: string;
     address: string;
+    ingredients: string;
     tags: string;
     allergens: string;
     attendants: User[];
