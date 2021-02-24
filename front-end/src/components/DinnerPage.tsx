@@ -58,7 +58,7 @@ export default function DinnerPage() {
     console.log(state)
 
     return (
-        <div>
+        <div className={classes.spacer}>
             <Paper className={classes.spacer} style={{ textAlign: "left" }}>
                 {state.dinner && state.owner &&
                     <Grid container spacing={3} direction="row" alignItems="stretch">
