@@ -40,13 +40,14 @@ function useProvideAuth() {
     const signup = (credentials) => {
         const userObject = {
             ...credentials,
+            /*
             'name': 'test-from-frontend',
             'isAdmin': 1,
             'allergies':  {
                 'nuts': 1,
                 'lactose': 0,
                 'gluten': 1,
-            }
+            }*/
         }
         return client.service('users').create(userObject).then(
             response => {

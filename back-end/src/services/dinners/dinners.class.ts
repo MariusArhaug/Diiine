@@ -8,9 +8,9 @@ interface DinnerData {
  address: string,
  description: string,
  date: Date,
- type: string[],
- tags: string[],
- allergens: string[],
+ type: string,
+ tags: string,
+ allergens: string,
  attendants: number,
  isDivided: boolean,
  isOpen: boolean,
@@ -48,9 +48,6 @@ export class Dinners extends Service {
 
     //change from array into string
     const user_id = params?.user?.user_id;
-    const typeString : string = type.join(', ');
-    const tagsString : string = tags.join(', ');
-    const allergensString : string = allergens.join(', ');
 
 
     const dinnerData = {
@@ -58,9 +55,9 @@ export class Dinners extends Service {
       address,
       description,
       date,
-      typeString,
-      tagsString,
-      allergensString,
+      type,
+      tags,
+      allergens,
       attendants,
       isDivided,
       isOpen,

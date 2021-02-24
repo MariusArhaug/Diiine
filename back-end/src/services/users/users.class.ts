@@ -55,7 +55,8 @@ export class Users extends Service<UserData> {
     const { email, password, name, allergies, isAdmin} = data;
 
     //Turn allergies into string
-    let allergiesString = allergies.join(', ');
+    console.log(allergies);
+    //let allergiesString = allergies.join(', ');
 
     const userData = {
       email,
@@ -63,7 +64,7 @@ export class Users extends Service<UserData> {
       name,
       created_at: new Date(),
       updated_at: new Date(),
-      allergiesString,
+      allergies,
       isAdmin,
     };
       // Call original `create` method with existing params and new data.

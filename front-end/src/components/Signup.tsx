@@ -14,14 +14,34 @@ export const Signup = () => {
     const auth = useAuth();
 
     const [credentials, setCredentials] = useState({
-        firstName: '',
-        lastName: '',
+        name: '',
         email: '',
         password: '',
         allergies: []
     });
 
+    //can be put in another seperate file.
+    const validateEmail = (email: string) : boolean  => {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
+    const validatePassword = (password: string) : boolean => {
+        const re = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/;
+        return re.test(String(password).toLowerCase());
+    }
+    const handleAllergyChange = (event: any) => {
+        console.log(event.target.value)
+        setCredentials((credentials) => ({
+            ...credentials,
+            [event.target.name]: [event.target.value],
+        }));
+    }
+
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        /*if (validateEmail(credentials.email) || validatePassword(credentials.password)) {
+            return; //check fields.
+        }*/
         setCredentials((credentials) => ({
             ...credentials,
             [event.target.name]: event.target.value,
@@ -30,6 +50,7 @@ export const Signup = () => {
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+        console.log(credentials)
         const result = await auth.signup(credentials);
         console.log(result);
     }
@@ -50,12 +71,12 @@ export const Signup = () => {
                                     <Grid container spacing={3}>
                                         <Grid item xs={6}>
                                             <TextField
-                                                id='firstname'
-                                                label='First name'
+                                                id='name'
+                                                label='Name'
                                                 className='form-field'
                                                 type='text'
-                                                name='firstName'
-                                                value={credentials.firstName}
+                                                name='name'
+                                                value={credentials.name}
                                                 style={{ width: "100%" }}
                                                 onChange={handleInputChange}
                                             />
@@ -67,9 +88,8 @@ export const Signup = () => {
                                                     className='form-field'
                                                     type='text'
                                                     name='lastName'
-                                                    value={credentials.lastName}
                                                     style={{ width: "100%" }}
-                                                    onChange={handleInputChange}
+                                                    
                                             />
                                         </Grid>
                                     </Grid>
@@ -104,6 +124,7 @@ export const Signup = () => {
                                     <Autocomplete
                                         multiple
                                         id="tags-standard"
+                                        value={credentials.allergies}
                                         options={allergies}
                                         getOptionLabel={(option) => option.label}
                                         renderInput={(params) => (
