@@ -1,6 +1,6 @@
 export type Dinner = {
     dinners_id: number;
-    owner: User;
+    user_id: number;
     name: string;
     description: string;
     address: string;
