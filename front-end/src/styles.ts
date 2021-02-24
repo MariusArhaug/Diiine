@@ -12,7 +12,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             width: "100vw"
         },
         container: {
-            backgroundColor: "#e9eef2",
+            backgroundColor: "#dce0e0",
             padding: "10px",
             textAlign: "left",
         },
