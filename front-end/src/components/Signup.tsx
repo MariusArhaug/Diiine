@@ -39,6 +39,9 @@ export const Signup = () => {
     }
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        /*if (validateEmail(credentials.email) || validatePassword(credentials.password)) {
+            return; //check fields.
+        }*/
         setCredentials((credentials) => ({
             ...credentials,
             [event.target.name]: event.target.value,
@@ -66,7 +69,7 @@ export const Signup = () => {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Grid container spacing={3}>
-                                        <Grid item xs={12}>
+                                        <Grid item xs={6}>
                                             <TextField
                                                 id='name'
                                                 label='Name'
@@ -76,6 +79,17 @@ export const Signup = () => {
                                                 value={credentials.name}
                                                 style={{ width: "100%" }}
                                                 onChange={handleInputChange}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <TextField
+                                                    id='lastname'
+                                                    label='Last name'
+                                                    className='form-field'
+                                                    type='text'
+                                                    name='lastName'
+                                                    style={{ width: "100%" }}
+                                                    
                                             />
                                         </Grid>
                                     </Grid>

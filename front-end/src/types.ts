@@ -19,7 +19,7 @@ export type User = {
     address: string;
     email: string;
     isAdmin: boolean;
-    allergies: string[];
+    allergies: string;
 }
 
 export type Rating = {

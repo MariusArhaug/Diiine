@@ -13,16 +13,17 @@ const useStylesModified = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
+      padding: theme.spacing(3)
     },
     paper: {
       padding: theme.spacing(3),
       margin: 'auto',
       maxWidth: 500,
       backgroundColor: "#ffffff",
-      cursor: "pointer",
-      "&:hover": {
-        backgroundColor: "#fafafa"
-      }
+      // cursor: "pointer",
+      // "&:hover": {
+      //   backgroundColor: "#fafafa"
+      // }
     },
     image: {
       width: 128,
@@ -37,67 +38,59 @@ const useStylesModified = makeStyles((theme: Theme) =>
   }),
 );
 
-const user1: User = {
-    userId: 10,
-    name: "Olivia Olsen",
-    address: "Gregus gate 8",
-    email: "olivia@gmail.com",
-    isAdmin: false,
-    allergies: ["nuts", "milk"]
-}
+// const user1: User = {
+//     userId: 10,
+//     name: "Olivia Olsen",
+//     address: "Gregus gate 8",
+//     email: "olivia@gmail.com",
+//     isAdmin: false,
+//     allergies: ["nuts", "milk"]
+// }
 
-const temp: Dinner = {
-    dinners_id: 1,
-    owner: user1,
-    name: "Italiensk aften",
-    description: "Pasta, vin og sorbet",
-    address: "Angelltrøvegen 3, 7048 Trondheim",
-    tags: "Meat,Pasta,Wine, Dessert",
-    allergens: "Gluten",
-    ingredients: "",
-    isOpen: true,
-    attendants: [],
-    maxAttendants: 10,
-    date: new Date(2021, 2, 24, 19, 3)
-}
+// const temp: Dinner = {
+//     dinners_id: 1,
+//     owner: user1,
+//     name: "Italiensk aften",
+//     description: "Pasta, vin og sorbet",
+//     address: "Angelltrøvegen 3, 7048 Trondheim",
+//     tags: "Meat,Pasta,Wine, Dessert",
+//     allergens: "Gluten",
+//     ingredients: "",
+//     isOpen: true,
+//     attendants: [],
+//     maxAttendants: 10,
+//     date: new Date(2021, 2, 24, 19, 3)
+// }
 
 export default function Profile() {
   const classes = useStylesModified();
 
-  // const user: User = useAuth().user;
+  const user: User = useAuth().user;
 
-  // console.log(user);
+  console.log(user);
 
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    //Find dinner that we clicked on
-    client.service('users')
-      .get()
-      .then((res: any) => {
-        setUser(res);
-      })
-      .catch((e: Error) => { console.log('error', e); })
-  }, []);
+  // useEffect(() => {
+  //   //Find dinner that we clicked on
+  //   client.service('users')
+  //     .get()
+  //     .then((res: User) => {
+  //       setUser(res);
+  //     })
+  //     .catch((e: Error) => { console.log('error', e); })
+  // }, []);
 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper} style={{ textAlign: "left" }}>
         <Grid container spacing={1}>
 
-          <Grid item>
+          <Grid item xs={12}>
             <Typography variant="h5">
               {user?.name}
             </Typography>
           </Grid>
 
-          <Grid item xs={12}>
-            <Typography variant="body1">
-              Address: {user?.address}
-            </Typography>
-          </Grid>
-
-          <Grid item>
+          <Grid item xs>
             <Typography variant="body1">
               E-mail: {user?.email}
             </Typography>
@@ -106,18 +99,16 @@ export default function Profile() {
           {user?.allergies.length > 0 &&
             <Grid item xs={12}>
               <Typography variant="body2">
-                Registered allergens: {user?.allergies.join(', ')}
+                Registered allergies: {user?.allergies.split(',').join(', ')}
               </Typography>
             </Grid>
           }
         </Grid>
       </Paper>
 
-      <h1>
-        Upcoming dinner plans:
-        </h1>
+      {/* <h1>Upcoming dinner plans:</h1> */}
 
-      <Paper className={classes.paper} style={{ textAlign: "left" }}>
+      {/* <Paper className={classes.paper} style={{ textAlign: "left" }}>
         <Grid container spacing={1}>
           <Grid item xs={12}>
             <Typography variant="caption" color="textSecondary">
@@ -145,7 +136,7 @@ export default function Profile() {
             ))}
           </Grid>
         </Grid>
-      </Paper>
+      </Paper> */}
     </div>
   );
 }

@@ -21,22 +21,9 @@ export default function Login() {
         }));
     }
 
-    //can be put in another seperate file.
-    const validateEmail = (email: string) : boolean  => {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
-
-    const validatePassword = (password: string) : boolean => {
-        const re = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/;
-        return re.test(String(password).toLowerCase());
-    }
-
     const handleSubmit = async (event: React.FormEvent): Promise<void> => {
         event.preventDefault();
-        if (validateEmail(credentials.email) || validatePassword(credentials.password)) {
-            return;
-        }
+
         const result = await auth.signin(credentials);
         console.log(result);
     }
