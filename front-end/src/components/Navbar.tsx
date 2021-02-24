@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         navbar: {
             padding: "0",
-            backgroundColor: "#1d3557",
+            backgroundColor: "#e76f51",
             color: "white",
         },
         navigation: {

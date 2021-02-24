@@ -11,12 +11,13 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             flexGrow: 1,
+            padding: theme.spacing(3)
         },
         paper: {
             padding: theme.spacing(2),
             margin: 'auto',
             maxWidth: 10000,
-            backgroundColor: '#b3cbb9',
+            // backgroundColor: '#b3cbb9',
         },
         image: {
             width: 128,
@@ -130,17 +131,15 @@ export default function ComplexGrid() {
 
     return (
         <div className={classes.root}>
-            <Grid item xs={12}>
-                <Paper className={classes.paper}>
-                    <Grid container spacing={3} direction="column" justify="space-evenly" alignItems="stretch">
-                        {dinners.length && dinners!.map((dinner : Dinner) => (
-                            <Grid item>
-                                <DinnerCard {...dinner} key={dinner.dinners_id}/>
-                            </Grid>
-                        ))}
-                    </Grid>
-                </Paper>
-            </Grid>
+            {/* <Paper className={classes.paper}> */}
+                <Grid container spacing={3} direction="column" justify="space-evenly" alignItems="stretch">
+                    {dinners.length && dinners!.map((dinner : Dinner) => (
+                        <Grid item>
+                            <DinnerCard {...dinner} key={dinner.dinners_id}/>
+                        </Grid>
+                    ))}
+                </Grid>
+            {/* </Paper> */}
         </div>
     );
 }
