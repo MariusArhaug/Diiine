@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom';
 import { Dinner, User } from '../types';
 import client from '../feathers-client';
 import Rating from '@material-ui/lab/Rating';
-import Button from '@material-ui/core/Button';
+//import Button from '@material-ui/core/Button';
 
 // {dinnerId, name, address, type, allergens, attendants, date}: DinnerProps
 
@@ -34,9 +34,9 @@ export default function DinnerPage() {
         const data = {
             dinners_id: parseInt(dinnerId,10)
         }
-        console.log(data);
+        //console.log(data);
         client.service('attendingdinners').create(data)
-        console.log("lmao")
+        alert("You have now joined the dinner!");
     }
 
     useEffect(() => {
@@ -131,7 +131,7 @@ export default function DinnerPage() {
                                         </Grid>
                                     </Grid>
                                     <Grid item>
-                                        <Button variant="outlined">
+                                        <Button variant="outlined" onClick={handleJoinDinner}>
                                             Join dinner
                                         </Button>
                                     </Grid>
