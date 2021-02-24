@@ -1,102 +1,147 @@
-import React, { useState } from 'react';
-import { useAuth } from '../hooks/use-auth';
-import { Link as RouterLink } from 'react-router-dom';
-import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
+import { Chip, Grid } from '@material-ui/core';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Dinner, User } from '../types';
+//import { useStyles } from '../styles';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
+import client from '../feathers-client';
 
-export default function Login() {
-    const auth = useAuth();
+const useStylesModified = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing(3),
+      margin: 'auto',
+      maxWidth: 500,
+      backgroundColor: "#ffffff",
+      cursor: "pointer",
+      "&:hover": {
+        backgroundColor: "#fafafa"
+      }
+    },
+    image: {
+      width: 128,
+      height: 128,
+    },
+    img: {
+      margin: 'auto',
+      display: 'block',
+      maxWidth: '100%',
+      maxHeight: '100%',
+    },
+  }),
+);
 
-    const [credentials, setCredentials] = useState({
-        email: '',
-        password: ''
-    });
+const user1: User = {
+    userId: 10,
+    name: "Olivia Olsen",
+    address: "Gregus gate 8",
+    email: "olivia@gmail.com",
+    isAdmin: false,
+    allergies: ["nuts", "milk"]
+}
 
-    const [result, setResult] = useState(null);
+const temp: Dinner = {
+    dinners_id: 1,
+    owner: user1,
+    name: "Italiensk aften",
+    description: "Pasta, vin og sorbet",
+    address: "Angelltrøvegen 3, 7048 Trondheim",
+    tags: "Meat,Pasta,Wine, Dessert",
+    allergens: "Gluten",
+    attendants: [],
+    maxAttendants: 10,
+    date: new Date(2021, 2, 24, 19, 3)
+}
 
+export default function Profile () {
+//(props: User)
+  const classes = useStylesModified();
+  //const history = useHistory();
+//   const classes = useStyles();
+    //const [users, setUser] = useState([user1]);
+    /* useEffect(() => {
+        client.service('users')
+        .find({})
+        .then((res : any)  => {
+            console.log(res.data);
+            //setDinners(res.data);
+            setUser(res.data);
+    
+        })
+        .catch((e : Error) => { console.log('error', e); })
+    }, []); */
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCredentials((credentials) => ({
-            ...credentials,
-            [event.target.name]: event.target.value,
-        }));
-    }
+  return (
+    <div className={classes.root}>
+        <Paper className={classes.paper} style={{ textAlign: "left" }}>
+        <Grid container spacing={1}>
 
-    //can be put in another seperate file.
-    const validateEmail = (email: string) : boolean  => {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
+          <Grid item>
+            <Typography variant="h5">
+              {user1.name}
+            </Typography>
+          </Grid>
 
-    const validatePassword = (password: string) : boolean => {
-        const re = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/;
-        return re.test(String(password).toLowerCase());
-    }
+          <Grid item xs={12}>
+            <Typography variant="body1">
+              Address: {user1.address}
+            </Typography>
+          </Grid>
 
-    const handleSubmit = async (event: React.FormEvent): Promise<void> => {
-        event.preventDefault();
-        if (validateEmail(credentials.email) || validatePassword(credentials.password)) {
-            return;
-        }
-        const result = await auth.signin(credentials);
-        console.log(result);
-    }
+          <Grid item>
+            <Typography variant="body1">
+              E-mail: {user1.email}
+            </Typography>
+          </Grid>
+         
+          {user1.allergies.length > 0 && 
+          <Grid item xs={12}>
+            <Typography variant="body2">
+              Registered allergens: {user1.allergies.join(', ')}
+            </Typography>
+          </Grid>
+          }
+        </Grid>
+        </Paper>
 
-    return (
-        <div className="verticalCenter">
-            <Container maxWidth="xs">
-                <Paper style={{padding: "50px"}}>
-                    <form method='POST' onSubmit={handleSubmit}>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12}>
-                                <Typography variant="h4">
-                                    Login
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    id='email'
-                                    label='Email'
-                                    className='form-field'
-                                    type='text'
-                                    name='email'
-                                    value={credentials.email}
-                                    style={{width: "100%"}}
-                                    onChange={handleInputChange}
-                                />
-                            </Grid>
+        <h1>
+            Upcoming dinner plans:
+        </h1>
 
-                            <Grid item xs={12}>
-                                <TextField
-                                    id='password'
-                                    label='Password'
-                                    className='form-field'
-                                    type='password'
-                                    name='password'
-                                    value={credentials.password}
-                                    style={{width: "100%"}}
-                                    onChange={handleInputChange}
-                                />
-                            </Grid>
+        <Paper className={classes.paper} style={{ textAlign: "left" }}>
+        <Grid container spacing={1}>
+            <Grid item xs={12}>
+            <Typography variant="caption" color="textSecondary">
+            {temp.address}
+            </Typography>
+            </Grid>
 
-                            <Grid item xs={12}>
-                                <Button type='submit' variant="contained" color="primary" style={{width: "100%"}}>
-                                    Login
-                                </Button>
-                            </Grid>
+            <Grid item>
+                <Typography variant="h5">
+                {temp.name}
+                </Typography>
+            </Grid>
 
-                            <Grid item xs={12}>
-                                <Typography variant="caption">
-                                    Don't have an account yet? <Link
-                                    component={RouterLink} to="signup">Sign up</Link>
-                                </Typography>
-                            </Grid>
+            <Grid item container spacing={1}>
+                <Typography variant="subtitle1">
+                Date and time: {temp.date.toUTCString}
+                </Typography>
+            </Grid>
 
-                        </Grid>
-                    </form>
-                </Paper>
-            </Container>
-            {//}<Button component={RouterLink} to='/dinners'>Dinners</Button>
-            }
-        </div>
-    );
+            <Grid item container spacing={1}>
+                {temp.tags.split(',').map(a => (
+                <Grid item>
+                <Chip size="small" label={a} />
+                </Grid>
+                    ))}
+            </Grid> 
+            </Grid>
+        </Paper>
+    </div>
+  );
 }

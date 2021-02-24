@@ -4,6 +4,7 @@ import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import DinnerList from '../components/DinnerList';
 import DinnerPage from '../components/Dinner';
 import Navbar from '../components/Navbar';
+import Profile from '../components/Profile';
 
 export default function Home() {
 
@@ -24,7 +25,7 @@ export default function Home() {
                         Chat
                     </Route>
                     <Route path="/profile">
-                        Profile
+                        <Profile />
                     </Route>
                     <Route path="/dinner/:dinnerId">
                         <DinnerPage />
