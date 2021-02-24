@@ -13,6 +13,7 @@ import { useParams } from 'react-router-dom';
 import { Dinner, User } from '../types';
 import client from '../feathers-client';
 import Rating from '@material-ui/lab/Rating';
+import Button from '@material-ui/core/Button';
 
 // {dinnerId, name, address, type, allergens, attendants, date}: DinnerProps
 
@@ -25,6 +26,17 @@ export default function DinnerPage() {
     const [dinners, setDinners] = useState([]);
 
     let dinner: Dinner = dinners[0];
+
+
+    const handleJoinDinner = () => {
+        console.log("lol");
+        const data = {
+            dinners_id: parseInt(dinnerId,10)
+        }
+        console.log(data);
+        client.service('attendingdinners').create(data)
+        console.log("lmao")
+    }
 
     useEffect(() => {
         //Find dinner that we clicked on
@@ -172,6 +184,9 @@ export default function DinnerPage() {
                                     />
                                 </Typography>
                             </Paper>
+                        </Grid>
+                        <Grid>
+                            <Button onClick={handleJoinDinner}>Join dinner</Button>
                         </Grid>
                     </Grid>
                 }

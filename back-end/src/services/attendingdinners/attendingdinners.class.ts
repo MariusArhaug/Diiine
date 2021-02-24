@@ -3,7 +3,6 @@ import { Service, KnexServiceOptions } from 'feathers-knex';
 import { Application } from '../../declarations';
 
 interface AttendingdinnersData {
-  user_id: number,
   dinners_id: number
 }
 
@@ -18,7 +17,7 @@ export class Attendingdinners extends Service {
 
   // Sign up to given dinner_id with active user
   async create (data: AttendingdinnersData, params?: Params) {
-    const dinners_id = data.dinners_id;
+    const { dinners_id} = data;
     const user_id = params?.user?.user_id;
 
     const attendingdinnersdata = {

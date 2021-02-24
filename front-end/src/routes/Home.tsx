@@ -4,6 +4,7 @@ import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import DinnerList from '../components/DinnerList';
 import DinnerPage from '../components/DinnerPage';
 import Navbar from '../components/Navbar';
+import MyDinners from '../components/CreateDinner';
 
 export default function Home() {
 
@@ -18,7 +19,7 @@ export default function Home() {
                         <DinnerList />
                     </Route>
                     <Route path="/my_dinners">
-                        My dinners
+                        <MyDinners />
                     </Route>
                     <Route path="/chat">
                         Chat
