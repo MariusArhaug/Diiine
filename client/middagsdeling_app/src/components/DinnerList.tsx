@@ -60,34 +60,37 @@ const user3: User = {
 const dinner1: Dinner = {
     dinnerId: 1,
     owner: user1,
-    name: "Andeconfit med fondue til forrett og sjokolademousse til dessert",
+    name: "Duck Confit",
     description: "Nå sitter jeg og ser på skiskyting og lurer på hvordan den reagerer dersom jeg skriver mye tekst, om det vil bli slikt at det bli fortsatt bare en stor og lang tekstblokk, eller om det hopper ned",
-    address: "Gloes",
-    type: "Meat",
-    allergens: "None",
+    address: "Angelltrøvegen 3, 7048 Trondheim",
+    tags: ["Meat"],
+    allergens: ["Celery", "Nuts"],
     attendants: [user2, user3],
+    maxAttendants: 10,
     date: new Date()
 }
 const dinner2: Dinner = {
     dinnerId: 2,
     owner: user2,
-    name: "test2",
+    name: "Taco Friday",
     description: "desc2",
-    address: "Dragvoll",
-    type: "Vegan",
-    allergens: "Nut",
+    address: "Weidemanns vei 5B, 7014 Trondheim",
+    tags: ["Vegan"],
+    allergens: [],
     attendants: [user3],
+    maxAttendants: 10,
     date: new Date()
 }
 const dinner3: Dinner = {
     dinnerId: 3,
     owner: user3,
-    name: "test3",
+    name: "Tapas Night",
     description: "desc3",
-    address: "Tunga",
-    type: "Fish",
-    allergens: "Gluten, nuts",
+    address: "Høyskoleringen 1, 7030 Trondheim",
+    tags: ["Various"],
+    allergens: ["Gluten", "Eggs", "Soy", "Mustard", "Shellfish", "Other"],
     attendants: [],
+    maxAttendants: 10,
     date: new Date()
 }
 

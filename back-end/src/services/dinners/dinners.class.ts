@@ -1,27 +1,11 @@
+import { Params } from '@feathersjs/feathers';
 import { Service, KnexServiceOptions } from 'feathers-knex';
 import { Application } from '../../declarations';
-/* 
-CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`dinner` (
-  `dinner_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
-  `adress` VARCHAR(255) NOT NULL,
-  `type` VARCHAR(255) NOT NULL,
-  `allergens` VARCHAR(255) NOT NULL,
-  `attendants` INT(11) NOT NULL,
-  `isDivided` TINYINT(1) DEFAULT 0,
-  `isOpen` TINYINT(1) DEFAULT 0,
-  `expenses` DOUBLE NOT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date` DATE NOT NULL,
-  PRIMARY KEY (`dinner_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1; */
 
 interface DinnerData {
- dinner_id: number,
+ dinners_id: number,
  name: string,
- adress: string,
+ address: string,
  type: string,
  allergens: string,
  attendants: number,
@@ -29,6 +13,8 @@ interface DinnerData {
  isOpen: boolean,
  expenses: number,
  date: Date,
+ user_id: number,
+ banner: string
 }
 
 export class Dinners extends Service {
@@ -41,16 +27,37 @@ export class Dinners extends Service {
   }
 
   async create (data: DinnerData, params?: Params) {
-    // This is the information we want from the user signup data
-    const { name, adress, type, allergens } = data;
+    const { name, address, type, allergens, attendants, date } = data;
+    
+    // set user_id to the incoming user
+    const user_id = params?.user?.user_id;
+
     const dinnerData = {
       name,
-      adress,
+      address,
       type,
-      allergens
+      allergens,
+      attendants,
+      date,
+      user_id
     };
 
-    // Call the original `create` method with existing `params` and new data
     return super.create(dinnerData, params);
+  }
+
+  async find (params: Params) {
+    /* 
+      params.query {
+        date: {
+          $gte: YYYY-MM-DD
+        }
+      }
+      skal returnere middager fra og med dato.
+
+      params.query {user_id}
+      skal hente ut middager som har user_id
+    */
+
+    return super.find(params);
   }
 }

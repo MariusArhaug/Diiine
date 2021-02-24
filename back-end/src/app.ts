@@ -56,7 +56,6 @@ app.configure(channels);
 // Configure a middleware for 404s and the error handler
 app.use(express.notFound());
 app.use(express.errorHandler({ logger } as any));
-
 app.hooks(appHooks);
 
 export default app;

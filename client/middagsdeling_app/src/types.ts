@@ -4,9 +4,11 @@ export type Dinner = {
     name: string;
     description: string;
     address: string;
-    type: string;
+    tags: string[];
+    //change later to string Array
     allergens: string;
     attendants: User[];
+    maxAttendants: number;
     date: Date;
 }
 
