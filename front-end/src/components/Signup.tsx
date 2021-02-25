@@ -151,7 +151,7 @@ export const Signup = () => {
                                 </Grid>
 
                                 <Grid item xs={12}>
-                                    <Button type='submit' variant="contained" color="primary" style={{ width: "100%" }}>
+                                    <Button component={RouterLink} to="/profile" type='submit' variant="contained" color="primary" style={{ width: "100%" }}>
                                         Sign Up
                                 </Button>
                                 </Grid>
