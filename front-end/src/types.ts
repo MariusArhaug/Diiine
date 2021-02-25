@@ -34,3 +34,7 @@ export type Chat = {
     from: User;
     message: string;
 }
+
+export type Chip = {
+    label: string; value: string
+};

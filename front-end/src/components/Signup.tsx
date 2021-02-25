@@ -3,6 +3,7 @@ import { useAuth } from '../hooks/use-auth';
 import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Link as RouterLink } from 'react-router-dom';
+import { Chip } from '../types';
 
 const allergies = [
     {label: 'Lactose', value: 'lactose'},
@@ -22,7 +23,12 @@ const allergies = [
 export const Signup = () => {
     const auth = useAuth();
 
-    const [credentials, setCredentials] = useState({
+    const [credentials, setCredentials] = useState<{
+        name: string,
+        email: string,
+        password: string,
+        allergies: Chip[]
+    }>({
         name: '',
         email: '',
         password: '',
@@ -39,13 +45,6 @@ export const Signup = () => {
         const re = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/;
         return re.test(String(password).toLowerCase());
     }
-    const handleAllergyChange = (event: any) => {
-        console.log(event.target.value)
-        setCredentials((credentials) => ({
-            ...credentials,
-            [event.target.name]: [event.target.value],
-        }));
-    }
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         /*if (validateEmail(credentials.email) || validatePassword(credentials.password)) {
@@ -57,10 +56,28 @@ export const Signup = () => {
         }));
     }
 
+    const createChipArray = (value: any) => {
+        let temp = []
+        for (let element of value){
+            if (!(element.hasOwnProperty("label")) || !(element.hasOwnProperty("value"))){
+                temp.push({label: element, value: element})
+            }
+            else {
+                temp.push(element)
+            }
+        }
+        return temp
+    }
+
+    const handleAllergyChange = (event: any, value: any) => {
+        setCredentials({ ...credentials, allergies: createChipArray(value) });
+    }
+
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         console.log(credentials)
-        const result = await auth.signup(credentials);
+        const form = {...credentials, allergies: credentials.allergies.map(a => a.value)};
+        const result = await auth.signup(form);
         console.log(result);
     }
 
@@ -134,15 +151,16 @@ export const Signup = () => {
                                         multiple
                                         id="tags-standard"
                                         value={credentials.allergies}
+                                        onChange={handleAllergyChange}
                                         options={allergies}
                                         getOptionLabel={(option) => option.label}
                                         renderInput={(params) => (
-                                        <TextField
-                                            {...params}
-                                            variant="standard"
-                                            label="Allergies"
-                                            placeholder="Allergies"
-                                        />
+                                            <TextField
+                                                {...params}
+                                                variant="standard"
+                                                label="Allergens"
+                                                placeholder="Allergy"
+                                            />
                                         )}
                                     />
                                 </Grid>

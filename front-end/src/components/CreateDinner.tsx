@@ -10,6 +10,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import client from '../feathers-client'
 import { useStyles } from '../styles';
 import { stringify } from 'querystring';
+import { Chip } from '../types';
 //import { Link as RouterLink } from 'react-router-dom';
 
 const allergies: Chip[] = [
@@ -26,8 +27,6 @@ const allergies: Chip[] = [
     {label: 'Lupin', value: 'lupin'},
     {label: 'Sulfites', value: 'sulfites'},
 ]
-
-type Chip = {label: string; value: string};
 
 const tags: Chip[] = [
     { label: 'Vegan', value: 'vegan' },
@@ -136,7 +135,8 @@ export default function MyDinners() {
         event.preventDefault(); 
         console.log(credentials)
         // const dinner = client.service('dinners').create(credentials)
-        const dinner = client.service('dinners').create(test)
+        const form = {...credentials, allergens: credentials.allergens.map(a => a.value), tags: credentials.tags.map(t => t.value)};
+        const dinner = client.service('dinners').create(form)
             .then()
             .catch((e: Error) => {
                 console.log('couldn\'t create user', e);
