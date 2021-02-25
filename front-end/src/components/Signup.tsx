@@ -166,7 +166,7 @@ export const Signup = () => {
                             </Grid>
                         </form>
                     </Paper>
-                    <Button component={RouterLink} to='/profile'>Dinners</Button>
+                    <Button component={RouterLink} to='/profile'>Profile</Button>
                 </Container>
             </div>
         </div>
