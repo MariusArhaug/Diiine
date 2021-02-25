@@ -66,7 +66,7 @@ export default function Login() {
                             </Grid>
 
                             <Grid item xs={12}>
-                                <Button type='submit' variant="contained" color="primary" style={{width: "100%"}}>
+                                <Button component={RouterLink} to="/dinners" type='submit' variant="contained" color="primary" style={{width: "100%"}}>
                                     Login
                                 </Button>
                             </Grid>
@@ -82,7 +82,7 @@ export default function Login() {
                     </form>
                 </Paper>
             </Container>
-            <Button component={RouterLink} to='/dinners'>Dinners</Button>
+            {/* <Button component={RouterLink} to='/dinners'>Dinners</Button> */}
         </div>
     );
 }
