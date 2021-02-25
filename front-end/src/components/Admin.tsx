@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Dinner, User } from '../types';
 import client from '../feathers-client'
-import { makeStyles } from '@material-ui/core/styles';
 import AdminCard from './AdminCard';
 
 
@@ -10,7 +9,7 @@ import AdminCard from './AdminCard';
 export default function Admin() {
 
     const [users, setUsers] = useState({
-        data: []
+        data: 
     });
     const [dinners, setDinners] = useState({
         data: []
@@ -36,9 +35,7 @@ export default function Admin() {
 
     return (
         <div>
-            {users.map((user: User) => {
-                <AdminCard key={user.userId} user={user} />
-            })}
+            Work in progress
         </div>
     )
 
