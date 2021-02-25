@@ -14,7 +14,16 @@ import { useStyles } from '../styles';
 const allergies = [
     {label: 'Lactose', value: 'lactose'},
     {label: 'Gluten', value: 'gluten'},
-    {label: 'Nuts', value: 'nuts'},
+    {label: 'Shellfish', value: 'shellfish'},
+    {label: 'Egg', value: 'egg'},
+    {label: 'Fish', value: 'fish'},
+    {label: 'Mustard', value: 'mustard'},
+    {label: 'Celleri', value: 'celleri'},
+    {label: 'Peanuts', value: 'peanuts'},
+    {label: 'Soy', value: 'soy'},
+    {label: 'Molluscs', value: 'molluscs'},
+    {label: 'Lupin', value: 'lupin'},
+    {label: 'Sulfites', value: 'sulfites'},
 ]
 
 const tags = [
