@@ -94,32 +94,17 @@ export const Signup = () => {
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Grid container spacing={3}>
-                                        <Grid item xs={6}>
-                                            <TextField
-                                                id='name'
-                                                label='Name'
-                                                className='form-field'
-                                                type='text'
-                                                name='name'
-                                                value={credentials.name}
-                                                style={{ width: "100%" }}
-                                                onChange={handleInputChange}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <TextField
-                                                    id='lastname'
-                                                    label='Last name'
-                                                    className='form-field'
-                                                    type='text'
-                                                    name='lastName'
-                                                    style={{ width: "100%" }}
-                                                    
-                                            />
-                                        </Grid>
+                                    <TextField
+                                        id='name'
+                                        label='Name'
+                                        className='form-field'
+                                        type='text'
+                                        name='name'
+                                        value={credentials.name}
+                                        style={{ width: "100%" }}
+                                        onChange={handleInputChange}
+                                    />
                                     </Grid>
-                                </Grid>
                                 <Grid item xs={12}>
                                     <TextField
                                         id='email'
