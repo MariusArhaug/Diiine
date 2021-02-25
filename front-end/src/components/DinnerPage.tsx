@@ -197,15 +197,12 @@ export default function DinnerPage() {
                             </Paper>
                         </Grid>
                         {/*------------------------------INGREDIENTS--------------------- */}
-                        <Grid item xs={12} md={6}>
+                        {/* <Grid item xs={12} md={6}>
                             <Paper className={classes.container}>
                                 <Typography variant="h6">Ingredients</Typography>
                                 <Typography variant="body1">{state.dinner.ingredients}</Typography>
                             </Paper>
-                        </Grid>
-                        <Grid>
-                            <Button onClick={handleJoinDinner}>Join dinner</Button>
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 }
             </Paper>

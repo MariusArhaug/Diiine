@@ -132,16 +132,17 @@ export default function MyDinners() {
     }
 
     const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault(); 
-        console.log(credentials)
-        // const dinner = client.service('dinners').create(credentials)
-        const form = {...credentials, allergens: credentials.allergens.map(a => a.value), tags: credentials.tags.map(t => t.value)};
+        event.preventDefault();
+        const form = {...credentials,
+            allergens: credentials.allergens.map(a => a.value).join(","),
+            tags: credentials.tags.map(t => t.value).join(","),
+            ingredients: credentials.ingredients.join(",")};
+        
         const dinner = client.service('dinners').create(form)
             .then()
             .catch((e: Error) => {
                 console.log('couldn\'t create user', e);
             });
-        console.log(dinner);
     }
 
     return (
@@ -176,7 +177,6 @@ export default function MyDinners() {
                                             type="date"
                                             name="date"
                                             defaultValue={credentials.date}
-                                            // className={classes.textField}
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
@@ -200,12 +200,14 @@ export default function MyDinners() {
 
                             <Grid item xs={12}>
                                 <TextField
-                                    id="outlined-multiline-static"
+                                    id="description"
                                     label="Description"
+                                    name="description"
                                     multiline
                                     rows={4}
                                     style={{ width: "100% " }}
-                                    defaultValue="Description"
+                                    value={credentials.description}
+                                    onChange={handleInputChange}
                                     variant="outlined"
                                 />
                             </Grid>
@@ -263,12 +265,9 @@ export default function MyDinners() {
                             </Grid>
 
                             <Grid item xs={12}>
-                                <Button variant="contained" color="primary" style={{ width: "100%" }} onClick={() => { console.log(credentials) }}>
+                                <Button type='submit' variant="contained" color="primary" style={{ width: "100%" }}>
                                     Create dinner!
                                 </Button>
-                                {/* <Button type='submit' variant="contained" color="primary" style={{ width: "100%" }}>
-                                    Create dinner!
-                                </Button> */}
                             </Grid>
 
                         </Grid>
