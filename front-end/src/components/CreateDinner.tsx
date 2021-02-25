@@ -173,7 +173,7 @@ export default function MyDinners() {
                                     <Grid item xs={6}>
                                         <TextField
                                             id="date"
-                                            label="Birthday"
+                                            label="Date"
                                             type="date"
                                             name="date"
                                             defaultValue={credentials.date}
