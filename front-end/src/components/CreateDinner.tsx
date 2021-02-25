@@ -17,6 +17,12 @@ const allergies = [
     {label: 'Nuts', value: 'nuts'},
 ]
 
+const tags = [
+    {label: 'Taco', value: 'Taco'},
+    {label: 'Fiesta', value: 'Fiesta'},
+    {label: 'Cava', value: 'Cava'},
+]
+
 export default function MyDinners() {
 
     const classes = useStyles();
@@ -36,27 +42,23 @@ export default function MyDinners() {
         banner: ''
     });
 
-    const [checkState, setCheckState] = useState({
-        isDivided: false,
-        isOpen: false,
-        
-    });
-
-    const handleChange = (event: any) => {
-        setCheckState({ ...checkState, [event.target.name]: event.target.checked });
-      };
-
-    const { isDivided, isOpen} = checkState;
-
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCredentials((credentials) => ({
-            ...credentials,
-            [event.target.name]: event.target.value,
-        }));
+        if (event.target.name === 'isDivided' || event.target.name === 'isOpen') {
+            setCredentials((credentials) => ({
+                ...credentials,
+                [event.target.name]: event.target.checked,
+            }));
+        } else {
+            setCredentials((credentials) => ({
+                ...credentials,
+                [event.target.name]: event.target.value,
+            }));
+        }
+       
     }
 
     const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
+        event.preventDefault(); 
         console.log(credentials)
         const dinner = client.service('dinners').create(credentials)
         .then()
@@ -134,11 +136,11 @@ export default function MyDinners() {
                             <Grid item xs={12}>
                                 <FormGroup>
                                     <FormControlLabel
-                                        control={<Checkbox checked={isDivided} onChange={handleChange} name="isDivided" color="primary" />}
+                                        control={<Checkbox checked={credentials.isDivided} onChange={handleInputChange} name="isDivided" color="primary" />}
                                         label="Split the bill"
                                     />
                                     <FormControlLabel
-                                        control={<Checkbox checked={isOpen} onChange={handleChange} name="isOpen" color="primary"/>}
+                                        control={<Checkbox checked={credentials.isOpen} onChange={handleInputChange} name="isOpen" color="primary"/>}
                                         label="Open"
                                     />
             
@@ -149,7 +151,7 @@ export default function MyDinners() {
                                 <Autocomplete
                                     multiple
                                     id="tags-standard"
-                                    value={undefined}
+                                    value={credentials.allergens}
                                     options={allergies}
                                     getOptionLabel={(option) => option.label}
                                     renderInput={(params) => (
@@ -157,7 +159,7 @@ export default function MyDinners() {
                                         {...params}
                                         variant="standard"
                                         label="Allergens"
-                                        placeholder="Allergy"
+                                        placeholder="Allergens"
                                     />
                                     )}
                                 />
@@ -166,8 +168,8 @@ export default function MyDinners() {
                                 <Autocomplete
                                     multiple
                                     id="tags-standard"
-                                    value={undefined}
-                                    options={allergies}
+                                    value={credentials.tags}
+                                    options={tags}
                                     getOptionLabel={(option) => option.label}
                                     renderInput={(params) => (
                                     <TextField
