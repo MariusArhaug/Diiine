@@ -47,8 +47,8 @@ export default function ButtonAppBar() {
                 <div className={classes.navigation}>
                     <Tabs value={value} onChange={handleChange}>
                         <Tab component={RouterLink} to="/dinners" label="Dinners" />
-                        <Tab component={RouterLink} to="/my_dinners" label="My Dinners" />
-                        <Tab component={RouterLink} to="/chat" label="Chats" />
+                        <Tab component={RouterLink} to="/my_dinners" label="New dinner" />
+                        {/* <Tab component={RouterLink} to="/chat" label="Chats" /> */}
                         <Tab component={RouterLink} to="/login" label="Login" />
                     </Tabs>
 

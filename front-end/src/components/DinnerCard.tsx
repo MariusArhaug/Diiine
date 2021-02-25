@@ -58,13 +58,13 @@ export default function ListComponent(props: Dinner) {
             </Typography>
           </Grid>
 
-         
-          {props.allergens.length > 0 && 
-          <Grid item xs={12}>
-            <Typography variant="body2">
-              Allergens: {props.allergens.split(',').join(', ')}
-            </Typography>
-          </Grid>
+
+          {props.allergens.length > 0 &&
+            <Grid item xs={12}>
+              <Typography variant="body2">
+                Allergens: {props.allergens.split(',').join(', ')}
+              </Typography>
+            </Grid>
           }
 
           <Grid item container spacing={1}>

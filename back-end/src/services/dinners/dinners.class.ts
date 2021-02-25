@@ -6,23 +6,15 @@ interface DinnerData {
  dinners_id: number,
  name: string,
  address: string,
-<<<<<<< HEAD
  description: string,
  date: Date,
  ingredients: string,
  tags: string,
-=======
- type: string,
->>>>>>> user-profile
  allergens: string,
  attendants: number,
  isDivided: boolean,
  isOpen: boolean,
  expenses: number,
-<<<<<<< HEAD
-=======
- date: Date,
->>>>>>> user-profile
  user_id: number,
  banner: string
 }
@@ -36,7 +28,6 @@ export class Dinners extends Service {
     });
   }
 
-<<<<<<< HEAD
   async create (data: DinnerData, params?: Params) { //DinenrData is the object that is being parsed from front-end
     const { 
       name,
@@ -73,22 +64,6 @@ export class Dinners extends Service {
       expenses,
       user_id,
       banner
-=======
-  async create (data: DinnerData, params?: Params) {
-    const { name, address, type, allergens, attendants, date } = data;
-    
-    // set user_id to the incoming user
-    const user_id = params?.user?.user_id;
-
-    const dinnerData = {
-      name,
-      address,
-      type,
-      allergens,
-      attendants,
-      date,
-      user_id
->>>>>>> user-profile
     };
 
     return super.create(dinnerData, params);
