@@ -23,18 +23,11 @@ import app from '../../app';
 // A type interface for our user (no valdiation) 
 interface UserData {
   user_id: number,
-<<<<<<< HEAD
   name: string,
-=======
->>>>>>> user-profile
   email: string,
   password: string,
   created_at: Date,
   updated_at: Date,
-<<<<<<< HEAD
-=======
-  allergies: string,
->>>>>>> user-profile
   isAdmin: boolean,
   allergies: string[],
   rating_id: number,
@@ -59,29 +52,20 @@ export class Users extends Service<UserData> {
   }
   
   async create(data: UserData, params?: Params) {
-<<<<<<< HEAD
     const { email, password, name, allergies, isAdmin} = data;
 
     //Turn allergies into string
     console.log(allergies);
     //let allergiesString = allergies.join(', ');
 
-=======
-    const { email, password, name, allergies, isAdmin } = data;
->>>>>>> user-profile
     const userData = {
       email,
       password,
       name,
-<<<<<<< HEAD
       created_at: new Date(),
       updated_at: new Date(),
       allergies,
       isAdmin,
-=======
-      allergies,
-      isAdmin
->>>>>>> user-profile
     };
       // Call original `create` method with existing params and new data.
     return super.create(userData, params);
