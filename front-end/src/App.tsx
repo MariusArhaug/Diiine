@@ -9,6 +9,7 @@ import {ProvideAuth, useAuth} from './hooks/use-auth'
 import Login from './routes/LoginRoute';
 import Register from './routes/RegisterRoute';
 import Home from './routes/Home';
+import Admin from './routes/AdminRoute'
 import Footer from './components/Footer';
 
 export default function App() {

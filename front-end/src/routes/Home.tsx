@@ -6,6 +6,7 @@ import DinnerPage from '../components/DinnerPage';
 import Navbar from '../components/Navbar';
 import MyDinners from '../components/CreateDinner';
 import Profile from '../components/Profile';
+import Admin from '../components/Admin';
 
 export default function Home() {
 
@@ -18,6 +19,9 @@ export default function Home() {
                 <Switch>
                     <Route path="/dinners">
                         <DinnerList />
+                    </Route>
+                    <Route path="/admin">
+                        <Admin />
                     </Route>
                     <Route path="/my_dinners">
                         <MyDinners />

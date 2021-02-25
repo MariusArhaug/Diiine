@@ -132,7 +132,7 @@ export const Signup = () => {
                                             {...params}
                                             variant="standard"
                                             label="Allergies"
-                                            placeholder="Allergy"
+                                            placeholder="Allergies"
                                         />
                                         )}
                                     />

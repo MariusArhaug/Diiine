@@ -86,10 +86,18 @@ export default function MyDinners() {
     const { isDivided, isOpen } = checkState;
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCredentials((credentials) => ({
-            ...credentials,
-            [event.target.name]: event.target.value,
-        }));
+        if (event.target.name === 'isDivided' || event.target.name === 'isOpen') {
+            setCredentials((credentials) => ({
+                ...credentials,
+                [event.target.name]: event.target.checked,
+            }));
+        } else {
+            setCredentials((credentials) => ({
+                ...credentials,
+                [event.target.name]: event.target.value,
+            }));
+        }
+       
     }
 
     const createChipArray = (value: any) => {
@@ -116,7 +124,7 @@ export default function MyDinners() {
     }
 
     const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
+        event.preventDefault(); 
         console.log(credentials)
         // const dinner = client.service('dinners').create(credentials)
         const dinner = client.service('dinners').create(test)
@@ -196,11 +204,11 @@ export default function MyDinners() {
                             <Grid item xs={12}>
                                 <FormGroup>
                                     <FormControlLabel
-                                        control={<Checkbox checked={isDivided} onChange={handleChange} name="isDivided" color="primary" />}
+                                        control={<Checkbox checked={credentials.isDivided} onChange={handleInputChange} name="isDivided" color="primary" />}
                                         label="Split the bill"
                                     />
                                     <FormControlLabel
-                                        control={<Checkbox checked={isOpen} onChange={handleChange} name="isOpen" color="primary" />}
+                                        control={<Checkbox checked={credentials.isOpen} onChange={handleInputChange} name="isOpen" color="primary"/>}
                                         label="Open"
                                     />
 
