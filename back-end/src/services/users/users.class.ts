@@ -29,7 +29,7 @@ interface UserData {
   created_at: Date,
   updated_at: Date,
   isAdmin: boolean,
-  allergies: string[],
+  allergies: string,
   rating_id: number,
   chatted_to: number,
   avatar: string,

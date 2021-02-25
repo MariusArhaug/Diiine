@@ -75,8 +75,10 @@ export const Signup = () => {
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        console.log(credentials)
-        const form = {...credentials, allergies: credentials.allergies.map(a => a.value)};
+       
+        const form = {...credentials, 
+            allergies: credentials.allergies.map(a => a.value).join(",")};
+        console.log(form)
         const result = await auth.signup(form);
         console.log(result);
     }
@@ -166,7 +168,7 @@ export const Signup = () => {
                             </Grid>
                         </form>
                     </Paper>
-                    <Button component={RouterLink} to='/profile'>Profile</Button>
+                    <Button component={RouterLink} to='/login'>Log in</Button>
                 </Container>
             </div>
         </div>

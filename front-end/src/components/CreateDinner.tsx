@@ -141,7 +141,7 @@ export default function MyDinners() {
         const dinner = client.service('dinners').create(form)
             .then()
             .catch((e: Error) => {
-                console.log('couldn\'t create user', e);
+                console.log('couldn\'t create dinner', e);
             });
     }
 
