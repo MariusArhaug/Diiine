@@ -1,19 +1,23 @@
 import * as feathersAuthentication from '@feathersjs/authentication';
 import * as local from '@feathersjs/authentication-local';
+import parseObjectToString from '../../hooks/parse-object-to-string';
+import isAdminOrSelfOwned from '../../hooks/is-admin-or-self-owned';
+
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = feathersAuthentication.hooks;
 const { hashPassword, protect } = local.hooks;
+
 
 export default {
   before: {
     all: [],
     find: [ authenticate('jwt') ],
     get: [ authenticate('jwt') ],
-    create: [ hashPassword('password') ],
-    update: [ hashPassword('password'),  authenticate('jwt') ],
-    patch: [ hashPassword('password'),  authenticate('jwt') ],
-    remove: [ authenticate('jwt') ]
+    create: [hashPassword('password'), parseObjectToString('allergies')], 
+    update: [ hashPassword('password'),  authenticate('jwt'), isAdminOrSelfOwned() ],
+    patch: [ hashPassword('password'),  authenticate('jwt'), isAdminOrSelfOwned() ],
+    remove: [authenticate('jwt'), isAdminOrSelfOwned()]
   },
 
   after: {

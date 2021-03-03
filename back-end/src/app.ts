@@ -9,7 +9,6 @@ import configuration from '@feathersjs/configuration';
 import express from '@feathersjs/express';
 import socketio from '@feathersjs/socketio';
 
-
 import { Application } from './declarations'; // Type-definitions 
 import logger from './logger';
 import middleware from './middleware';
@@ -21,6 +20,8 @@ import authentication from './authentication';
 import knex from './knex'; // ORM mellom MySql og Feathers
 // Don't remove this comment. It's needed to format import lines nicely.
 
+//import dotenv from 'dotenv';
+//dotenv.config();
 const app: Application = express(feathers());
 export type HookContext<T = any> = { app: Application } & FeathersHookContext<T>;
 
@@ -55,7 +56,6 @@ app.configure(channels);
 // Configure a middleware for 404s and the error handler
 app.use(express.notFound());
 app.use(express.errorHandler({ logger } as any));
-
 app.hooks(appHooks);
 
 export default app;

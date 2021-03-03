@@ -19,7 +19,7 @@
         "typ": "access"
       },
       "audience": "https://yourdomain.com",
-      "issuer": "feathers",
+      "issuer": "middagsdeling",
       "algorithm": "HS256",
       "expiresIn": "1d"
     },
@@ -27,9 +27,16 @@
       "usernameField": "email",
       "passwordField": "password"
     }
+
   },
   "mysql": {
     "client": "mysql2",
-    "connection": "mysql://root:@localhost:3306/back_end"
+    "connection": {
+      "host": "mysql.stud.ntnu.no",
+      "user": "fs_tdt4140_1_gruppe40",
+      "password": "vielskerPUlol40",
+      "database": "fs_tdt4140_1_gruppe40_mddb",
+      "dateStrings": true
+    }
   }
 }
