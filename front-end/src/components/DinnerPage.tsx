@@ -13,6 +13,7 @@ import { useParams } from 'react-router-dom';
 import { Dinner, User } from '../types';
 import client from '../feathers-client';
 import Rating from '@material-ui/lab/Rating';
+import NewRating from './NewRating';
 //import Button from '@material-ui/core/Button';
 
 // {dinnerId, name, address, type, allergens, attendants, date}: DinnerProps
@@ -128,6 +129,9 @@ export default function DinnerPage() {
                                                 value={4}
                                                 readOnly
                                             />
+                                        </Grid>
+                                        <Grid item>
+                                            <NewRating/>
                                         </Grid>
                                     </Grid>
                                     <Grid item>
