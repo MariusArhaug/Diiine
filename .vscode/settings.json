@@ -1,0 +1,17 @@
+{
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "mysql.stud.ntnu.no",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "TDT4140_ProgramvareUtvikling",
+      "username": "fs_tdt4140_1_gruppe40",
+      "password": "vielskerPUlol40",
+      "database": "fs_tdt4140_1_gruppe40_mddb"
+    }
+  ]
+}

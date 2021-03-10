@@ -1,10 +1,9 @@
 import { Container } from '@material-ui/core';
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import DinnerList from '../components/DinnerList';
-import DinnerPage from '../components/DinnerPage';
+import DinnerPage from '../pages/Dinners/Dinners';
 import Navbar from '../components/Navbar';
-import MyDinners from '../components/CreateDinner';
+import MyDinners from '../pages/Dinners/CreateDinner';
 import Profile from '../components/Profile';
 import Admin from '../components/Admin';
 
@@ -18,7 +17,7 @@ export default function Home() {
             <Container maxWidth="lg" className="MainContainer">
                 <Switch>
                     <Route path="/dinners">
-                        <DinnerList />
+                        <DinnerPage />
                     </Route>
                     <Route path="/admin">
                         <Admin />
