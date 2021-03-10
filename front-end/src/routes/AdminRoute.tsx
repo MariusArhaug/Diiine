@@ -1,5 +1,5 @@
 import React from 'react';
-import Admin from '../components/Admin';
+import Admin from '../pages/Admin/Admin';
 
 export default function AdminRoute() {
     return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Dinner, User } from '../types';
-import client from '../feathers-client'
+import { Dinner, User } from '../../types';
+import client from '../../feathers-client'
 import AdminCard from './AdminCard';
 
 

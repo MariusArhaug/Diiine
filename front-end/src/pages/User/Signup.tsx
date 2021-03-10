@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useAuth } from '../hooks/use-auth';
+import { useAuth } from '../../hooks/use-auth';
 import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Link as RouterLink } from 'react-router-dom';
-import { Chip } from '../types';
+import { Chip } from '../../types';
 
 const allergies = [
   { label: 'Lactose', value: 'lactose' },
@@ -47,9 +47,9 @@ export const Signup = () => {
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    /*if (validateEmail(credentials.email) || validatePassword(credentials.password)) {
-        return; //check fields.
-    }*/
+    if (validateEmail(credentials.email) || validatePassword(credentials.password)) {
+      return; //check fields.
+    }
     setCredentials((credentials) => ({
       ...credentials,
       [event.target.name]: event.target.value,
