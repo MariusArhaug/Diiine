@@ -7,25 +7,25 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
-import client from '../feathers-client'
-import { useStyles } from '../styles';
+import client from '../../feathers-client'
+import { useStyles } from '../../styles';
 import { stringify } from 'querystring';
-import { Chip } from '../types';
+import { Chip } from '../../types';
 //import { Link as RouterLink } from 'react-router-dom';
 
 const allergies: Chip[] = [
-    {label: 'Lactose', value: 'lactose'},
-    {label: 'Gluten', value: 'gluten'},
-    {label: 'Shellfish', value: 'shellfish'},
-    {label: 'Egg', value: 'egg'},
-    {label: 'Fish', value: 'fish'},
-    {label: 'Mustard', value: 'mustard'},
-    {label: 'Celleri', value: 'celleri'},
-    {label: 'Peanuts', value: 'peanuts'},
-    {label: 'Soy', value: 'soy'},
-    {label: 'Molluscs', value: 'molluscs'},
-    {label: 'Lupin', value: 'lupin'},
-    {label: 'Sulfites', value: 'sulfites'},
+    { label: 'Lactose', value: 'lactose' },
+    { label: 'Gluten', value: 'gluten' },
+    { label: 'Shellfish', value: 'shellfish' },
+    { label: 'Egg', value: 'egg' },
+    { label: 'Fish', value: 'fish' },
+    { label: 'Mustard', value: 'mustard' },
+    { label: 'Celleri', value: 'celleri' },
+    { label: 'Peanuts', value: 'peanuts' },
+    { label: 'Soy', value: 'soy' },
+    { label: 'Molluscs', value: 'molluscs' },
+    { label: 'Lupin', value: 'lupin' },
+    { label: 'Sulfites', value: 'sulfites' },
 ]
 
 const tags: Chip[] = [
@@ -105,14 +105,14 @@ export default function MyDinners() {
                 [event.target.name]: event.target.value,
             }));
         }
-       
+
     }
 
     const createChipArray = (value: any) => {
         let temp = []
-        for (let element of value){
-            if (!(element.hasOwnProperty("label")) || !(element.hasOwnProperty("value"))){
-                temp.push({label: element, value: element})
+        for (let element of value) {
+            if (!(element.hasOwnProperty("label")) || !(element.hasOwnProperty("value"))) {
+                temp.push({ label: element, value: element })
             }
             else {
                 temp.push(element)
@@ -123,7 +123,7 @@ export default function MyDinners() {
 
     const handleTagChange = (event: any, value: any) => {
         console.log(event);
-        
+
         setCredentials({ ...credentials, tags: createChipArray(value) });
     }
 
@@ -133,11 +133,13 @@ export default function MyDinners() {
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        const form = {...credentials,
+        const form = {
+            ...credentials,
             allergens: credentials.allergens.map(a => a.value).join(","),
             tags: credentials.tags.map(t => t.value).join(","),
-            ingredients: credentials.ingredients.join(",")};
-        
+            ingredients: credentials.ingredients.join(",")
+        };
+
         const dinner = client.service('dinners').create(form)
             .then()
             .catch((e: Error) => {
@@ -219,7 +221,7 @@ export default function MyDinners() {
                                         label="Split the bill"
                                     />
                                     <FormControlLabel
-                                        control={<Checkbox checked={credentials.isOpen} onChange={handleInputChange} name="isOpen" color="primary"/>}
+                                        control={<Checkbox checked={credentials.isOpen} onChange={handleInputChange} name="isOpen" color="primary" />}
                                         label="Open"
                                     />
 
