@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar';
 import MyDinners from '../components/CreateDinner';
 import Profile from '../components/Profile';
 import Admin from '../components/Admin';
+import ChatPrototype from '../components/ChatPrototype';
 
 export default function Home() {
 
@@ -17,6 +18,9 @@ export default function Home() {
             <Navbar />
             <Container maxWidth="lg" className="MainContainer">
                 <Switch>
+                    <Route path="/chat">
+                        <ChatPrototype />
+                    </Route>
                     <Route path="/dinners">
                         <DinnerList />
                     </Route>
