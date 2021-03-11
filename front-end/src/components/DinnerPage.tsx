@@ -126,12 +126,10 @@ export default function DinnerPage() {
                                         <Grid item>
                                             <Rating
                                                 name="simple-controlled"
+                                                //value={state.owner.avg_rating}
                                                 value={4}
                                                 readOnly
                                             />
-                                        </Grid>
-                                        <Grid item>
-                                            <NewRating/>
                                         </Grid>
                                     </Grid>
                                     <Grid item>
@@ -145,71 +143,83 @@ export default function DinnerPage() {
                         
                         
 
+                        <Grid item container xs={12} md={6} spacing={3}>
+                            {/*-------------------------DETAILS-------------------------*/}
+                            <Grid item xs={12}>
+                                <Paper className={classes.container}>
+                                    <Typography variant="h6" className={classes.textIcon}>Details</Typography>
 
-                        {/*-------------------------DETAILS-------------------------*/}
-                        <Grid item xs={12} md={6}>
-                            <Paper className={classes.container}>
-                                <Typography variant="h6" className={classes.textIcon}>Details</Typography>
-
-                                <Grid container spacing={1} alignItems="center" justify="flex-start">
-                                    <Grid item><GroupIcon /></Grid>
-                                    <Grid item>
-                                        <Typography variant="subtitle1">
-                                            Number of attendants: {state.dinner.attendants}
-                                        </Typography>
+                                    <Grid container spacing={1} alignItems="center" justify="flex-start">
+                                        <Grid item><GroupIcon /></Grid>
+                                        <Grid item>
+                                            <Typography variant="subtitle1">
+                                                Number of attendants: {state.dinner.attendants}
+                                            </Typography>
+                                        </Grid>
                                     </Grid>
-                                </Grid>
 
-                                {/* Attendants */}
-                                {/* Need to update attendants-type in back-end
-                                <AvatarGroup max={3} className={classes.avatarGroup}>
-                                    dinner.attendants.map((a: User) => (
-                                            <Tooltip title={a.name} placement="bottom">
-                                                <Avatar>{a.name.charAt(0)}</Avatar>
-                                            </Tooltip>
+                                    {/* Attendants */}
+                                    {/* Need to update attendants-type in back-end
+                                    <AvatarGroup max={3} className={classes.avatarGroup}>
+                                        dinner.attendants.map((a: User) => (
+                                                <Tooltip title={a.name} placement="bottom">
+                                                    <Avatar>{a.name.charAt(0)}</Avatar>
+                                                </Tooltip>
+                                            )
+
                                         )
+                                    </AvatarGroup> 
+                                        */}
 
-                                    )
-                                </AvatarGroup> 
-                                    */}
+                                    {/* <Grid container spacing={1} alignItems="center" justify="flex-start">
+                                        <Grid item><EventIcon /></Grid>
+                                        <Grid item>
+                                            <Typography variant="subtitle1">
+                                                Date: {new Date(dinner.date).toDateString()}
+                                            </Typography>
+                                        </Grid>
+                                    </Grid> */}
 
-                                {/* <Grid container spacing={1} alignItems="center" justify="flex-start">
-                                    <Grid item><EventIcon /></Grid>
-                                    <Grid item>
-                                        <Typography variant="subtitle1">
-                                            Date: {new Date(dinner.date).toDateString()}
-                                        </Typography>
+                                    <Grid container spacing={1} alignItems="center" justify="flex-start">
+                                        <Grid item><LocalHospitalIcon /></Grid>
+                                        <Grid item>
+                                            <Typography variant="subtitle1">
+                                                Allergens: {state.dinner.allergens.split(',').join(', ')}
+                                            </Typography>
+                                        </Grid>
                                     </Grid>
-                                </Grid> */}
 
-                                <Grid container spacing={1} alignItems="center" justify="flex-start">
-                                    <Grid item><LocalHospitalIcon /></Grid>
-                                    <Grid item>
-                                        <Typography variant="subtitle1">
-                                            Allergens: {state.dinner.allergens.split(',').join(', ')}
-                                        </Typography>
+                                </Paper>
+                            </Grid>
+
+                            {/*------------------------------Rating--------------------- */}
+                            <Grid item xs={12}>
+                                <Paper className={classes.container}>
+                                    <Typography variant="h6">Rating</Typography>
+                                    <br/>
+                                    <Grid item xs>
+                                        <NewRating/>
                                     </Grid>
-                                </Grid>
+                                </Paper>
+                            </Grid>
+                        </Grid>
+                        
 
-                            </Paper>
+                        <Grid item container spacing={3} xs={12} md={6}>
+                            {/*------------------------------DESCRIPTION--------------------- */}
+                            <Grid item xs={12}>
+                                <Paper className={classes.container}>
+                                    <Typography variant="h6">Description</Typography>
+                                    <Typography variant="body1">
+                                        {state.dinner.description}
+                                    </Typography>
+                                </Paper>
+                            </Grid>
                         </Grid>
-                        {/*------------------------------DESCRIPTION--------------------- */}
-                        <Grid item xs={12} md={6}>
-                            <Paper className={classes.container}>
-                                <Typography variant="h6">Description</Typography>
-                                <Typography variant="body1">{state.dinner.description}</Typography>
-                            </Paper>
-                        </Grid>
-                        {/*------------------------------INGREDIENTS--------------------- */}
-                        {/* <Grid item xs={12} md={6}>
-                            <Paper className={classes.container}>
-                                <Typography variant="h6">Ingredients</Typography>
-                                <Typography variant="body1">{state.dinner.ingredients}</Typography>
-                            </Paper>
-                        </Grid> */}
                     </Grid>
                 }
             </Paper>
         </div>
     )
 }
+

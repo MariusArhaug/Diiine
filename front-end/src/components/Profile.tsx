@@ -8,6 +8,8 @@ import { Dinner, User } from '../types';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import client from '../feathers-client';
 import { useAuth } from '../hooks/use-auth';
+import Rating from '@material-ui/lab/Rating';
+
 
 const useStylesModified = makeStyles((theme: Theme) =>
   createStyles({
@@ -89,12 +91,20 @@ export default function Profile() {
               {user?.name}
             </Typography>
           </Grid>
-
+          <Grid item xs>
+           <Rating
+            name="simple-controlled"
+            //value={user?.avg_rating}   
+            value={4}         
+            readOnly
+            />
+           </Grid>
           <Grid item xs>
             <Typography variant="body1">
               E-mail: {user?.email}
             </Typography>
           </Grid>
+
 
           {user?.allergies.length > 0 &&
             <Grid item xs={12}>
