@@ -5,10 +5,13 @@ import Paper from "@material-ui/core/Paper";
 import { useAuth } from "../hooks/use-auth";
 import InputField from "../pages/Chat/InputField";
 import Message from "../pages/Chat/Message";
+import ChatInputField from "./ChatInputField";
 
 
 export default function ChatPrototype() {
     const user = useAuth().user;
+
+    
 
     return (
         <div>
@@ -26,6 +29,9 @@ export default function ChatPrototype() {
                 <InputField />
             </Paper>
         </Container>
+        <p>{user.email}</p>
+        <ChatInputField />
+
         </div>
         
     );

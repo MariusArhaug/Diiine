@@ -3,9 +3,9 @@ import { Application } from '../../declarations';
 import { Users } from '../users/users.class';
 
 interface ChatData {
-  _id: string;
-  from: Users;
-  to: Users;
+  //_id: string;
+  chat_from: Users;
+  chat_to: Users;
   message: string;
   timestamp: Date;
 }
