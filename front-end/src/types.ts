@@ -14,19 +14,20 @@ export type Dinner = {
 }
 
 export type User = {
-    userId: number;
+    user_id: number;
     name: string;
     address: string;
     email: string;
     isAdmin: boolean;
     allergies: string;
+    avgRating: number;
 }
 
 export type Rating = {
-    rated: User;
-    ratedBy: User;
+    rated_of: number;
+    rated_by: number;
+    rating_value: number;
     description: string;
-    rating: number;
 }
 
 export type Chat = {

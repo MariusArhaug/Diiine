@@ -198,7 +198,7 @@ export default function DinnerPage() {
                                     <Typography variant="h6">Rating</Typography>
                                     <br/>
                                     <Grid item xs>
-                                        <NewRating/>
+                                        <NewRating {...state.owner}/>
                                     </Grid>
                                 </Paper>
                             </Grid>

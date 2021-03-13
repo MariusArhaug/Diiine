@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { Paper } from '@material-ui/core';
+import { User } from '../types';
 
 
 
@@ -24,14 +25,16 @@ const StyledRating = withStyles({
     },
 })(Rating);
 
-export default function CustomizedRatings() {
+export default function CustomizedRatings(props: User) {
 
     const [state, setState] = useState<{
-        rating: number;
-        comment: string;
+        rated_of: number;
+        rating_value: number;
+        description: string;
     }>({
-        rating: 2.5,
-        comment: ""
+        rated_of: props.user_id,
+        rating_value: 2.5,
+        description: ""
     })
 
     // const userId = 1;
@@ -45,24 +48,23 @@ export default function CustomizedRatings() {
     // })
 
     const handleRatingChange = (event: any): void => {
-        setState({...state, rating: event.target.value})
+        setState({...state, rating_value: event.target.value})
     }
 
     const handleCommentChange = (event: any): void => {
-        setState({...state, comment: event.target.value})
+        setState({...state, description: event.target.value})
     }
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
         console.log(state);
-        
-    
-        // client.service('rating').create(rating)
-        //     .then()
-        //     .catch((e: Error) => {
-        //         console.log('couldn\'t post rating', e);
-        // });
+
+        client.service('rating').create(state)
+          .then()
+          .catch((e: Error) => {
+            console.log('couldn\'t post rating', e)
+          });
     }
 
     return (

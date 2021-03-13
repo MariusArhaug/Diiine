@@ -4,7 +4,7 @@ import { Application } from '../../declarations';
 
 
 /* Interface for ratings:
-rated_of er mottaker at rating, rated_by er avsender
+rated_of is receiver of rating, rated_by is sender
 */
 interface RatingData {
   rated_of: number,
@@ -26,7 +26,14 @@ export class Rating extends Service {
   }
 
   async create(data: RatingData, params?: Params) {
-    const {rated_of, rated_by, rating_value, description} = data;
+    const {rated_of, rating_value, description} = data;
+
+    // Rated_by is set as logged in user
+    const rated_by = params?.user?.user_id;
+
+    if (rated_by == rated_of) {
+      throw new Error('Rating yourself is cheating');
+    }
 
     const ratingData = {
       rated_of,
@@ -42,7 +49,7 @@ export class Rating extends Service {
 
   async find(params: Params) {
 
-    /* params på formen:
+    /* params:
     rated_of: 12
     */
 
@@ -50,7 +57,7 @@ export class Rating extends Service {
   }
 
   async update(id: Id, data: RatingData, params: Params) {
-    
+
     data.updated_at = new Date();
 
     return super.update(id, data, params);
