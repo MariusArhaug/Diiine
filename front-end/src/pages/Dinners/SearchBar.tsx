@@ -42,8 +42,9 @@ export default function SearchBar() {
     //Display dinnerCard that matches with search input
     dinnerCards.forEach((dinnerCard: HTMLElement) => {
       let dinnerInfo = Array.from(dinnerCard.getElementsByClassName('dinnerInfo'));
-      const dinnerText = [...dinnerInfo.map(info => info.textContent?.toLocaleLowerCase())]
 
+      const dinnerText = [...dinnerInfo.map(info => info.textContent?.toLocaleLowerCase())]
+      console.log(dinnerText)
       if (dinnerText.find(a => a?.includes(searchInput))) {
         dinnerCard.style.display = 'block';
       } else {

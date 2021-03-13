@@ -59,7 +59,7 @@ export default function ListComponent(props: Dinner) {
 
           {props.allergens.length > 0 &&
             <Grid item xs={12}>
-              <Typography variant="body2">
+              <Typography variant="body2" className="dinnerInfo">
                 Allergens: {props.allergens.split(',').join(', ')}
               </Typography>
             </Grid>
