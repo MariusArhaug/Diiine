@@ -13,6 +13,13 @@ export type Dinner = {
     isOpen: boolean;
 }
 
+export type TypeMessage = {
+    chat_id: number;
+    chat_from: number;
+    chat_to: number;
+    message: string;
+}
+
 export type User = {
     userId: number;
     name: string;

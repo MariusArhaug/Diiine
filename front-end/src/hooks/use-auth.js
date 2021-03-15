@@ -16,14 +16,24 @@ export const useAuth = () => {
 function useProvideAuth() {
     const [user, setUser] = useState(null);
 
+    const jwtSignin = () => {
+        return client.authenticate({
+            strategy: 'jwt',
+        }).then(res => {
+            setUser(res.user);
+            return res.user
+        }).catch((e) => {
+            console.log('error signing in with jwt', e);
+        })
+    }
+
 
     const signin = (credentials) => {
         return client.authenticate({
             strategy: 'local',
             ...credentials
-        }).then( response => {
+        }).then(response => {
             setUser(response.user);
-            console.log(response.user);
             console.log(user);
             return response.user;
         }).catch((e) => {
@@ -65,6 +75,7 @@ function useProvideAuth() {
         user,
         signin,
         signout,
-        signup
+        signup,
+        jwtSignin
     };
 }

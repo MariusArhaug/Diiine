@@ -127,23 +127,6 @@ export default function ComplexGrid() {
     
         })
         .catch((e : Error) => { console.log('error', e); })
-        /*const dinner = {
-            name: 'test',
-            address: '123',
-            description: 'lol',
-            date: '2000-01-01',
-            tags: ['tags'],
-            ingredients: ['ing'],
-            allergens: ['alg'],
-            attendants: 1,
-            isDivided: false,
-            isOpen: false,
-            expenses: 1000,
-            banner: '?'
-        }
-          
-        client.service('dinners').create(dinner)
-        */
     }, []);
 
     return (
