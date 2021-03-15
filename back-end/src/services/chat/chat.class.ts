@@ -1,3 +1,4 @@
+import { Id, Params } from '@feathersjs/feathers';
 import { Service, KnexServiceOptions } from 'feathers-knex';
 import { Application } from '../../declarations';
 import { Users } from '../users/users.class';
@@ -17,5 +18,9 @@ export class Chat extends Service {
       ...options,
       name: 'chat'
     });
+  }
+
+  async get (id: Id, params: Params) {
+
   }
 }

@@ -16,12 +16,11 @@ export default function ChatPrototype() {
     return (
         <div>
         <h1>Dis the chat!</h1>
-        <p>{user.email ? user.email : 'no email'}</p>
         
         <Container maxWidth="xs">
             <Paper>
                 <Grid container spacing={3}>
-                    <Message {...{content: "This is a test messageThis is a test messageThis is a test message", reciever: false}}/>
+                    <Message {...{content: "This is a test messageThis is a test messageThis is a test message :)", reciever: false}}/>
                     <Message {...{content: "This is a test message", reciever: false}}/>
                     <Message {...{content: "This is a test message", reciever: true}}/>
                 </Grid>
