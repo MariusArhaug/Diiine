@@ -43,8 +43,6 @@ export default function DinnerList() {
   const classes = useStyles();
   const [dinners, setDinners] = useState([]);
   const componentName = "dinnerList";
-  //const [clicked, setClicked] = useState(false)
-  const [clicked, setClicked] = useState([false, false, false, false]);
   const [toggleButtons, setToggleButtons] = useState<{
     [key: string]: boolean
   }>({
