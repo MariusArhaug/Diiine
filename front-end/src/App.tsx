@@ -9,14 +9,15 @@ import {ProvideAuth, useAuth} from './hooks/use-auth'
 import Login from './routes/LoginRoute';
 import Register from './routes/RegisterRoute';
 import Home from './routes/Home';
-import Admin from './routes/AdminRoute'
 import Footer from './components/Footer';
+import Navbar from './components/Navbar';
 
 export default function App() {
   return (
     <ProvideAuth>
       <Router>
         <div className="App">
+          <Navbar />
           <Switch>
             <Route path="/login">
               <Login />

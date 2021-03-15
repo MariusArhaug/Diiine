@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../hooks/use-auth';
 import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, Redirect } from 'react-router-dom';
 import { Chip } from '../types';
 
 const allergies = [
@@ -34,6 +34,8 @@ export const Signup = () => {
         password: '',
         allergies: []
     });
+
+    const [result, setResult] = useState(null);
 
     //can be put in another seperate file.
     const validateEmail = (email: string) : boolean  => {
@@ -81,10 +83,14 @@ export const Signup = () => {
         console.log(form)
         const result = await auth.signup(form);
         console.log(result);
+        setResult(result);
     }
 
     return (
         <div>
+            {result &&
+                <Redirect to="/login"/>
+            }
             <div className="verticalCenter">
                 <Container maxWidth="xs">
                     <Paper style={{ padding: "50px" }}>
@@ -168,7 +174,7 @@ export const Signup = () => {
                             </Grid>
                         </form>
                     </Paper>
-                    <Button component={RouterLink} to='/login'>Log in</Button>
+                    {/* <Button component={RouterLink} to='/login'>Log in</Button> */}
                 </Container>
             </div>
         </div>

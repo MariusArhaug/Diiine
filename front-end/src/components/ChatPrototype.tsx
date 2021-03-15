@@ -20,7 +20,7 @@ export default function ChatPrototype() {
         
         <Container maxWidth="xs">
             <Paper>
-                <Grid container spacing={3}>
+                <Grid container spacing={3} style={{maxHeight: "500px", overflow: "auto"}}>
                     <Message {...{content: "This is a test messageThis is a test messageThis is a test message", reciever: false}}/>
                     <Message {...{content: "This is a test message", reciever: false}}/>
                     <Message {...{content: "This is a test message", reciever: true}}/>

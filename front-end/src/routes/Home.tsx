@@ -1,21 +1,25 @@
 import { Container } from '@material-ui/core';
 import React from 'react';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import DinnerList from '../components/DinnerList';
 import DinnerPage from '../components/DinnerPage';
-import Navbar from '../components/Navbar';
 import MyDinners from '../components/CreateDinner';
 import Profile from '../components/Profile';
 import Admin from '../components/Admin';
 import ChatPrototype from '../components/ChatPrototype';
+import { useAuth } from '../hooks/use-auth';
 
 export default function Home() {
 
+    const auth = useAuth();
     let { path } = useRouteMatch();
+
+    if (!auth.user) {
+        return <Redirect to="/login" />
+    }
 
     return (
         <div>
-            <Navbar />
             <Container maxWidth="lg" className="MainContainer">
                 <Switch>
                     <Route path="/chat">
