@@ -15,9 +15,12 @@ import client from '../feathers-client';
 import Rating from '@material-ui/lab/Rating';
 import NewRating from './NewRating';
 import swal from 'sweetalert';
+import '../styles/App.css';
 //import Button from '@material-ui/core/Button';
 
 // {dinnerId, name, address, type, allergens, attendants, date}: DinnerProps
+
+
 
 export default function DinnerPage() {
 
@@ -25,7 +28,7 @@ export default function DinnerPage() {
     let { dinnerId }: { dinnerId: string } = useParams();
     const [ratingValue, setRatingValue] = useState(0);
 
-    const [state, setState] = useState<{owner: User | null, dinner: Dinner | null}>({
+    const [state, setState] = useState<{ owner: User | null, dinner: Dinner | null }>({
         owner: null,
         dinner: null
     });
@@ -34,13 +37,23 @@ export default function DinnerPage() {
     const handleJoinDinner = () => {
         console.log("lol");
         const data = {
-            dinners_id: parseInt(dinnerId,10)
+            dinners_id: parseInt(dinnerId, 10)
         }
         client.service('attendingdinners').create(data)
         //Old alert:
         // alert("You have now joined the dinner!");
         //New alert:
-        swal("Hurray!", "You have now joined the dinner!", "success");
+        swal({
+            title: 'Hurray!',
+            text: 'You have now joined the dinner!',
+            icon: 'success',
+            buttons: {
+                confirm: {
+                    text: "Nice!",
+                    className: "buttonStyle"
+                }
+            }
+        });
 
     }
 
@@ -54,7 +67,7 @@ export default function DinnerPage() {
                 client.service('users')
                     .get(dinner.user_id)
                     .then((resOwner: User) => {
-                        setState({dinner: resDinner, owner: resOwner})
+                        setState({ dinner: resDinner, owner: resOwner })
                     })
             })
             .catch((e: Error) => { console.log('error', e); })
@@ -71,8 +84,10 @@ export default function DinnerPage() {
                         {/*---------------HEADER IMG-------------------------*/}
                         <Grid item xs={12}>
                             <Paper className={classes.dinnerImage} style={
-                                {backgroundImage: "URL('https://image.freepik.com/free-photo/thanksgiving-celebration_53876-73751.jpg')",
-                                backgroundSize: "cover"}} />
+                                {
+                                    backgroundImage: "URL('https://image.freepik.com/free-photo/thanksgiving-celebration_53876-73751.jpg')",
+                                    backgroundSize: "cover"
+                                }} />
                         </Grid>
 
                         <Grid item xs={12} container justify="space-between" alignItems="center">
@@ -119,7 +134,7 @@ export default function DinnerPage() {
                         </Grid>
 
                         <Grid item xs={12} container>
-                            <Paper className={classes.container} style={{width: "100%"}}>
+                            <Paper className={classes.container} style={{ width: "100%" }}>
                                 <Grid item xs={12} container justify="space-between" alignItems="center">
                                     <Grid item xs spacing={1} container alignItems="center">
                                         <Grid item>
@@ -144,8 +159,8 @@ export default function DinnerPage() {
                                 </Grid>
                             </Paper>
                         </Grid>
-                        
-                        
+
+
 
                         <Grid item container xs={12} md={6} spacing={3}>
                             {/*-------------------------DETAILS-------------------------*/}
@@ -200,14 +215,14 @@ export default function DinnerPage() {
                             <Grid item xs={12}>
                                 <Paper className={classes.container}>
                                     <Typography variant="h6">Rating</Typography>
-                                    <br/>
+                                    <br />
                                     <Grid item xs>
-                                        <NewRating {...state.owner}/>
+                                        <NewRating {...state.owner} />
                                     </Grid>
                                 </Paper>
                             </Grid>
                         </Grid>
-                        
+
 
                         <Grid item container spacing={3} xs={12} md={6}>
                             {/*------------------------------DESCRIPTION--------------------- */}

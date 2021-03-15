@@ -11,7 +11,7 @@ import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { Paper } from '@material-ui/core';
 import { User } from '../types';
-import SimpleAlerts from './Alert';
+//import SimpleAlerts from './Alert';
 import Alert from '@material-ui/lab/Alert';
 import CheckIcon from '@material-ui/icons/Check';
 import swal from 'sweetalert';
@@ -55,11 +55,11 @@ export default function CustomizedRatings(props: User) {
     // })
 
     const handleRatingChange = (event: any): void => {
-        setState({...state, rating_value: event.target.value})
+        setState({ ...state, rating_value: event.target.value })
     }
 
     const handleCommentChange = (event: any): void => {
-        setState({...state, description: event.target.value})
+        setState({ ...state, description: event.target.value })
     }
 
     const handleSubmit = async (event: React.FormEvent) => {
@@ -68,10 +68,10 @@ export default function CustomizedRatings(props: User) {
         console.log(state);
 
         client.service('rating').create(state)
-          .then() 
-          .catch((e: Error) => {
-            console.log('couldn\'t post rating', e)
-          });
+            .then()
+            .catch((e: Error) => {
+                console.log('couldn\'t post rating', e)
+            });
 
         client.service('rating').create(state)
         // alert("You have now sucessfully rated this user");
@@ -83,8 +83,8 @@ export default function CustomizedRatings(props: User) {
         //   )
         swal("Good job!", "You have now sucessfully rated this user!", "success");
     }
-          
-    
+
+
 
     return (
         <div>
@@ -101,7 +101,7 @@ export default function CustomizedRatings(props: User) {
                             emptyIcon={<StarBorderIcon fontSize="inherit" />}
                         />
                     </Grid>
-                    
+
                     <Grid item xs={12}>
                         <TextField
                             id='comment'
@@ -109,22 +109,22 @@ export default function CustomizedRatings(props: User) {
                             className='form-field'
                             type='comment'
                             name='comment'
-                            style={{width: "100%"}}
+                            style={{ width: "100%" }}
                             onChange={handleCommentChange}
                             multiline
                             rowsMax={4}
                             variant="outlined"
-                            rows = {2}
+                            rows={2}
 
-                            />
+                        />
                     </Grid>
-                    
+
                     <Grid item xs={12}>
-                        <Button type='submit' variant="contained" color="primary" style={{width: "100%"}}>
+                        <Button type='submit' variant="contained" color="primary" style={{ width: "100%" }}>
                             Give rating
                         </Button>
                     </Grid>
-                    
+
                 </Grid>
             </form>
         </div>
