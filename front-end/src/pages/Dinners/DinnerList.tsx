@@ -6,6 +6,9 @@ import Paper from '@material-ui/core/Paper'
 import { Dinner } from '../../types'
 import { User } from '../../types'
 import client from '../../feathers-client';
+import Button from '@material-ui/core/Button';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,32 +32,113 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: '100%',
       maxHeight: '100%',
     },
+    button: {
+      margin: theme.spacing(0.5),
+      backgroundColor: "white",
+    },
   }),
 );
 
 export default function DinnerList() {
   const classes = useStyles();
   const [dinners, setDinners] = useState([]);
+  const componentName = "dinnerList";
+  //const [clicked, setClicked] = useState(false)
+  const [clicked, setClicked] = useState([false, false, false, false]);
+  const [toggleButtons, setToggleButtons] = useState<{
+    [key: string]: boolean
+  }>({
+    'tags': false,
+    'allergens': false,
+    'address': false,
+    'title': false,
 
-  useEffect(() => {
+  });
+  //const [activeButton, setActiveButton] = useState<number>();
+  const [alignment, setAlignment] = useState<string | null>();
+
+  const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
+    setAlignment(newAlignment);
+  };
+
+  const defaultPage = () => {
     client.service('dinners')
-      .find({})
+      .find({
+        query: {
+          $sort: {
+            dinners_id: 1
+          }
+        }
+      })
       .then((res: any) => {
-        console.log(res.data);
+        //console.log(res.data);
         setDinners(res.data);
       })
       .catch((e: Error) => { console.log('error', e); })
-  }, []);
+  }
 
+  useEffect(() => defaultPage(), []);
+
+  const handleClick = (input: string) => {
+    console.log(toggleButtons[input])
+    if (toggleButtons[input] === true) {
+      defaultPage();
+      toggleButtons[input] = false;
+      setToggleButtons(toggleButtons);
+      return;
+    }
+    toggleButtons[input] = true;
+    setToggleButtons(toggleButtons);
+    let query: any = { $sort: {} }
+
+    query['$sort'][input] = 1;
+    console.log(query)
+    client.service('dinners')
+      .find({
+        query
+      })
+      .then((res: any) => {
+        setDinners(res.data);
+      })
+      .catch((e: Error) => { console.log('error', e); })
+
+  }
   return (
-    <div className={classes.root}>
-      <Grid container spacing={3} direction="column" justify="space-evenly" alignItems="stretch">
-        {dinners.length && dinners!.map((dinner: Dinner) => (
-          <Grid item>
-            <DinnerCard {...dinner} key={dinner.dinners_id} />
-          </Grid>
-        ))}
-      </Grid>
+    <div>
+      <ToggleButtonGroup
+        value={alignment}
+        exclusive
+        onChange={handleAlignment}
+        aria-label="text alignment"
+      >
+        {Object.keys(toggleButtons).length && Object.keys(toggleButtons)!.map((key: string, i: number) => (
+          <ToggleButton
+            key={i}
+            size="medium"
+            value={key}
+            className={classes.button}
+            onClick={() => handleClick(key)}
+            aria-label={key}
+          >
+            {key}
+          </ToggleButton>))}
+
+      </ToggleButtonGroup>
+      <div className={classes.root}>
+        <Grid
+          container spacing={3}
+          className={componentName}
+          direction="column"
+          justify="space-evenly"
+          alignItems="stretch"
+        >
+          {dinners.length && dinners!.map((dinner: Dinner, i: number) => (
+            <Grid item>
+              <DinnerCard {...dinner} key={i} />
+            </Grid>
+          ))}
+        </Grid>
+      </div>
     </div>
   );
 }
