@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useAuth } from '../hooks/use-auth';
 import { Link as RouterLink } from 'react-router-dom';
 import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
+import swal from 'sweetalert';
+
 
 export default function Login() {
     const auth = useAuth();
@@ -26,6 +28,8 @@ export default function Login() {
 
         const result = await auth.signin(credentials);
         console.log(result);
+        swal("Success!", "You have now logged in!", "success");
+            
     }
 
     return (

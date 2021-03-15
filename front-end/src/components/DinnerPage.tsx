@@ -14,6 +14,7 @@ import { Dinner, User } from '../types';
 import client from '../feathers-client';
 import Rating from '@material-ui/lab/Rating';
 import NewRating from './NewRating';
+import swal from 'sweetalert';
 //import Button from '@material-ui/core/Button';
 
 // {dinnerId, name, address, type, allergens, attendants, date}: DinnerProps
@@ -35,9 +36,12 @@ export default function DinnerPage() {
         const data = {
             dinners_id: parseInt(dinnerId,10)
         }
-        //console.log(data);
         client.service('attendingdinners').create(data)
-        alert("You have now joined the dinner!");
+        //Old alert:
+        // alert("You have now joined the dinner!");
+        //New alert:
+        swal("Hurray!", "You have now joined the dinner!", "success");
+
     }
 
     useEffect(() => {

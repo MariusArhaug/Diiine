@@ -11,7 +11,10 @@ import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { Paper } from '@material-ui/core';
 import { User } from '../types';
-
+import SimpleAlerts from './Alert';
+import Alert from '@material-ui/lab/Alert';
+import CheckIcon from '@material-ui/icons/Check';
+import swal from 'sweetalert';
 
 
 
@@ -28,14 +31,18 @@ const StyledRating = withStyles({
 export default function CustomizedRatings(props: User) {
 
     const [state, setState] = useState<{
+        rated_by: number;
         rated_of: number;
         rating_value: number;
         description: string;
     }>({
-        rated_of: props.user_id,
+        rated_by: props.user_id,
+        rated_of: 58,
         rating_value: 2.5,
-        description: ""
+        description: "",
     })
+
+    // const [alert, setAlert] = useState(0)
 
     // const userId = 1;
 
@@ -61,11 +68,23 @@ export default function CustomizedRatings(props: User) {
         console.log(state);
 
         client.service('rating').create(state)
-          .then()
+          .then() 
           .catch((e: Error) => {
             console.log('couldn\'t post rating', e)
           });
+
+        client.service('rating').create(state)
+        // alert("You have now sucessfully rated this user");
+        // }
+        // swal.fire(
+        //     'Good job!',
+        //     'You clicked the button!',
+        //     'success'
+        //   )
+        swal("Good job!", "You have now sucessfully rated this user!", "success");
     }
+          
+    
 
     return (
         <div>
@@ -111,3 +130,4 @@ export default function CustomizedRatings(props: User) {
         </div>
     );
 }
+
