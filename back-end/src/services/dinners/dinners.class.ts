@@ -4,7 +4,7 @@ import { Application } from '../../declarations';
 
 interface DinnerData {
  dinners_id: number,
- name: string,
+ title: string,
  address: string,
  description: string,
  date: Date,
@@ -30,7 +30,7 @@ export class Dinners extends Service {
 
   async create (data: DinnerData, params?: Params) { //DinenrData is the object that is being parsed from front-end
     const { 
-      name,
+      title,
       address, 
       description, 
       date, 
@@ -51,7 +51,7 @@ export class Dinners extends Service {
 
 
     const dinnerData = {
-      name,
+      title,
       address,
       description,
       date,

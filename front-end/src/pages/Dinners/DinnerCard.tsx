@@ -53,7 +53,7 @@ export default function ListComponent(props: Dinner) {
           </Grid>
           <Grid item>
             <Typography variant="h5" className="dinnerInfo">
-              {props.name}
+              {props.title}
             </Typography>
           </Grid>
 

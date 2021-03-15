@@ -1,7 +1,7 @@
 export type Dinner = {
     dinners_id: number;
     user_id: number;
-    name: string;
+    title: string;
     description: string;
     address: string;
     ingredients: string;

@@ -45,6 +45,15 @@ export default function DinnerList() {
   const componentName = "dinnerList";
   //const [clicked, setClicked] = useState(false)
   const [clicked, setClicked] = useState([false, false, false, false]);
+  const [toggleButtons, setToggleButtons] = useState<{
+    [key: string]: boolean
+  }>({
+    'tags': false,
+    'allergens': false,
+    'address': false,
+    'title': false,
+
+  });
   //const [activeButton, setActiveButton] = useState<number>();
   const [alignment, setAlignment] = useState<string | null>();
 
@@ -70,34 +79,19 @@ export default function DinnerList() {
 
   useEffect(() => defaultPage(), []);
 
-  const handleClick = (input: number) => {
-
-    let clickedArray = [...clicked];
-    if (clickedArray[input] === true) {
-      defaultPage()
-      clickedArray[input] = false;
-      setClicked(clickedArray)
+  const handleClick = (input: string) => {
+    console.log(toggleButtons[input])
+    if (toggleButtons[input] === true) {
+      defaultPage();
+      toggleButtons[input] = false;
+      setToggleButtons(toggleButtons);
       return;
     }
-
-    clickedArray[input] = !clickedArray[input]
-    setClicked(clickedArray)
-
+    toggleButtons[input] = true;
+    setToggleButtons(toggleButtons);
     let query: any = { $sort: {} }
-    switch (input) {
-      case 0:
-        query['$sort'].tags = 1;
-        break
-      case 1:
-        query['$sort'].allergens = 1;
-        break
-      case 2:
-        query['$sort'].address = 1;
-        break
-      case 3:
-        query['$sort'].name = 1;
-        break
-    }
+
+    query['$sort'][input] = 1;
     console.log(query)
     client.service('dinners')
       .find({
@@ -107,9 +101,8 @@ export default function DinnerList() {
         setDinners(res.data);
       })
       .catch((e: Error) => { console.log('error', e); })
-  };
 
-
+  }
   return (
     <div>
       <ToggleButtonGroup
@@ -118,40 +111,18 @@ export default function DinnerList() {
         onChange={handleAlignment}
         aria-label="text alignment"
       >
-        <ToggleButton
-          size="medium"
-          value="tags"
-          className={classes.button}
-          onClick={() => handleClick(0)}
-          aria-label="tags"
-        >
-          Tags
-        </ToggleButton>
-        <ToggleButton
-          size="medium"
-          value="allergens"
-          className={classes.button}
-          onClick={() => handleClick(1)}
-          aria-label="allergens"
-        >
-          Allergens
-        </ToggleButton>
-        <ToggleButton
-          size="medium"
-          value="address"
-          className={classes.button}
-          onClick={() => handleClick(2)}
-          aria-label="address">
-          Address
-        </ToggleButton>
-        <ToggleButton
-          size="medium"
-          value="title"
-          className={classes.button}
-          onClick={() => handleClick(3)}
-          aria-label="tile">
-          Title
-        </ToggleButton>
+        {Object.keys(toggleButtons).length && Object.keys(toggleButtons)!.map((key: string, i: number) => (
+          <ToggleButton
+            key={i}
+            size="medium"
+            value={key}
+            className={classes.button}
+            onClick={() => handleClick(key)}
+            aria-label={key}
+          >
+            {key}
+          </ToggleButton>))}
+
       </ToggleButtonGroup>
       <div className={classes.root}>
         <Grid
@@ -161,9 +132,9 @@ export default function DinnerList() {
           justify="space-evenly"
           alignItems="stretch"
         >
-          {dinners.length && dinners!.map((dinner: Dinner) => (
+          {dinners.length && dinners!.map((dinner: Dinner, i: number) => (
             <Grid item>
-              <DinnerCard {...dinner} key={dinner.dinners_id} />
+              <DinnerCard {...dinner} key={i} />
             </Grid>
           ))}
         </Grid>
