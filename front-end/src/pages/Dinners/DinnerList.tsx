@@ -2,11 +2,8 @@ import React, { useEffect, useState } from 'react';
 import DinnerCard from './DinnerCard';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper'
 import { Dinner } from '../../types'
-import { User } from '../../types'
 import client from '../../feathers-client';
-import Button from '@material-ui/core/Button';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
