@@ -6,6 +6,7 @@ import { useAuth } from "../hooks/use-auth";
 import InputField from "../pages/Chat/InputField";
 import Message from "../pages/Chat/Message";
 import ChatInputField from "./ChatInputField";
+import { Scrollbars } from 'react-custom-scrollbars';
 
 
 export default function ChatPrototype() {
@@ -20,11 +21,29 @@ export default function ChatPrototype() {
         
         <Container maxWidth="xs">
             <Paper>
-                <Grid container spacing={3} style={{maxHeight: "500px", overflow: "auto"}}>
-                    <Message {...{content: "This is a test messageThis is a test messageThis is a test message", reciever: false}}/>
-                    <Message {...{content: "This is a test message", reciever: false}}/>
-                    <Message {...{content: "This is a test message", reciever: true}}/>
-                </Grid>
+                <Scrollbars
+                    renderTrackHorizontal={props => <div {...props} className="track-horizontal" style={{display:"none"}}/>}
+                    renderThumbHorizontal={props => <div {...props} className="thumb-horizontal" style={{display:"none"}}/>}
+                    style={{height: "500px", width: "100%"}}>
+                    <Grid
+                        container
+                        // spacing={1}
+                        style={{
+                            margin: 0,
+                            width: "100%",
+                        }}
+                    >
+                        <Message {...{content: "This is a test messageThis is a test messageThis is a test message", reciever: false}}/>
+                        <Message {...{content: "This is a test message", reciever: false}}/>
+                        <Message {...{content: "This is a test message", reciever: true}}/>
+                        <Message {...{content: "This is a test message", reciever: true}}/>
+                        <Message {...{content: "This is a test message", reciever: true}}/>
+                        <Message {...{content: "This is a test message", reciever: true}}/>
+                        <Message {...{content: "This is a test message", reciever: false}}/>
+                        <Message {...{content: "This is a test message", reciever: true}}/>
+                        <Message {...{content: "This is a test message", reciever: true}}/>
+                    </Grid>
+                </Scrollbars>
                 <Divider />
                 <InputField />
             </Paper>
