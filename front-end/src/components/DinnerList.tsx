@@ -120,13 +120,13 @@ export default function ComplexGrid() {
 
     useEffect(() => {
         client.service('dinners')
-        .find({})
-        .then((res : any)  => {
-            console.log(res.data);
-            setDinners(res.data);
-    
-        })
-        .catch((e : Error) => { console.log('error', e); })
+            .find({})
+            .then((res: any) => {
+                console.log(res.data);
+                setDinners(res.data);
+
+            })
+            .catch((e: Error) => { console.log('error', e); })
         /*const dinner = {
             name: 'test',
             address: '123',
@@ -149,13 +149,13 @@ export default function ComplexGrid() {
     return (
         <div className={classes.root}>
             {/* <Paper className={classes.paper}> */}
-                <Grid container spacing={3} direction="column" justify="space-evenly" alignItems="stretch">
-                    {dinners.length && dinners!.map((dinner : Dinner) => (
-                        <Grid item>
-                            <DinnerCard {...dinner} key={dinner.dinners_id}/>
-                        </Grid>
-                    ))}
-                </Grid>
+            <Grid container spacing={3} direction="column" justify="space-evenly" alignItems="stretch">
+                {dinners.length && dinners!.map((dinner: Dinner) => (
+                    <Grid item>
+                        <DinnerCard {...dinner} key={dinner.dinners_id} />
+                    </Grid>
+                ))}
+            </Grid>
             {/* </Paper> */}
         </div>
     );
