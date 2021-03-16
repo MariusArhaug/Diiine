@@ -3,6 +3,8 @@ import { useAuth } from '../hooks/use-auth';
 import { Link as RouterLink } from 'react-router-dom';
 import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
 import swal from 'sweetalert';
+import '../styles/App.css';
+
 
 
 export default function Login() {
@@ -28,8 +30,18 @@ export default function Login() {
 
         const result = await auth.signin(credentials);
         console.log(result);
-        swal("Success!", "You have now logged in!", "success");
-            
+        swal({
+            title: 'Success!',
+            text: 'You have now logged in!',
+            icon: 'success',
+            buttons: {
+                confirm: {
+                    text: "Nice!",
+                    className: "buttonStyle",
+                }
+            }
+        });
+
     }
 
     return (
