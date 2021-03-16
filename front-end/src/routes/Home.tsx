@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar';
 import MyDinners from '../pages/Dinners/CreateDinner';
 import Profile from '../pages/User/Profile';
 import Admin from '../pages/Admin/Admin';
+import DinnerInfo from '../pages/Dinners/DinnerInfo';
 
 export default function Home() {
 
@@ -32,7 +33,7 @@ export default function Home() {
             <Profile />
           </Route>
           <Route path="/dinner/:dinnerId">
-            <DinnerPage />
+            <DinnerInfo />
           </Route>
         </Switch>
       </Container>

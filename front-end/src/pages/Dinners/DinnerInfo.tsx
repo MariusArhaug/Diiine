@@ -17,7 +17,7 @@ import Rating from '@material-ui/lab/Rating';
 
 // {dinnerId, name, address, type, allergens, attendants, date}: DinnerProps
 
-export default function DinnerPage() {
+export default function DinnerInfo() {
 
   const classes = useStyles();
   let { dinnerId }: { dinnerId: string } = useParams();
