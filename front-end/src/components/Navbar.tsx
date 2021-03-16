@@ -48,11 +48,17 @@ export default function ButtonAppBar() {
             {auth.user &&
                 <Container maxWidth="lg">
                     <div className={classes.navigation}>
-                        <Tabs value={value} onChange={handleChange}>
+                        <Tabs
+                            value={value}
+                            onChange={handleChange}
+                            TabIndicatorProps={{
+                                style: {
+                                  height: 3,
+                                  background: "#cf340d"
+                                }
+                              }}>
                             <Tab component={RouterLink} to="/dinners" label="Dinners" />
                             <Tab component={RouterLink} to="/my_dinners" label="New dinner" />
-                            {/* <Tab component={RouterLink} to="/chat" label="Chats" /> */}
-                            <Tab component={RouterLink} to="/login" label="Login" />
                             {/*<Tab component={RouterLink} to="/admin" label="Admin" />*/}
                             <Tab component={RouterLink} to="/chat" label="Chat" />
                         </Tabs>
