@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/use-auth';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, Redirect } from 'react-router-dom';
 import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
 
 export default function Login() {
@@ -25,11 +25,14 @@ export default function Login() {
         event.preventDefault();
 
         const result = await auth.signin(credentials);
-        console.log(result);
+        setResult(result);
     }
 
     return (
         <div className="verticalCenter">
+            {result && 
+                <Redirect to="/dinners"/>
+            }
             <Container maxWidth="xs">
                 <Paper style={{padding: "50px"}}>
                     <form method='POST' onSubmit={handleSubmit}>
@@ -82,7 +85,7 @@ export default function Login() {
                     </form>
                 </Paper>
             </Container>
-            <Button component={RouterLink} to='/profile'>Profile</Button> 
+            {/* <Button component={RouterLink} to='/profile'>Profile</Button>  */}
         </div>
     );
 }

@@ -9,38 +9,38 @@ import InputField from "../pages/Chat/InputField";
 import Message from "../pages/Chat/Message";
 import { TypeMessage } from "../types";
 import ChatInputField from "./ChatInputField";
+import { Scrollbars } from 'react-custom-scrollbars';
 
 
 export default function ChatPrototype() {
-    const auth = useAuth();
-    const user = auth.user;
 
     const [messages, setMessages] = useState([]);
-    const [newMessage, setNewMessage] = useState(false);
 
     useEffect(() => {
 
         client.service('chat')
             .find({
                 query: {
-                    $sort: { created_at: -1 },
-                    $limit: 5,
+                    $sort: { created_at: 1 },
+                    $limit: 25,
                 }
             })
             .then((res: any) => {
+                console.log(res.data);
+
                 setMessages(res.data);
             })
 
-            console.log(messages);
-            
-    }, [newMessage]);
+        console.log(messages);
+
+    }, []);
 
     useEffect(() => {
-        client.service('chat').on('created', () => {
-            
-        })
-        
+        client.service('chat').on('created', (chat: TypeMessage) => {console.log('new chat', chat)}
+        )
     }, [messages])
+
+
 
 
     return (
@@ -49,20 +49,43 @@ export default function ChatPrototype() {
             <Container maxWidth="xs">
                 <Paper>
                     <Grid container spacing={3}>
-                        {messages.length && messages!.map((message: TypeMessage) => {
-                            return (
-                            <Message {...{ content: message.message, reciever: false }} />
-                            )
-                        })}
-        
+                        <Container maxWidth="xs">
+                            <Paper>
+                                <Scrollbars
+                                    renderTrackHorizontal={props => <div {...props} className="track-horizontal" style={{ display: "none" }} />}
+                                    renderThumbHorizontal={props => <div {...props} className="thumb-horizontal" style={{ display: "none" }} />}
+                                    style={{ height: "500px", width: "100%" }}>
+                                    <Grid
+                                        container
+                                        // spacing={1}
+                                        style={{
+                                            margin: 0,
+                                            width: "100%",
+                                        }}
+                                    >
+                                        {messages.length && messages!.map((message: TypeMessage) => {
+                                            return (
+                                                <Message key={message.chat_id} {...{ content: message.message, reciever: false }} />
+                                            )
+                                        })}
+                                        {/* <Message {...{ content: "This is a test messageThis is a test messageThis is a test message", reciever: false }} />
+                                        <Message {...{ content: "This is a test message", reciever: false }} />
+                                        <Message {...{ content: "This is a test message", reciever: true }} />
+                                        <Message {...{ content: "This is a test message", reciever: true }} />
+                                        <Message {...{ content: "This is a test message", reciever: true }} />
+                                        <Message {...{ content: "This is a test message", reciever: true }} />
+                                        <Message {...{ content: "This is a test message", reciever: false }} />
+                                        <Message {...{ content: "This is a test message", reciever: true }} />
+                                        <Message {...{ content: "This is a test message", reciever: true }} /> */}
+                                    </Grid>
+                                </Scrollbars>
+                                <Divider />
+                                <InputField />
+                            </Paper>
+                        </Container>
                     </Grid>
-                    <Divider />
-                    <InputField />
                 </Paper>
             </Container>
-            <ChatInputField />
-
         </div>
-
     );
 }
