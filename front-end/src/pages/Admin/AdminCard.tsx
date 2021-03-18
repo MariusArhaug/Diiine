@@ -1,73 +1,68 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
-
+import { sizing } from '@material-ui/system';
 import { User } from '../../types';
+import DeleteButton from './DeleteButton'
 
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    margin: 'auto',
-    maxWidth: 500,
-  },
-  image: {
-    width: 128,
-    height: 128,
-  },
-  img: {
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
-  },
-}));
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing(0),
+      margin: 'auto',
+      maxWidth: 500,
+      backgroundColor: '#ffffff',
+      cursor: 'pointer',
+      '&:hover': {
+        backgroundColor: '#fafafa'
+      }
+    },
+  }));
 
-const Task = (user: User) => {
+const AdminCard = (props: User) => {
+
   const classes = useStyles();
 
+/*  {props.isAdmin &&
+            <Grid item>
+              <Typography variant='h6' className='userInfo'>
+                USER IS ADMIN
+              </Typography>
+            </Grid>
+          }
+          HVORFOR FUNKER IKKE DETTE, HVORFOR FÅR JEG NOE SOM LIGNER PÅ EN POTENS AV isAdmin?
+          */
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <Grid container spacing={2}>
-          <Grid item>
-            <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src="/static/images/grid/complex.jpg" />
-            </ButtonBase>
+        <Grid container spacing={1} justify="space-between">
+          <Grid item xs>
+            <Typography variant='caption' color='textSecondary' className= 'userInfo' align = 'center'>
+              {props.user_id}
+            </Typography>
           </Grid>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
-                  Standard license
-                    </Typography>
-                <Typography variant="body2" gutterBottom>
-                  {user.name}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  ID: 1030114
-                    </Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="body2" style={{ cursor: 'pointer' }}>
-                  Remove
-                    </Typography>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Typography variant="subtitle1">$19.00</Typography>
-            </Grid>
+          <Grid item xs>
+            <Typography variant='h6' className='userInfo' align = 'center'>
+              {props.name}
+            </Typography>  
+          </Grid>
+          <Grid item xs>          
+            <Typography variant = 'body2' className = 'userInfo' align = 'center'>
+              {props.email}
+            </Typography>
+          </Grid>
+          <Grid item xs>
+            <DeleteButton {...{type: 0, id: props.user_id}}/>
           </Grid>
         </Grid>
       </Paper>
     </div>
   );
-
 }
 
-export default Task
+export default AdminCard;
