@@ -31,13 +31,11 @@ const StyledRating = withStyles({
 export default function CustomizedRatings(props: User) {
 
     const [state, setState] = useState<{
-        rated_by: number;
         rated_of: number;
         rating_value: number;
         description: string;
     }>({
-        rated_by: props.user_id,
-        rated_of: 58,
+        rated_of: props.user_id,
         rating_value: 2.5,
         description: "",
     })
@@ -72,8 +70,6 @@ export default function CustomizedRatings(props: User) {
           .catch((e: Error) => {
             console.log('couldn\'t post rating', e)
           });
-
-        client.service('rating').create(state)
         swal({
             title: 'Good job!',
             text: 'You have now sucessfully rated this user!',

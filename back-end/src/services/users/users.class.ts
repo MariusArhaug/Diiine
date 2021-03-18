@@ -1,7 +1,6 @@
 import { Service, KnexServiceOptions } from 'feathers-knex';
 import { Application } from '../../declarations';
 import { Params, Id, ServiceMethods } from '@feathersjs/feathers';
-import app from '../../app';
 
 /*
   Incoming user object
@@ -30,7 +29,7 @@ interface UserData {
   updated_at: Date,
   isAdmin: boolean,
   allergies: string,
-  rating_id: number,
+  avg_rating: number,
   chatted_to: number,
   avatar: string,
 }
