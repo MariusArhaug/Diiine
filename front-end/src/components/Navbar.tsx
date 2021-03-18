@@ -7,6 +7,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import logo_white from '../media/logo_white.svg';
 import { Link as RouterLink, useRouteMatch } from 'react-router-dom';
 import { Container } from '@material-ui/core';
+import { useAuth } from '../hooks/use-auth';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ButtonAppBar() {
     const classes = useStyles();
+    const auth = useAuth();
 
     let { url } = useRouteMatch();
 
@@ -50,7 +52,7 @@ export default function ButtonAppBar() {
                         <Tab component={RouterLink} to="/my_dinners" label="New dinner" />
                         {/* <Tab component={RouterLink} to="/chat" label="Chats" /> */}
                         <Tab component={RouterLink} to="/login" label="Login" />
-                        {/*<Tab component={RouterLink} to="/admin" label="Admin" />*/}
+                        {auth.user.isAdmin ? <Tab component={RouterLink} to="/admin" label="Admin" /> : null}
                     </Tabs>
 
                     <IconButton component={RouterLink} to="/profile" className={classes.profile} color="inherit" aria-label="menu">
