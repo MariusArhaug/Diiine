@@ -1,15 +1,11 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
+import React, { useState } from 'react'
+import { Button, Container, Grid, Paper, TextField, Typography } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 import client from '../../feathers-client'
 import { useStyles } from '../../styles';
-import { stringify } from 'querystring';
 import { Chip } from '../../types';
 //import { Link as RouterLink } from 'react-router-dom';
 
@@ -87,10 +83,7 @@ export default function MyDinners() {
         isOpen: false,
     });
 
-    const handleChange = (event: any) => {
-        setCheckState({ ...checkState, [event.target.name]: event.target.checked });
-    };
-
+   
     const { isDivided, isOpen } = checkState;
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

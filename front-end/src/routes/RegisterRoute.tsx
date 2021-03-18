@@ -1,5 +1,5 @@
 import React from 'react';
-import { Signup } from '../pages/User/Signup';
+import { Signup } from '../pages/User/Register';
 import Navbar from '../components/Navbar';
 
 export default function RegisterRoute() {

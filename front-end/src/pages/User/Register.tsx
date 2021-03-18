@@ -4,6 +4,9 @@ import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@ma
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Link as RouterLink } from 'react-router-dom';
 import { Chip } from '../../types';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const allergies = [
   { label: 'Lactose', value: 'lactose' },
@@ -28,13 +31,18 @@ export const Signup = () => {
     email: string,
     password: string,
     allergies: Chip[]
+    isAdmin: boolean,
+    adminKey: string,
   }>({
     name: '',
     email: '',
     password: '',
-    allergies: []
+    allergies: [],
+    isAdmin: false,
+    adminKey: '',
   });
 
+ 
   //can be put in another seperate file.
   const validateEmail = (email: string): boolean => {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -47,14 +55,18 @@ export const Signup = () => {
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (validateEmail(credentials.email) || validatePassword(credentials.password)) {
-      return; //check fields.
-    }
+    if (event.target.name === 'isAdmin') {
+      setCredentials((credentials) => ({
+          ...credentials,
+          [event.target.name]: event.target.checked,
+      }));
+  } else {
     setCredentials((credentials) => ({
       ...credentials,
       [event.target.name]: event.target.value,
     }));
   }
+}
 
   const createChipArray = (value: any) => {
     let temp = []
@@ -75,16 +87,18 @@ export const Signup = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    const hashedKey = "68f4ab4e9826312eef9953067837c087";
+    if (credentials.adminKey === hashedKey) {
+      alert("Key does not match")
+      return
+    }
 
-    const form = {
-      ...credentials,
-      allergies: credentials.allergies.map(a => a.value).join(",")
-    };
+    const form = (({adminKey, ...o} ) => o)(credentials);
+
     console.log(form)
     const result = await auth.signup(form);
     console.log(result);
   }
-
   return (
     <div>
       <div className="verticalCenter">
@@ -95,7 +109,7 @@ export const Signup = () => {
                 <Grid item xs={12}>
                   <Typography variant="h4">
                     Sign Up
-                                    </Typography>
+                  </Typography>
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
@@ -121,7 +135,6 @@ export const Signup = () => {
                     onChange={handleInputChange}
                   />
                 </Grid>
-
                 <Grid item xs={12}>
                   <TextField
                     id='password'
@@ -133,8 +146,31 @@ export const Signup = () => {
                     style={{ width: "100%" }}
                     onChange={handleInputChange}
                   />
+                </Grid>¨
+                <Grid item xs={12}>
+                  <Grid container spacing={3}>
+                    <Grid item xs={6} >
+                      <FormGroup>
+                        <FormControlLabel
+                            control={<Checkbox name="isAdmin" color="primary" checked={credentials.isAdmin}
+                            onChange={handleInputChange} />}
+                            label="Admin"
+                        />
+                      </FormGroup>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField
+                        id='password'
+                        label='Key:'
+                        className='form-field'
+                        type='password'
+                        name='adminPassword'
+                        style={{ width: "100%" }}
+                        onChange={handleInputChange}
+                      />
+                    </Grid>
+                  </Grid>
                 </Grid>
-
                 <Grid item xs={12}>
                   <Autocomplete
                     multiple
@@ -153,20 +189,17 @@ export const Signup = () => {
                     )}
                   />
                 </Grid>
-
                 <Grid item xs={12}>
                   <Button type='submit' variant="contained" color="primary" style={{ width: "100%" }}>
                     Sign Up
-                                </Button>
+                  </Button>
                 </Grid>
-
                 <Grid item xs={12}>
                   <Typography variant="caption">
                     Already have an account? <Link
                       component={RouterLink} to="/login">Log in</Link>
                   </Typography>
                 </Grid>
-
               </Grid>
             </form>
           </Paper>
