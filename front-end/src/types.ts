@@ -30,9 +30,11 @@ export type Rating = {
 }
 
 export type Chat = {
-    to: User;
-    from: User;
+    chat_to: User;
+    chat_from: User;
     message: string;
+    created_at: Date;
+    updated_at: Date;
 }
 
 export type Chip = {
