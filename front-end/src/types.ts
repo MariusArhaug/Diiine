@@ -14,7 +14,7 @@ export type Dinner = {
 }
 
 export type User = {
-    userId: number;
+    user_id: number;
     name: string;
     address: string;
     email: string;
