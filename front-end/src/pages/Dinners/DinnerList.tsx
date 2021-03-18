@@ -47,7 +47,6 @@ export default function DinnerList() {
     'allergens': false,
     'address': false,
     'title': false,
-
   });
   //const [activeButton, setActiveButton] = useState<number>();
   const [alignment, setAlignment] = useState<string | null>();
@@ -66,7 +65,6 @@ export default function DinnerList() {
         }
       })
       .then((res: any) => {
-        //console.log(res.data);
         setDinners(res.data);
       })
       .catch((e: Error) => { console.log('error', e); })
@@ -75,13 +73,15 @@ export default function DinnerList() {
   useEffect(() => defaultPage(), []);
 
   const handleClick = (input: string) => {
-    console.log(toggleButtons[input])
+
     if (toggleButtons[input] === true) {
-      defaultPage();
       toggleButtons[input] = false;
       setToggleButtons(toggleButtons);
+      defaultPage();
       return;
     }
+
+    Object.values(toggleButtons).map((e : boolean) => e = false);
     toggleButtons[input] = true;
     setToggleButtons(toggleButtons);
     let query: any = { $sort: {} }
