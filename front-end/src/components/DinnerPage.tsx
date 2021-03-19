@@ -77,7 +77,7 @@ export default function DinnerPage() {
                                     {state.dinner.address}
                                 </Typography>
                                 {/*---------------DINNER NAME ETC-------------------------*/}
-                                <Typography variant="h4">{state.dinner.name}</Typography>
+                                <Typography variant="h4">{state.dinner.title}</Typography>
                                 <Grid item container spacing={1} justify="flex-start">
                                     {state.dinner.tags.split(',').map(a => (
                                         <Grid item>

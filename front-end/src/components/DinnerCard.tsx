@@ -54,7 +54,7 @@ export default function ListComponent(props: Dinner) {
 
           <Grid item>
             <Typography variant="h5">
-              {props.name}
+              {props.title}
             </Typography>
           </Grid>
 
