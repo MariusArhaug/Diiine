@@ -1,9 +1,10 @@
+import { Id, Params } from '@feathersjs/feathers';
 import { Service, KnexServiceOptions } from 'feathers-knex';
 import { Application } from '../../declarations';
 import { Users } from '../users/users.class';
 
 interface ChatData {
-  //_id: string;
+  chat_id: number;
   chat_from: Users;
   chat_to: Users;
   message: string;
@@ -18,4 +19,6 @@ export class Chat extends Service {
       name: 'chat'
     });
   }
+
+
 }

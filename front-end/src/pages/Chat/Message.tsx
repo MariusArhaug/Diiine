@@ -3,7 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
-import { Chat } from '../../types';
+import { TypeMessage } from '../../types';
 
 const useStylesModified = makeStyles((theme: Theme) =>
     createStyles({
@@ -18,7 +18,7 @@ const useStylesModified = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function Message(props: {content: Chat, reciever: boolean}) {
+export default function Message(props: {content: TypeMessage, reciever: boolean}) {
 
     const classes = useStylesModified();
 
@@ -46,9 +46,9 @@ export default function Message(props: {content: Chat, reciever: boolean}) {
             <Grid spacing={1} justify={props.reciever ? "flex-end" : "flex-start"} container item alignItems="flex-end" >
                 {items.map(item => item)}
             </Grid>
-            <Grid item>
+            {/* <Grid item>
                 <Typography variant="caption">Sent at: {props.content.created_at.toLocaleDateString()}</Typography>
-            </Grid>
+            </Grid> */}
         </Grid>
         
     );

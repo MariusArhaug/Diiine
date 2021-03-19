@@ -13,6 +13,13 @@ export type Dinner = {
     isOpen: boolean;
 }
 
+export type TypeMessage = {
+    chat_id: number;
+    chat_from: User;
+    chat_to: User;
+    message: string;
+}
+
 export type User = {
     userId: number;
     name: string;
@@ -27,14 +34,6 @@ export type Rating = {
     ratedBy: User;
     description: string;
     rating: number;
-}
-
-export type Chat = {
-    chat_to: User;
-    chat_from: User;
-    message: string;
-    created_at: Date;
-    updated_at: Date;
 }
 
 export type Chip = {

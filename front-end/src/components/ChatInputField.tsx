@@ -5,8 +5,8 @@ import client from "../feathers-client";
 export default function ChatInputField() {
 
     const [chat, setChat] = useState({
-        chat_from: '58',
-        chat_to: '59',
+        chat_from: '82',
+        chat_to: '58',
         message: '',
     });
 
