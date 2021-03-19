@@ -60,9 +60,8 @@ export default function ButtonAppBar() {
                               }}>
                             <Tab component={RouterLink} to="/dinners" label="Dinners" />
                             <Tab component={RouterLink} to="/my_dinners" label="New dinner" />
-                            {/*<Tab component={RouterLink} to="/admin" label="Admin" />*/}
                             <Tab component={RouterLink} to="/chat" label="Chat" />
-                            {/* <Tab component={RouterLink} to="/profile" icon={<AccountCircle />} style={{marginLeft: "auto"}}/> */}
+                            {auth.user.isAdmin ? <Tab component={RouterLink} to="/admin" label="Admin" /> : null}
                         </Tabs>
 
                         <IconButton component={RouterLink} to="/profile" className={classes.profile} color="inherit" aria-label="menu">
