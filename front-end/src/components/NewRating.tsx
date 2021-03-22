@@ -31,13 +31,11 @@ const StyledRating = withStyles({
 export default function CustomizedRatings(props: User) {
 
     const [state, setState] = useState<{
-        rated_by: number;
         rated_of: number;
         rating_value: number;
         description: string;
     }>({
-        rated_by: props.user_id,
-        rated_of: 58,
+        rated_of: props.user_id,
         rating_value: 2.5,
         description: "",
     })
