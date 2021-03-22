@@ -1,7 +1,7 @@
 export type Dinner = {
     dinners_id: number;
     user_id: number;
-    name: string;
+    title: string;
     description: string;
     address: string;
     ingredients: string;
@@ -15,8 +15,8 @@ export type Dinner = {
 
 export type TypeMessage = {
     chat_id: number;
-    chat_from: number;
-    chat_to: number;
+    chat_from: User;
+    chat_to: User;
     message: string;
 }
 
@@ -34,12 +34,6 @@ export type Rating = {
     ratedBy: User;
     description: string;
     rating: number;
-}
-
-export type Chat = {
-    to: User;
-    from: User;
-    message: string;
 }
 
 export type Chip = {

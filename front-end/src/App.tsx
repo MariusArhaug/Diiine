@@ -39,7 +39,7 @@ export default function App() {
                     <Home />
                   </Route>
                 </Switch>
-              </Grid>
+              </Grid> 
               <Grid item>
                 <Footer/>
               </Grid>
