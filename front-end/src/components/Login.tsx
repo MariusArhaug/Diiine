@@ -28,6 +28,21 @@ export default function Login() {
     const handleSubmit = async (event: React.FormEvent): Promise<void> => {
         event.preventDefault();
 
+        if ((credentials.email === "" )|| (credentials.password === "")){
+            swal({
+                title: 'Whopsie a wee ERROR!',
+                text: 'You need to fill in valid login information',
+                icon: 'error',
+                buttons: {
+                    confirm: {
+                        text: "TRY AGAIN",
+                        className: "buttonStyle errorStyle",
+                    }
+                }
+            })
+            return; 
+        } 
+        // This can be removed if directed to profile automatically
         const result = await auth.signin(credentials);
         console.log(result);
         swal({
@@ -40,6 +55,7 @@ export default function Login() {
                     className: "buttonStyle",
                 }
             }
+
         });
 
     }

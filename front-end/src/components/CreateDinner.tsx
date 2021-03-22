@@ -11,6 +11,8 @@ import client from '../feathers-client'
 import { useStyles } from '../styles';
 import { stringify } from 'querystring';
 import { Chip } from '../types';
+import swal from 'sweetalert';
+import '../styles/App.css';
 //import { Link as RouterLink } from 'react-router-dom';
 
 const allergies: Chip[] = [
@@ -88,8 +90,9 @@ export default function MyDinners() {
     });
 
     const handleChange = (event: any) => {
-        setCheckState({ ...checkState, [event.target.name]: event.target.checked });
-    };
+        setCheckState({ ...checkState, [event.target.name]: event.target.checked })
+
+    }
 
     const { isDivided, isOpen } = checkState;
 
@@ -138,10 +141,21 @@ export default function MyDinners() {
             tags: credentials.tags.map(t => t.value).join(","),
             ingredients: credentials.ingredients.join(",")};
         
-        const dinner = client.service('dinners').create(form)
-            .then()
+        const dinner = await client.service('dinners').create(form)
             .catch((e: Error) => {
                 console.log('couldn\'t create dinner', e);
+            });
+        swal({
+            title: 'Scoooore!',
+            text: 'You have now created a new dinner!',
+            icon: 'success',
+            buttons: {
+                confirm: {
+                    text: "Nice!",
+                    className: "buttonStyle",
+                }
+            }
+    
             });
     }
 

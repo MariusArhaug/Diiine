@@ -67,13 +67,10 @@ export default function CustomizedRatings(props: User) {
 
         console.log(state);
 
-        client.service('rating').create(state)
-          .then() 
+        const rating = await client.service('rating').create(state)
           .catch((e: Error) => {
             console.log('couldn\'t post rating', e)
           });
-
-        client.service('rating').create(state)
         swal({
             title: 'Good job!',
             text: 'You have now sucessfully rated this user!',
