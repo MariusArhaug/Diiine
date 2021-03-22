@@ -8,13 +8,12 @@ import { useAuth } from "../hooks/use-auth";
 import InputField from "../pages/Chat/InputField";
 import Message from "../pages/Chat/Message";
 import { TypeMessage } from "../types";
-import ChatInputField from "./ChatInputField";
 import { Scrollbars } from 'react-custom-scrollbars';
 
 
 export default function ChatPrototype() {
 
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState<TypeMessage[]>([]);
 
     useEffect(() => {
 
@@ -34,14 +33,10 @@ export default function ChatPrototype() {
         console.log(messages);
 
     }, []);
-
-    useEffect(() => {
-        client.service('chat').on('created', (chat: TypeMessage) => {console.log('new chat', chat)}
-        )
-    }, [messages])
-
-
-
+    
+    client.service('chat').on('created', (chat: TypeMessage) => {
+        setMessages([...messages, chat]);
+    });
 
     return (
         <div>
@@ -68,15 +63,6 @@ export default function ChatPrototype() {
                                                 <Message key={message.chat_id} {...{ content: message.message, reciever: false }} />
                                             )
                                         })}
-                                        {/* <Message {...{ content: "This is a test messageThis is a test messageThis is a test message", reciever: false }} />
-                                        <Message {...{ content: "This is a test message", reciever: false }} />
-                                        <Message {...{ content: "This is a test message", reciever: true }} />
-                                        <Message {...{ content: "This is a test message", reciever: true }} />
-                                        <Message {...{ content: "This is a test message", reciever: true }} />
-                                        <Message {...{ content: "This is a test message", reciever: true }} />
-                                        <Message {...{ content: "This is a test message", reciever: false }} />
-                                        <Message {...{ content: "This is a test message", reciever: true }} />
-                                        <Message {...{ content: "This is a test message", reciever: true }} /> */}
                                     </Grid>
                                 </Scrollbars>
                                 <Divider />
