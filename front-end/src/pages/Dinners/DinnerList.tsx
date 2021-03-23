@@ -13,12 +13,13 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       padding: theme.spacing(3)
     },
-    paper: {
-      padding: theme.spacing(2),
+    /*paper: {
+      padding: theme.spacing(),
       margin: 'auto',
       maxWidth: 10000,
       // backgroundColor: '#b3cbb9',
     },
+    */
     image: {
       width: 128,
       height: 128,

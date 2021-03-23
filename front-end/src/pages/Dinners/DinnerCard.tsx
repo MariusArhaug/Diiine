@@ -39,6 +39,7 @@ export default function ListComponent(props: Dinner) {
 
   const classes = useStylesModified();
   const componentName = "DinnerCard"
+ 
   const history = useHistory();
   const handleOnClick = useCallback(() => history.push('/dinner/' + props.dinners_id), [history]);
 
