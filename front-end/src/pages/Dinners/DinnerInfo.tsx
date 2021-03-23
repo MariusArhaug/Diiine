@@ -13,6 +13,7 @@ import { useParams } from 'react-router-dom';
 import { Dinner, User } from '../../types';
 import client from '../../feathers-client';
 import Rating from '@material-ui/lab/Rating';
+import CreditCardIcon from '@material-ui/icons/CreditCard';
 //import Button from '@material-ui/core/Button';
 
 // {dinnerId, name, address, type, allergens, attendants, date}: DinnerProps
@@ -121,7 +122,7 @@ export default function DinnerInfo() {
                   <Grid item xs spacing={1} container alignItems="center">
                     <Grid item>
                       <Typography>
-                        Arranger: {state.owner.name}
+                        Host: {state.owner.name}
                       </Typography>
                     </Grid>
                     <Grid item>
@@ -135,7 +136,7 @@ export default function DinnerInfo() {
                   <Grid item>
                     <Button variant="outlined" onClick={handleJoinDinner}>
                       Join dinner
-                                        </Button>
+                    </Button>
                   </Grid>
                 </Grid>
               </Paper>
@@ -167,6 +168,16 @@ export default function DinnerInfo() {
                   </Grid>
                 </Grid>
 
+              <Grid container spacing={1} alignItems="center" justify="flex-start">
+                <Grid item><CreditCardIcon /></Grid>
+                <Grid item>
+                  <Typography variant="subtitle1">
+                    Expenses: {state.dinner.isDivided ? "" : "None, enjoy a free meal"} 
+                    {state.dinner.expenses > 0 ? state.dinner.expenses + " kr" : "None yet, check back later for updates"}
+                  </Typography>
+                </Grid>
+              </Grid>
+
               </Paper>
             </Grid>
             {/*------------------------------DESCRIPTION--------------------- */}
@@ -176,13 +187,6 @@ export default function DinnerInfo() {
                 <Typography variant="body1">{state.dinner.description}</Typography>
               </Paper>
             </Grid>
-            {/*------------------------------INGREDIENTS--------------------- */}
-            {/* <Grid item xs={12} md={6}>
-                            <Paper className={classes.container}>
-                                <Typography variant="h6">Ingredients</Typography>
-                                <Typography variant="body1">{state.dinner.ingredients}</Typography>
-                            </Paper>
-                        </Grid> */}
           </Grid>
         }
       </Paper>

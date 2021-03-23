@@ -36,7 +36,7 @@ export default function MyDinners() {
     const classes = useStyles();
 
     const [credentials, setCredentials] = useState<{
-        name: string,
+        title: string,
         address: string,
         description: string,
         date: string,
@@ -44,12 +44,12 @@ export default function MyDinners() {
         ingredients: string[],
         allergens: Chip[],
         attendants: number,
-        isDivided: false,
-        isOpen: false,
+        isDivided: boolean,
+        isOpen: boolean,
         expenses: number,
         banner: string
     }>({
-        name: '',
+        title: '',
         address: '',
         description: '',
         date: '',
@@ -155,12 +155,12 @@ export default function MyDinners() {
                                 <Grid container spacing={3}>
                                     <Grid item xs={6}>
                                         <TextField
-                                            id='name'
+                                            id='title'
                                             label='Dinner name'
                                             className='form-field'
                                             type='text'
-                                            name='name'
-                                            value={credentials.name}
+                                            name='title'
+                                            value={credentials.title}
                                             style={{ width: "100%" }}
                                             onChange={handleInputChange}
                                         />
@@ -208,17 +208,34 @@ export default function MyDinners() {
                             </Grid>
 
                             <Grid item xs={12}>
-                                <FormGroup>
-                                    <FormControlLabel
-                                        control={<Checkbox checked={credentials.isDivided} onChange={handleInputChange} name="isDivided" color="primary" />}
-                                        label="Split the bill"
-                                    />
-                                    <FormControlLabel
-                                        control={<Checkbox checked={credentials.isOpen} onChange={handleInputChange} name="isOpen" color="primary" />}
-                                        label="Open"
-                                    />
-
-                                </FormGroup>
+                                <Grid container spacing={3}>
+                                    <Grid item xs={6}>
+                                        <FormGroup>
+                                            <FormControlLabel
+                                                control={<Checkbox checked={credentials.isDivided} onChange={handleInputChange} name="isDivided" color="primary" />}
+                                                label="Split the bill"
+                                            />
+                                            <FormControlLabel
+                                                control={<Checkbox checked={credentials.isOpen} onChange={handleInputChange} name="isOpen" color="primary" />}
+                                                label="Open"
+                                            />
+                                        </FormGroup>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <TextField
+                                            id="expenses"
+                                            label="Expenses (kr)"
+                                            className="form-field"
+                                            type="number"
+                                            name="expenses"
+                                            value={credentials.expenses}
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            onChange={handleInputChange}
+                                        />
+                                    </Grid>
+                                </Grid>
                             </Grid>
 
                             <Grid item xs={12}>

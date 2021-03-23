@@ -7,10 +7,12 @@ export type Dinner = {
     ingredients: string;
     tags: string;
     allergens: string;
-    attendants: User[];
+    attendants: number;
     date: Date;
     maxAttendants: number;
     isOpen: boolean;
+    isDivided: boolean;
+    expenses: number;
 }
 
 export type User = {
