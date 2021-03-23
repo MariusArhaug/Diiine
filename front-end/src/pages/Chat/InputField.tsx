@@ -28,8 +28,8 @@ export default function InputField() {
     const classes = useStylesModified();
 
     const [chat, setChat] = useState({
-        chat_from: '82',
-        chat_to: '58',
+        chat_from: '58',
+        chat_to: '82',
         message: '',
     });
 

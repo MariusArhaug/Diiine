@@ -34,9 +34,6 @@ export default function Home() {
                     <Route path="/my_dinners">
                         <MyDinners />
                     </Route>
-                    <Route path="/chat">
-                        Chat
-                    </Route>
                     <Route path="/profile">
                         <Profile />
                     </Route>

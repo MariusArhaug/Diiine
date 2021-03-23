@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/use-auth';
 import { Link as RouterLink, Redirect } from 'react-router-dom';
 import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
@@ -13,6 +13,10 @@ export default function Login() {
 
     const [result, setResult] = useState(null);
 
+    useEffect(() => {
+        auth.reAuth();
+    }, [auth.user])
+
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCredentials((credentials) => ({
@@ -24,8 +28,12 @@ export default function Login() {
     const handleSubmit = async (event: React.FormEvent): Promise<void> => {
         event.preventDefault();
 
-        const result = await auth.signin(credentials);
-        setResult(result);
+        const res = await auth.signin(credentials);
+        setResult(res);
+    }
+
+    if (auth.user != null) {
+        return <Redirect to="/chat" />
     }
 
     return (

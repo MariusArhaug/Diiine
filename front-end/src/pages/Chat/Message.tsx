@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Paper, Typography } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
-import Avatar from '@material-ui/core/Avatar';
-import { TypeMessage, User } from '../../types';
-import client from '../../feathers-client';
+import React, { useEffect, useState } from "react";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { Paper, Typography } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Avatar from "@material-ui/core/Avatar";
+import { TypeMessage, User } from "../../types";
+import client from "../../feathers-client";
+import { useAuth } from "../../hooks/use-auth";
 
 const useStylesModified = makeStyles((theme: Theme) =>
     createStyles({
@@ -13,53 +14,72 @@ const useStylesModified = makeStyles((theme: Theme) =>
         },
         paper: {
             padding: theme.spacing(2),
-            margin: 'auto',
+            margin: "auto",
             maxWidth: 200,
         },
-    }),
+    })
 );
 
-export default function Message(props: {content: TypeMessage, reciever: boolean}) {
-
+export default function Message(props: { content: TypeMessage }) {
     const classes = useStylesModified();
 
-    const userId = props.content.chat_from;
+    const user = useAuth().user;
+    const senderId = props.content.chat_from;
+    const amSender = user.user_id === senderId ? true : false;
 
-    const [user, setUser] = useState<User | undefined>(undefined);
+    const [sender, setSender] = useState<User | undefined>(undefined);
 
     useEffect(() => {
-        client.service('user').get(userId)
+        client
+            .service("users")
+            .get(senderId)
+            .then((res: any) => {
+                setSender(res);
+            });
     }, []);
 
-    console.log(user);
-
-    const color: string = props.reciever ? "#D4F1DB" : "#FFFFFF";
+    const color: string = amSender ? "#D4F1DB" : "#FFFFFF";
 
     //Array of items (avatar and message content)
     let items = [
-        <Grid item>
-            <Paper className={classes.paper} style={{ textAlign: "left", backgroundColor: color }}>
+        <Grid item key="chat-content">
+            <Paper
+                className={classes.paper}
+                style={{ textAlign: "left", backgroundColor: color }}
+            >
                 <Typography variant="body1">{props.content.message}</Typography>
             </Paper>
         </Grid>,
-        // <Grid item>
-        //     <Avatar>{user.name.charAt(0)}</Avatar>
-        // </Grid>
+        <Grid item key="chat-avatar">
+            <Avatar>{sender ? sender.name[0].toUpperCase() : "X"}</Avatar>
+        </Grid>,
     ];
 
     //Reverses order of items if not a reciever message
-    items = props.reciever ? items : items.reverse();
+    items = amSender ? items : items.reverse();
 
     return (
-        <Grid className={classes.container} container item xs={12} justify={props.reciever ? "flex-end" : "flex-start"}>
-            <Grid spacing={1} justify={props.reciever ? "flex-end" : "flex-start"} container item alignItems="flex-end" >
-                {items.map(item => item)}
+        <Grid
+            className={classes.container}
+            container
+            item
+            xs={12}
+            justify={amSender ? "flex-end" : "flex-start"}
+        >
+            <Grid
+                spacing={1}
+                justify={amSender ? "flex-end" : "flex-start"}
+                container
+                item
+                alignItems="flex-end"
+            >
+                {items}
             </Grid>
             <Grid item>
-                <Typography variant="caption">Sent at: {props.content.created_at}</Typography>
+                <Typography variant="caption">
+                    Sent at: {props.content.created_at}
+                </Typography>
             </Grid>
         </Grid>
-        
     );
 }
-
