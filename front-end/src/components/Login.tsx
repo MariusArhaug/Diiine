@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/use-auth';
 import { Link as RouterLink, Redirect } from 'react-router-dom';
 import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
+import swal from 'sweetalert';
+import '../styles/App.css';
+
+
 
 export default function Login() {
     const auth = useAuth();
@@ -33,8 +37,23 @@ export default function Login() {
     }
 
     if (auth.user != null) {
-        return <Redirect to="/chat" />
+        return <Redirect to="/profile" />
     }
+
+    if ((credentials.email === "" )|| (credentials.password === "")){
+        swal({
+            title: 'Whopsie a wee ERROR!',
+            text: 'You need to fill in valid login information',
+            icon: 'error',
+            buttons: {
+                confirm: {
+                    text: "TRY AGAIN",
+                    className: "buttonStyle errorStyle",
+                }
+            }
+        })
+        return; 
+    } 
 
     return (
         <div className="verticalCenter">

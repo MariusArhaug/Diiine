@@ -13,9 +13,14 @@ import { useParams } from 'react-router-dom';
 import { Dinner, User } from '../types';
 import client from '../feathers-client';
 import Rating from '@material-ui/lab/Rating';
+import NewRating from './NewRating';
+import swal from 'sweetalert';
+import '../styles/App.css';
 //import Button from '@material-ui/core/Button';
 
 // {dinnerId, name, address, type, allergens, attendants, date}: DinnerProps
+
+
 
 export default function DinnerPage() {
 
@@ -23,7 +28,7 @@ export default function DinnerPage() {
     let { dinnerId }: { dinnerId: string } = useParams();
     const [ratingValue, setRatingValue] = useState(0);
 
-    const [state, setState] = useState<{owner: User | null, dinner: Dinner | null}>({
+    const [state, setState] = useState<{ owner: User | null, dinner: Dinner | null }>({
         owner: null,
         dinner: null
     });
@@ -32,11 +37,21 @@ export default function DinnerPage() {
     const handleJoinDinner = () => {
         console.log("lol");
         const data = {
-            dinners_id: parseInt(dinnerId,10)
+            dinners_id: parseInt(dinnerId, 10)
         }
-        //console.log(data);
         client.service('attendingdinners').create(data)
-        alert("You have now joined the dinner!");
+        swal({
+            title: 'Hurray!',
+            text: 'You have now joined the dinner!',
+            icon: 'success',
+            buttons: {
+                confirm: {
+                    text: "Nice!",
+                    className: "buttonStyle"
+                }
+            }
+        });
+
     }
 
     useEffect(() => {
@@ -49,7 +64,7 @@ export default function DinnerPage() {
                 client.service('users')
                     .get(dinner.user_id)
                     .then((resOwner: User) => {
-                        setState({dinner: resDinner, owner: resOwner})
+                        setState({ dinner: resDinner, owner: resOwner })
                     })
             })
             .catch((e: Error) => { console.log('error', e); })
@@ -66,8 +81,10 @@ export default function DinnerPage() {
                         {/*---------------HEADER IMG-------------------------*/}
                         <Grid item xs={12}>
                             <Paper className={classes.dinnerImage} style={
-                                {backgroundImage: "URL('https://image.freepik.com/free-photo/thanksgiving-celebration_53876-73751.jpg')",
-                                backgroundSize: "cover"}} />
+                                {
+                                    backgroundImage: "URL('https://image.freepik.com/free-photo/thanksgiving-celebration_53876-73751.jpg')",
+                                    backgroundSize: "cover"
+                                }} />
                         </Grid>
 
                         <Grid item xs={12} container justify="space-between" alignItems="center">
@@ -114,7 +131,7 @@ export default function DinnerPage() {
                         </Grid>
 
                         <Grid item xs={12} container>
-                            <Paper className={classes.container} style={{width: "100%"}}>
+                            <Paper className={classes.container} style={{ width: "100%" }}>
                                 <Grid item xs={12} container justify="space-between" alignItems="center">
                                     <Grid item xs spacing={1} container alignItems="center">
                                         <Grid item>
@@ -125,6 +142,7 @@ export default function DinnerPage() {
                                         <Grid item>
                                             <Rating
                                                 name="simple-controlled"
+                                                //value={state.owner.avg_rating}
                                                 value={4}
                                                 readOnly
                                             />
@@ -138,74 +156,86 @@ export default function DinnerPage() {
                                 </Grid>
                             </Paper>
                         </Grid>
-                        
-                        
 
 
-                        {/*-------------------------DETAILS-------------------------*/}
-                        <Grid item xs={12} md={6}>
-                            <Paper className={classes.container}>
-                                <Typography variant="h6" className={classes.textIcon}>Details</Typography>
 
-                                <Grid container spacing={1} alignItems="center" justify="flex-start">
-                                    <Grid item><GroupIcon /></Grid>
-                                    <Grid item>
-                                        <Typography variant="subtitle1">
-                                            Number of attendants: {state.dinner.attendants}
-                                        </Typography>
+                        <Grid item container xs={12} md={6} spacing={3}>
+                            {/*-------------------------DETAILS-------------------------*/}
+                            <Grid item xs={12}>
+                                <Paper className={classes.container}>
+                                    <Typography variant="h6" className={classes.textIcon}>Details</Typography>
+
+                                    <Grid container spacing={1} alignItems="center" justify="flex-start">
+                                        <Grid item><GroupIcon /></Grid>
+                                        <Grid item>
+                                            <Typography variant="subtitle1">
+                                                Number of attendants: {state.dinner.attendants}
+                                            </Typography>
+                                        </Grid>
                                     </Grid>
-                                </Grid>
 
-                                {/* Attendants */}
-                                {/* Need to update attendants-type in back-end
-                                <AvatarGroup max={3} className={classes.avatarGroup}>
-                                    dinner.attendants.map((a: User) => (
-                                            <Tooltip title={a.name} placement="bottom">
-                                                <Avatar>{a.name.charAt(0)}</Avatar>
-                                            </Tooltip>
+                                    {/* Attendants */}
+                                    {/* Need to update attendants-type in back-end
+                                    <AvatarGroup max={3} className={classes.avatarGroup}>
+                                        dinner.attendants.map((a: User) => (
+                                                <Tooltip title={a.name} placement="bottom">
+                                                    <Avatar>{a.name.charAt(0)}</Avatar>
+                                                </Tooltip>
+                                            )
+
                                         )
+                                    </AvatarGroup> 
+                                        */}
 
-                                    )
-                                </AvatarGroup> 
-                                    */}
+                                    {/* <Grid container spacing={1} alignItems="center" justify="flex-start">
+                                        <Grid item><EventIcon /></Grid>
+                                        <Grid item>
+                                            <Typography variant="subtitle1">
+                                                Date: {new Date(dinner.date).toDateString()}
+                                            </Typography>
+                                        </Grid>
+                                    </Grid> */}
 
-                                {/* <Grid container spacing={1} alignItems="center" justify="flex-start">
-                                    <Grid item><EventIcon /></Grid>
-                                    <Grid item>
-                                        <Typography variant="subtitle1">
-                                            Date: {new Date(dinner.date).toDateString()}
-                                        </Typography>
+                                    <Grid container spacing={1} alignItems="center" justify="flex-start">
+                                        <Grid item><LocalHospitalIcon /></Grid>
+                                        <Grid item>
+                                            <Typography variant="subtitle1">
+                                                Allergens: {state.dinner.allergens.split(',').join(', ')}
+                                            </Typography>
+                                        </Grid>
                                     </Grid>
-                                </Grid> */}
 
-                                <Grid container spacing={1} alignItems="center" justify="flex-start">
-                                    <Grid item><LocalHospitalIcon /></Grid>
-                                    <Grid item>
-                                        <Typography variant="subtitle1">
-                                            Allergens: {state.dinner.allergens.split(',').join(', ')}
-                                        </Typography>
+                                </Paper>
+                            </Grid>
+
+                            {/*------------------------------Rating--------------------- */}
+                            <Grid item xs={12}>
+                                <Paper className={classes.container}>
+                                    <Typography variant="h6">Rating</Typography>
+                                    <br />
+                                    <Grid item xs>
+                                        <NewRating {...state.owner} />
                                     </Grid>
-                                </Grid>
+                                </Paper>
+                            </Grid>
+                        </Grid>
 
-                            </Paper>
+
+                        <Grid item container spacing={3} xs={12} md={6}>
+                            {/*------------------------------DESCRIPTION--------------------- */}
+                            <Grid item xs={12}>
+                                <Paper className={classes.container}>
+                                    <Typography variant="h6">Description</Typography>
+                                    <Typography variant="body1">
+                                        {state.dinner.description}
+                                    </Typography>
+                                </Paper>
+                            </Grid>
                         </Grid>
-                        {/*------------------------------DESCRIPTION--------------------- */}
-                        <Grid item xs={12} md={6}>
-                            <Paper className={classes.container}>
-                                <Typography variant="h6">Description</Typography>
-                                <Typography variant="body1">{state.dinner.description}</Typography>
-                            </Paper>
-                        </Grid>
-                        {/*------------------------------INGREDIENTS--------------------- */}
-                        {/* <Grid item xs={12} md={6}>
-                            <Paper className={classes.container}>
-                                <Typography variant="h6">Ingredients</Typography>
-                                <Typography variant="body1">{state.dinner.ingredients}</Typography>
-                            </Paper>
-                        </Grid> */}
                     </Grid>
                 }
             </Paper>
         </div>
     )
 }
+
