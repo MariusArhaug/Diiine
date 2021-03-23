@@ -69,7 +69,7 @@ export default function ListComponent(props: Dinner) {
 
           <Grid item container spacing={1}>
             {props.tags.split(',').map(a => (
-              <Grid item>
+              <Grid item key={a.charCodeAt(0)}>
                 <Chip size="small" label={a} />
               </Grid>
             ))}

@@ -4,7 +4,6 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { useEffect, useState } from "react";
 import client from "../feathers-client";
-import { useAuth } from "../hooks/use-auth";
 import InputField from "../pages/Chat/InputField";
 import Message from "../pages/Chat/Message";
 import { Scrollbars } from "react-custom-scrollbars";
@@ -22,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ChatPrototype() {
     const classes = useStyles();
+    const reciever = 82; // TODO: Make a chat manager.
 
     const [messages, setMessages] = useState<TypeMessage[]>([]);
 
@@ -31,7 +31,7 @@ export default function ChatPrototype() {
             .find({
                 query: {
                     $sort: { created_at: -1 },
-                    $limit: 3,
+                    $limit: 10,
                 },
             })
             .then((res: any) => {
@@ -85,7 +85,7 @@ export default function ChatPrototype() {
                         </Grid>
                     </Scrollbars>
                     <Divider />
-                    <InputField />
+                    <InputField reciever={reciever}/>
                 </Paper>
             </Container>
         </div>

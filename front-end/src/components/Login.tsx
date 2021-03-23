@@ -40,21 +40,6 @@ export default function Login() {
         return <Redirect to="/profile" />
     }
 
-    if ((credentials.email === "" )|| (credentials.password === "")){
-        swal({
-            title: 'Whopsie a wee ERROR!',
-            text: 'You need to fill in valid login information',
-            icon: 'error',
-            buttons: {
-                confirm: {
-                    text: "TRY AGAIN",
-                    className: "buttonStyle errorStyle",
-                }
-            }
-        })
-        return; 
-    } 
-
     return (
         <div className="verticalCenter">
             {result && 

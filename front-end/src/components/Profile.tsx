@@ -48,9 +48,9 @@ const useStylesModified = makeStyles((theme: Theme) =>
 export default function Profile() {
     const classes = useStylesModified();
 
-    const user: User = useAuth().user;
+    const auth = useAuth();
+    const user = useAuth().user;
 
-    console.log(user);
     const [dinners, setDinners] = useState<Dinner[]>([]);
 
     useEffect(() => {
@@ -58,7 +58,6 @@ export default function Profile() {
             .service("dinners")
             .find(user.user_id)
             .then((res: any) => {
-                console.log(res.data);
                 setDinners(res.data);
             })
             .catch((e: Error) => {
@@ -85,7 +84,7 @@ export default function Profile() {
                     <Grid item>
                         <Rating
                             name="simple-controlled"
-                            value={user?.avgRating}
+                            value={user?.avgRating} // TODO: Finne denne dynamisk
                             readOnly
                         />
                     </Grid>
@@ -106,7 +105,9 @@ export default function Profile() {
 
                     <Grid item xs={12}>
                         <Button
-                            type="submit"
+                            onClick={() => {
+                                auth.signout();
+                            }}
                             variant="contained"
                             color="primary"
                             style={{ width: "100%" }}
@@ -157,10 +158,10 @@ export default function Profile() {
                             >
                                 {dinners.length &&
                                     dinners!.map((dinner: Dinner) => (
-                                        <Grid item>
+                                        <Grid item key={dinner.dinners_id}>
                                             <DinnerCard
                                                 {...dinner}
-                                                key={dinner.dinners_id}
+                                                
                                             />
                                         </Grid>
                                     ))}
