@@ -15,6 +15,8 @@ export type Dinner = {
 
 export type TypeMessage = {
     chat_id: number;
+    created_at: string;
+    updated_at: string;
     chat_from: User;
     chat_to: User;
     message: string;
