@@ -39,9 +39,9 @@ function useProvideAuth() {
         });
     };
 
-    const signout = () => {
+    const signout = async () => {
         // TODO: .logout().then(//redirect to home)
-        client.logout();
+        await client.logout();
         setUser(null);
 
     };

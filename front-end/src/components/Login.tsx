@@ -37,7 +37,7 @@ export default function Login() {
     }
 
     if (auth.user != null) {
-        return <Redirect to="/profile" />
+        return <Redirect to="/chat" />
     }
 
     return (

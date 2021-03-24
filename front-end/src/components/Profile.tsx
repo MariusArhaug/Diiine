@@ -59,6 +59,8 @@ export default function Profile() {
             .find(user.user_id)
             .then((res: any) => {
                 setDinners(res.data);
+                console.log(user);
+                
             })
             .catch((e: Error) => {
                 console.log("error", e);

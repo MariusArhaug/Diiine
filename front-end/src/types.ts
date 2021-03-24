@@ -23,13 +23,15 @@ export type TypeMessage = {
 }
 
 export type User = {
+    allergies?: string;
+    avg_rating?: number;
     user_id: number;
     name: string;
-    address: string;
-    email: string;
-    isAdmin: boolean;
-    allergies: string;
-    avgRating: number;
+    address?: string;
+    email?: string;
+    isAdmin?: boolean;
+    chatted_to?: number | null;
+    avatar?: string;
 }
 
 export type Rating = {

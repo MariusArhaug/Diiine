@@ -12,6 +12,10 @@ export default function (app: Application): void {
         app.channel("anonymous").join(connection);
     });
 
+    app.on("disconnect", connection => {
+        
+    })
+
     app.on("login", (authResult: any, { connection }: any): void => {
         // connection can be undefined if there is no
         // real-time connection, e.g. when logging in via REST
@@ -30,9 +34,9 @@ export default function (app: Application): void {
         }
     });
 
-    app.publish((data: any, hook: HookContext) => {
-        return app.channel("admins");
-    });
+    // app.publish((data: any, hook: HookContext) => {
+    //     return app.channel("admins");
+    // });
 
     app.service("chat").publish((chat: any) => {
         const from = chat.chat_to;

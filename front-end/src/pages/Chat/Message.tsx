@@ -51,7 +51,7 @@ export default function Message(props: { content: TypeMessage }) {
             </Paper>
         </Grid>,
         <Grid item key="chat-avatar">
-            <Avatar>{sender ? sender.name[0].toUpperCase() : "X"}</Avatar>
+            <Avatar>{(sender) ? sender.name[0].toUpperCase() : "X"}</Avatar>
         </Grid>,
     ];
 

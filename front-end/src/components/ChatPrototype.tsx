@@ -27,7 +27,7 @@ export default function ChatPrototype() {
 
     useEffect(() => {
         client
-            .service("chat")
+            .service("chat") // TODO: Update query to only find chat between sender/reciever
             .find({
                 query: {
                     $sort: { created_at: -1 },
@@ -73,19 +73,18 @@ export default function ChatPrototype() {
                                 width: "100%",
                             }}
                         >
-                            {
-                                messages.map((message: TypeMessage) => {
-                                    return (
-                                        <Message
-                                            key={message.chat_id}
-                                            {...{ content: message }}
-                                        />
-                                    );
-                                })}
+                            {messages.map((message: TypeMessage) => {
+                                return (
+                                    <Message
+                                        key={message.chat_id}
+                                        {...{ content: message }}
+                                    />
+                                );
+                            })}
                         </Grid>
                     </Scrollbars>
                     <Divider />
-                    <InputField reciever={reciever}/>
+                    <InputField reciever={reciever} />
                 </Paper>
             </Container>
         </div>

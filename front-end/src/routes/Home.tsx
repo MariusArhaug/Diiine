@@ -6,8 +6,8 @@ import DinnerPage from '../components/DinnerPage';
 import MyDinners from '../components/CreateDinner';
 import Profile from '../components/Profile';
 import Admin from '../components/Admin';
-import ChatPrototype from '../components/ChatPrototype';
 import { useAuth } from '../hooks/use-auth';
+import Chat from '../pages/Chat/Chat';
 
 export default function Home() {
 
@@ -23,7 +23,7 @@ export default function Home() {
             <Container maxWidth="lg" className="MainContainer">
                 <Switch>
                     <Route path="/chat">
-                        <ChatPrototype />
+                        <Chat />
                     </Route>
                     <Route path="/dinners">
                         <DinnerList />
