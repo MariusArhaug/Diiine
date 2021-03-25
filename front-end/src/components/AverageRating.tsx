@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { User } from '../types';
 import client from '../feathers-client'
 import { Rating } from '../types';
@@ -13,7 +13,6 @@ export default function AverageRating(user: User) {
     client.service('rating')
       .find({ query: { rated_by: user.user_id } })
       .then((res: any) => {
-        console.log(res.data);
         const ratings: Rating[] = res.data
         const ratingValues: number[] = ratings.map(a => a.rating_value);
         setAverage(ratingValues.reduce((a, acc) => acc + a) / ratings.length)
@@ -23,13 +22,10 @@ export default function AverageRating(user: User) {
       })
   }, [average, user.user_id])
 
-
-
   return (
     <Grid>
       <RatingDOM
         name="simple-controlled"
-        //value={user?.avg_rating}   
         value={Math.round(average * 2) / 2}
         precision={0.1}
         readOnly

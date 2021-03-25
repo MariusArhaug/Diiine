@@ -83,12 +83,6 @@ export default function Profile() {
             </Typography>
           </Grid>
           <Grid item xs>
-            <Rating
-              name="simple-controlled"
-              //value={user?.avg_rating}   
-              value={4}
-              readOnly
-            />
           </Grid>
           <Grid item xs>
             <Typography variant="body1">
