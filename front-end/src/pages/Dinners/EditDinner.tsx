@@ -35,10 +35,6 @@ export default function EditDinner() {
 
 	const classes = useStyles();
 	let { dinnerId }: { dinnerId: string } = useParams();
-	const [state, setState] = useState<{ owner: User | null, dinner: Dinner | null }>({
-		owner: null,
-		dinner: null
-	});
 
 	type Cred = {
 		title: string,
@@ -93,7 +89,7 @@ export default function EditDinner() {
 					})
 			})
 			.catch((e: Error) => { console.log('error', e); })
-	}, []);
+	}, [dinnerId]);
 
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
