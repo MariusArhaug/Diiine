@@ -5,10 +5,11 @@ import Typography from '@material-ui/core/Typography';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Dinner, User } from '../types';
 //import { useStyles } from '../styles';
-import { Link as RouterLink, useHistory } from 'react-router-dom';
 import client from '../feathers-client';
 import { useAuth } from '../hooks/use-auth';
 import Rating from '@material-ui/lab/Rating';
+import AverageRating from './AverageRating';
+
 
 
 const useStylesModified = makeStyles((theme: Theme) =>
@@ -71,16 +72,6 @@ export default function Profile() {
 
   console.log(user);
 
-  // useEffect(() => {
-  //   //Find dinner that we clicked on
-  //   client.service('users')
-  //     .get()
-  //     .then((res: User) => {
-  //       setUser(res);
-  //     })
-  //     .catch((e: Error) => { console.log('error', e); })
-  // }, []);
-
   return (
     <div className={classes.root}>
       <Paper className={classes.paper} style={{ textAlign: "left" }}>
@@ -92,13 +83,13 @@ export default function Profile() {
             </Typography>
           </Grid>
           <Grid item xs>
-           <Rating
-            name="simple-controlled"
-            //value={user?.avg_rating}   
-            value={4}         
-            readOnly
+            <Rating
+              name="simple-controlled"
+              //value={user?.avg_rating}   
+              value={4}
+              readOnly
             />
-           </Grid>
+          </Grid>
           <Grid item xs>
             <Typography variant="body1">
               E-mail: {user?.email}
@@ -113,6 +104,11 @@ export default function Profile() {
               </Typography>
             </Grid>
           }
+          <Grid>
+            <AverageRating {...user}>
+
+            </AverageRating>
+          </Grid>
         </Grid>
       </Paper>
 

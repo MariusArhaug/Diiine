@@ -39,3 +39,13 @@ export type Chat = {
 export type Chip = {
     label: string; value: string
 };
+
+export type RatingData = {
+    rated_of: number;
+    rated_by: number;
+    rating_value: number;
+    description: string;
+    created_at: Date;
+    updated_at: Date;
+    rating_id: number;
+  }

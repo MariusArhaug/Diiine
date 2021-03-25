@@ -6,87 +6,87 @@ import swal from 'sweetalert';
 
 
 export default function Login() {
-    const auth = useAuth();
+  const auth = useAuth();
 
-    const [credentials, setCredentials] = useState({
-        email: '',
-        password: ''
-    });
+  const [credentials, setCredentials] = useState({
+    email: '',
+    password: ''
+  });
 
-    const [result, setResult] = useState(null);
+  const [result, setResult] = useState(null);
 
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCredentials((credentials) => ({
-            ...credentials,
-            [event.target.name]: event.target.value,
-        }));
-    }
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCredentials((credentials) => ({
+      ...credentials,
+      [event.target.name]: event.target.value,
+    }));
+  }
 
-    const handleSubmit = async (event: React.FormEvent): Promise<void> => {
-        event.preventDefault();
+  const handleSubmit = async (event: React.FormEvent): Promise<void> => {
+    event.preventDefault();
 
-        const result = await auth.signin(credentials);
-        console.log(result);
-        swal("Success!", "You have now logged in!", "success");
-            
-    }
+    const result = await auth.signin(credentials);
+    console.log(result);
+    swal("Success!", "You have now logged in!", "success");
 
-    return (
-        <div className="verticalCenter">
-            <Container maxWidth="xs">
-                <Paper style={{padding: "50px"}}>
-                    <form method='POST' onSubmit={handleSubmit}>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12}>
-                                <Typography variant="h4">
-                                    Login
+  }
+
+  return (
+    <div className="verticalCenter">
+      <Container maxWidth="xs">
+        <Paper style={{ padding: "50px" }}>
+          <form method='POST' onSubmit={handleSubmit}>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <Typography variant="h4">
+                  Login
                                 </Typography>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    id='email'
-                                    label='Email'
-                                    className='form-field'
-                                    type='text'
-                                    name='email'
-                                    value={credentials.email}
-                                    style={{width: "100%"}}
-                                    onChange={handleInputChange}
-                                />
-                            </Grid>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id='email'
+                  label='Email'
+                  className='form-field'
+                  type='text'
+                  name='email'
+                  value={credentials.email}
+                  style={{ width: "100%" }}
+                  onChange={handleInputChange}
+                />
+              </Grid>
 
-                            <Grid item xs={12}>
-                                <TextField
-                                    id='password'
-                                    label='Password'
-                                    className='form-field'
-                                    type='password'
-                                    name='password'
-                                    value={credentials.password}
-                                    style={{width: "100%"}}
-                                    onChange={handleInputChange}
-                                />
-                            </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id='password'
+                  label='Password'
+                  className='form-field'
+                  type='password'
+                  name='password'
+                  value={credentials.password}
+                  style={{ width: "100%" }}
+                  onChange={handleInputChange}
+                />
+              </Grid>
 
-                            <Grid item xs={12}>
-                                <Button type='submit' variant="contained" color="primary" style={{width: "100%"}}>
-                                    Login
+              <Grid item xs={12}>
+                <Button type='submit' variant="contained" color="primary" style={{ width: "100%" }}>
+                  Login
                                 </Button>
-                            </Grid>
+              </Grid>
 
-                            <Grid item xs={12}>
-                                <Typography variant="caption">
-                                    Don't have an account yet? <Link
-                                    component={RouterLink} to="signup">Sign up</Link>
-                                </Typography>
-                            </Grid>
+              <Grid item xs={12}>
+                <Typography variant="caption">
+                  Don't have an account yet? <Link
+                    component={RouterLink} to="signup">Sign up</Link>
+                </Typography>
+              </Grid>
 
-                        </Grid>
-                    </form>
-                </Paper>
-            </Container>
-            <Button component={RouterLink} to='/profile'>Profile</Button> 
-        </div>
-    );
+            </Grid>
+          </form>
+        </Paper>
+      </Container>
+      <Button component={RouterLink} to='/profile'>Profile</Button>
+    </div>
+  );
 }
