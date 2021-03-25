@@ -6,10 +6,15 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import client from '../../feathers-client'
 import { useStyles } from '../../styles';
+<<<<<<< HEAD
 import { Chip } from '../../types';
+=======
+import { stringify } from 'querystring';
+import { Chips } from '../../types';
+>>>>>>> ffb016bad9ca9814d9c052ea295ccc87b0a36692
 //import { Link as RouterLink } from 'react-router-dom';
 
-const allergies: Chip[] = [
+const allergies: Chips[] = [
     { label: 'Lactose', value: 'lactose' },
     { label: 'Gluten', value: 'gluten' },
     { label: 'Shellfish', value: 'shellfish' },
@@ -24,7 +29,7 @@ const allergies: Chip[] = [
     { label: 'Sulfites', value: 'sulfites' },
 ]
 
-const tags: Chip[] = [
+const tags: Chips[] = [
     { label: 'Vegan', value: 'vegan' },
     { label: 'Meat', value: 'meat' }
 ]
@@ -36,20 +41,20 @@ export default function MyDinners() {
     const classes = useStyles();
 
     const [credentials, setCredentials] = useState<{
-        name: string,
+        title: string,
         address: string,
         description: string,
         date: string,
-        tags: Chip[],
+        tags: Chips[],
         ingredients: string[],
-        allergens: Chip[],
+        allergens: Chips[],
         attendants: number,
         isDivided: false,
         isOpen: false,
         expenses: number,
         banner: string
     }>({
-        name: '',
+        title: '',
         address: '',
         description: '',
         date: '',
@@ -64,7 +69,7 @@ export default function MyDinners() {
     });
 
     const test = {
-        name: 'test',
+        title: 'test',
         address: 'test',
         description: 'test',
         date: '2001-01-01',
@@ -155,12 +160,12 @@ export default function MyDinners() {
                                 <Grid container spacing={3}>
                                     <Grid item xs={6}>
                                         <TextField
-                                            id='name'
+                                            id='title'
                                             label='Dinner name'
                                             className='form-field'
                                             type='text'
-                                            name='name'
-                                            value={credentials.name}
+                                            name='title'
+                                            value={credentials.title}
                                             style={{ width: "100%" }}
                                             onChange={handleInputChange}
                                         />

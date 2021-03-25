@@ -6,6 +6,8 @@ import React, { useCallback } from 'react';
 import { Dinner } from '../../types';
 //import { useStyles } from '../styles';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
+import DeleteButton from '../Admin/DeleteButton';
+import EditButton from '../Admin/EditButton';
 
 const useStylesModified = makeStyles((theme: Theme) =>
   createStyles({
@@ -75,6 +77,9 @@ export default function ListComponent(props: Dinner) {
           </Grid>
         </Grid>
       </Paper>
+{/*       <Grid item container justify='flex-end'>
+          <EditButton {...props}/><DeleteButton/>
+      </Grid> */}
     </div>
   );
 }

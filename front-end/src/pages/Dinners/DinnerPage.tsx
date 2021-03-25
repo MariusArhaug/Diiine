@@ -1,27 +1,26 @@
-import React, { InputHTMLAttributes, useCallback, useEffect, useState } from 'react';
+import React, { InputHTMLAttributes, useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import { useStyles } from '../../styles';
-import { Avatar, Button, Chip, Grid, IconButton, Paper, Tooltip } from '@material-ui/core';
+import { Avatar, Button, Chip, Grid, Paper, Tooltip } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import GroupIcon from '@material-ui/icons/Group';
 import PlaceIcon from '@material-ui/icons/Place';
 import EventIcon from '@material-ui/icons/Event';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Dinner, User } from '../../types';
 import client from '../../feathers-client';
 import Rating from '@material-ui/lab/Rating';
 import { useAuth } from '../../hooks/use-auth';
 import EditButton from '../Admin/EditButton';
 import DeleteButton from '../Admin/DeleteButton';
-import DeleteIcon from '@material-ui/icons/Delete';
 //import Button from '@material-ui/core/Button';
 
 // {dinnerId, name, address, type, allergens, attendants, date}: DinnerProps
 
-export default function DinnerInfo() {
+export default function DinnerPage(props: Dinner) {
 
   const classes = useStyles();
   let { dinnerId }: { dinnerId: string } = useParams();
@@ -33,7 +32,7 @@ export default function DinnerInfo() {
   });
 
   const user: User = useAuth().user;
-  // const isAdmin: boolean = useAuth().user.isAdmin;
+  //const isAdmin: boolean = useAuth().user.isAdmin;
 
   const handleJoinDinner = () => {
     console.log("lol");
@@ -63,21 +62,6 @@ export default function DinnerInfo() {
 
   console.log(state)
 
-  const history = useHistory();
-
-  const handleDeleteClick = () => {
-    console.log("deleted")
-    client.service('dinners').remove(dinnerId)
-    .then()
-    .catch((e: Error) => {
-      console.log('couldn\'t delete dinner', e);
-    });
-  } 
-
-  const handleEditClick = () => {
-    history.push('/editdinner/' + state.dinner!.dinners_id);
-  }
-
   return (
     <div className={classes.spacer}>
       <Paper className={classes.spacer} style={{ textAlign: "left" }}>
@@ -96,8 +80,8 @@ export default function DinnerInfo() {
             <Grid item xs={12} container justify="space-between" alignItems="center">
             
             <Grid item container justify='flex-end'>
-            {state.owner.user_id == user.user_id || user.isAdmin ? <Button onClick={handleEditClick}>Edit</Button> : <p/>}
-            {state.owner.user_id == user.user_id || user.isAdmin ? <IconButton onClick={handleDeleteClick} aria-label="delete"><DeleteIcon style={{fill: "#512D38"}}/></IconButton> : <p/>}
+            {state.owner.user_id == user.user_id || user.isAdmin ? <EditButton {...props}/> : <p/>}
+            {state.owner.user_id == user.user_id || user.isAdmin ? <DeleteButton/> : <p/>}
             </Grid>
               <Grid xs item style={{ textAlign: "left" }}>
                 <Typography variant="caption" color="textSecondary">
