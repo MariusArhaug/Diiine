@@ -23,13 +23,16 @@ export type User = {
     email: string;
     isAdmin: boolean;
     allergies: string;
+    avgRating: number;
 }
 
 export type Rating = {
-    rated: User;
-    ratedBy: User;
+    rated_of: number;
+    rated_by: number;
+    rating_value: number;
     description: string;
-    rating: number;
+    rating_id : number;
+    created_at: string;
 }
 
 export type Chat = {
@@ -41,3 +44,13 @@ export type Chat = {
 export type Chips = {
     label: string; value: string
 };
+
+export type RatingData = {
+    rated_of: number;
+    rated_by: number;
+    rating_value: number;
+    description: string;
+    created_at: Date;
+    updated_at: Date;
+    rating_id: number;
+  }

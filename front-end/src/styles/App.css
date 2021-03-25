@@ -32,13 +32,22 @@ li a:visited {
 li a:hover {
   background-color: #111;
 }
-
 .buttonStyle {
   padding: 7px 19px;
   border-radius: 2px;
-  background-color: #512D38;
+  background-color: #0d045e;
   font-size: 12px;
-  border: 1px solid #512D38;
   text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
 }
-
+.errorStyle {
+  background-color: #e00303;
+  border: 1px solid #530202;
+}
+.buttonStyle {
+  padding: 7px 19px;
+  border-radius: 2px;
+  background-color: #512d38;
+  font-size: 12px;
+  border: 1px solid #512d38;
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+}
