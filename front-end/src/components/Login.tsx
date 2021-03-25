@@ -3,6 +3,8 @@ import { useAuth } from '../hooks/use-auth';
 import { Link as RouterLink } from 'react-router-dom';
 import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
 import swal from 'sweetalert';
+import '../styles/App.css';
+
 
 
 export default function Login() {
@@ -12,9 +14,6 @@ export default function Login() {
     email: '',
     password: ''
   });
-
-  const [result, setResult] = useState(null);
-
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials((credentials) => ({
@@ -26,10 +25,34 @@ export default function Login() {
   const handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
 
+    if ((credentials.email === "") || (credentials.password === "")) {
+      swal({
+        title: 'Whopsie a wee ERROR!',
+        text: 'You need to fill in valid login information',
+        icon: 'error',
+        buttons: {
+          confirm: {
+            text: "TRY AGAIN",
+            className: "buttonStyle errorStyle",
+          }
+        }
+      })
+      return;
+    }
+    // This can be removed if directed to profile automatically
     const result = await auth.signin(credentials);
     console.log(result);
-    swal("Success!", "You have now logged in!", "success");
-
+    swal({
+      title: 'Success!',
+      text: 'You have now logged in!',
+      icon: 'success',
+      buttons: {
+        confirm: {
+          text: "Nice!",
+          className: "buttonStyle",
+        }
+      }
+    });
   }
 
   return (
@@ -41,7 +64,7 @@ export default function Login() {
               <Grid item xs={12}>
                 <Typography variant="h4">
                   Login
-                                </Typography>
+                </Typography>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -55,7 +78,6 @@ export default function Login() {
                   onChange={handleInputChange}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <TextField
                   id='password'
@@ -72,7 +94,7 @@ export default function Login() {
               <Grid item xs={12}>
                 <Button type='submit' variant="contained" color="primary" style={{ width: "100%" }}>
                   Login
-                                </Button>
+                </Button>
               </Grid>
 
               <Grid item xs={12}>
@@ -81,7 +103,6 @@ export default function Login() {
                     component={RouterLink} to="signup">Sign up</Link>
                 </Typography>
               </Grid>
-
             </Grid>
           </form>
         </Paper>

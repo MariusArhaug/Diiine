@@ -40,9 +40,6 @@ export default function DinnerPage() {
             dinners_id: parseInt(dinnerId, 10)
         }
         client.service('attendingdinners').create(data)
-        //Old alert:
-        // alert("You have now joined the dinner!");
-        //New alert:
         swal({
             title: 'Hurray!',
             text: 'You have now joined the dinner!',
