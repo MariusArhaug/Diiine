@@ -7,10 +7,13 @@ export type Dinner = {
     ingredients: string;
     tags: string;
     allergens: string;
-    attendants: User[];
+    attendants: number;
     date: Date;
     maxAttendants: number;
     isOpen: boolean;
+    isDivided: boolean;
+    expenses: number;
+    banner: string;
 }
 
 export type User = {
@@ -35,6 +38,6 @@ export type Chat = {
     message: string;
 }
 
-export type Chip = {
+export type Chips = {
     label: string; value: string
 };
