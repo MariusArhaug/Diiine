@@ -1,7 +1,7 @@
 export type Dinner = {
     dinners_id: number;
     user_id: number;
-    name: string;
+    title: string;
     description: string;
     address: string;
     ingredients: string;
@@ -28,6 +28,8 @@ export type Rating = {
     rated_by: number;
     rating_value: number;
     description: string;
+    rating_id : number;
+    created_at: string;
 }
 
 export type Chat = {
