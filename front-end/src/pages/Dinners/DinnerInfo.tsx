@@ -2,7 +2,7 @@ import React, { InputHTMLAttributes, useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import { useStyles } from '../../styles';
-import { Avatar, Button, Chip, Grid, Paper, Tooltip } from '@material-ui/core';
+import { Avatar, Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Paper, TextField, Tooltip } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import GroupIcon from '@material-ui/icons/Group';
@@ -14,6 +14,7 @@ import { Dinner, User } from '../../types';
 import client from '../../feathers-client';
 import Rating from '@material-ui/lab/Rating';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
+import { useAuth } from '../../hooks/use-auth';
 //import Button from '@material-ui/core/Button';
 
 // {dinnerId, name, address, type, allergens, attendants, date}: DinnerProps
@@ -21,6 +22,7 @@ import CreditCardIcon from '@material-ui/icons/CreditCard';
 export default function DinnerInfo() {
 
   const classes = useStyles();
+  const auth = useAuth();
   let { dinnerId }: { dinnerId: string } = useParams();
   const [ratingValue, setRatingValue] = useState(0);
 
@@ -29,6 +31,7 @@ export default function DinnerInfo() {
     dinner: null
   });
 
+  const [open, setOpen] = useState(false);
 
   const handleJoinDinner = () => {
     console.log("lol");
@@ -38,6 +41,34 @@ export default function DinnerInfo() {
     //console.log(data);
     client.service('attendingdinners').create(data)
     alert("You have now joined the dinner!");
+  }
+
+  const handleOpen = () => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  }
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    /* if (state.dinner) {
+      let data = {
+        expenses: state.dinner.expenses
+      }
+      client.service('dinners').patch(state.dinner.dinners_id, data)
+      .then()
+      .catch((e: Error) => {
+        console.log(e);
+      })
+    } */
+  }
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (state.dinner) {
+      state.dinner.expenses = Number.parseFloat(event.target.value);
+    }
   }
 
   useEffect(() => {
@@ -172,9 +203,14 @@ export default function DinnerInfo() {
                 <Grid item><CreditCardIcon /></Grid>
                 <Grid item>
                   <Typography variant="subtitle1">
-                    Expenses: {state.dinner.isDivided ? "" : "None, enjoy a free meal"} 
+                    Total expenses: {state.dinner.isDivided ? "" : "None, enjoy a free meal"} 
                     {state.dinner.expenses > 0 ? state.dinner.expenses + " kr" : "None yet, check back later for updates"}
                   </Typography>
+                </Grid>
+                <Grid item>
+                  {state.dinner.user_id == auth.user.user_id ? <Button variant="outlined" onClick={handleOpen}>
+                    Edit expenses
+                  </Button> : null}
                 </Grid>
               </Grid>
 
@@ -190,6 +226,32 @@ export default function DinnerInfo() {
           </Grid>
         }
       </Paper>
+      <form method='POST' onSubmit={handleSubmit}>
+        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">Edit expenses</DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="expenses"
+              name="expenses"
+              label="Expenses (kr)"
+              type="number"
+              className='form-field'
+              fullWidth
+              onChange={handleInputChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button type="submit" onClick={handleClose} color="primary" variant="outlined">
+              Confirm
+            </Button>
+            <Button onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </form>  
     </div>
   )
 }
