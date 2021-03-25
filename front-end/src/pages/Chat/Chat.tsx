@@ -18,9 +18,13 @@ export default function Chat() {
         
     }
 
+
+    
+    
+
     return (
         <div className="chat">
-            <UserWindow users={chatManager.allUsers} onClick={onUserClick}/>
+            <UserWindow {...{users: chatManager.allUsers, onUserClick: onUserClick}}/>
             <ChatWindow />
         </div>
     );

@@ -7,7 +7,7 @@ import {
     Paper,
     Typography,
 } from "@material-ui/core";
-import React from "react";
+import React, { MouseEventHandler } from "react";
 
 const useStyles = makeStyles({
     root: {
@@ -26,13 +26,18 @@ const useStyles = makeStyles({
     }
 });
 
-export default function UserWindow(props: any) {
+type Props = {
+    users: User[];
+    onUserClick: (userId: number) => MouseEventHandler<HTMLDivElement>;
+}
+
+export default function UserWindow(props: Props) {
     const users = props.users;
     const classes = useStyles();
 
     const populateUsers = (user: User) => {
         return (
-            <div key={user.user_id} onClick={props.onUserClick(user.user_id)}>
+            <div key={user.user_id} onClick={() => props.onUserClick(user.user_id)}>
                 <Grid container direction="row" alignContent='center'>
                     <Grid item className={classes.avatar}>
                         <Avatar src={user.avatar}>
