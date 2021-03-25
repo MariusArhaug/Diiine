@@ -3,14 +3,10 @@ import { useAuth } from '../../hooks/use-auth';
 import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Link as RouterLink } from 'react-router-dom';
-<<<<<<< HEAD:front-end/src/pages/User/Register.tsx
 import { Chip } from '../../types';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-=======
-import { Chips } from '../../types';
->>>>>>> ffb016bad9ca9814d9c052ea295ccc87b0a36692:front-end/src/pages/User/Signup.tsx
 
 const allergies = [
   { label: 'Lactose', value: 'lactose' },
@@ -39,16 +35,7 @@ interface Form {
 export const Signup = () => {
   const auth = useAuth();
 
-<<<<<<< HEAD:front-end/src/pages/User/Register.tsx
   const [credentials, setCredentials] = useState<Form>({
-=======
-  const [credentials, setCredentials] = useState<{
-    name: string,
-    email: string,
-    password: string,
-    allergies: Chips[]
-  }>({
->>>>>>> ffb016bad9ca9814d9c052ea295ccc87b0a36692:front-end/src/pages/User/Signup.tsx
     name: '',
     email: '',
     password: '',

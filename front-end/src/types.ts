@@ -41,7 +41,7 @@ export type Chat = {
     message: string;
 }
 
-export type Chips = {
+export type Chip = {
     label: string; value: string
 };
 

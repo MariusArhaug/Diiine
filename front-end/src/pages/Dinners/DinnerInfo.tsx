@@ -1,12 +1,10 @@
 import React, { InputHTMLAttributes, useCallback, useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
-import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import { useStyles } from '../../styles';
-import { Avatar, Button, Chip, Grid, IconButton, Paper, Tooltip } from '@material-ui/core';
+import { Avatar, Button, Chip, Grid, IconButton, Paper } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import GroupIcon from '@material-ui/icons/Group';
-import PlaceIcon from '@material-ui/icons/Place';
 import EventIcon from '@material-ui/icons/Event';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import { useHistory, useParams } from 'react-router-dom';
@@ -33,20 +31,16 @@ export default function DinnerInfo() {
   });
 
   const user: User = useAuth().user;
-  // const isAdmin: boolean = useAuth().user.isAdmin;
 
   const handleJoinDinner = () => {
-    console.log("lol");
     const data = {
       dinners_id: parseInt(dinnerId, 10)
     }
-    //console.log(data);
     client.service('attendingdinners').create(data)
     alert("You have now joined the dinner!");
   }
 
   useEffect(() => {
-    //Find dinner that we clicked on
     let dinner: Dinner;
     client.service('dinners')
       .get(dinnerId)
@@ -59,7 +53,7 @@ export default function DinnerInfo() {
           })
       })
       .catch((e: Error) => { console.log('error', e); })
-  }, []);
+  }, [dinnerId]);
 
   console.log(state)
 
@@ -68,11 +62,11 @@ export default function DinnerInfo() {
   const handleDeleteClick = () => {
     console.log("deleted")
     client.service('dinners').remove(dinnerId)
-    .then()
-    .catch((e: Error) => {
-      console.log('couldn\'t delete dinner', e);
-    });
-  } 
+      .then()
+      .catch((e: Error) => {
+        console.log('couldn\'t delete dinner', e);
+      });
+  }
 
   const handleEditClick = () => {
     history.push('/editdinner/' + state.dinner!.dinners_id);
@@ -94,11 +88,11 @@ export default function DinnerInfo() {
             </Grid>
 
             <Grid item xs={12} container justify="space-between" alignItems="center">
-            
-            <Grid item container justify='flex-end'>
-            {state.owner.user_id == user.user_id || user.isAdmin ? <Button onClick={handleEditClick}>Edit</Button> : <p/>}
-            {state.owner.user_id == user.user_id || user.isAdmin ? <IconButton onClick={handleDeleteClick} aria-label="delete"><DeleteIcon style={{fill: "#512D38"}}/></IconButton> : <p/>}
-            </Grid>
+
+              <Grid item container justify='flex-end'>
+                {state.owner.user_id === user.user_id || user.isAdmin ? <Button onClick={handleEditClick}>Edit</Button> : <p />}
+                {state.owner.user_id === user.user_id || user.isAdmin ? <IconButton onClick={handleDeleteClick} aria-label="delete"><DeleteIcon style={{ fill: "#512D38" }} /></IconButton> : <p />}
+              </Grid>
               <Grid xs item style={{ textAlign: "left" }}>
                 <Typography variant="caption" color="textSecondary">
                   {state.dinner.address}

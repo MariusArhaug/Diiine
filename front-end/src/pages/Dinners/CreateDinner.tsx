@@ -6,11 +6,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import client from '../../feathers-client'
 import { useStyles } from '../../styles';
-import { Chips } from '../../types';
+import { Chip } from '../../types';
 import swal from 'sweetalert';
-import '../styles/App.css';
 
-const allergies: Chips[] = [
+const allergies: Chip[] = [
   { label: 'Lactose', value: 'lactose' },
   { label: 'Gluten', value: 'gluten' },
   { label: 'Shellfish', value: 'shellfish' },
@@ -25,7 +24,7 @@ const allergies: Chips[] = [
   { label: 'Sulfites', value: 'sulfites' },
 ]
 
-const tags: Chips[] = [
+const tags: Chip[] = [
   { label: 'Vegan', value: 'vegan' },
   { label: 'Meat', value: 'meat' }
 ]
@@ -41,9 +40,9 @@ export default function MyDinners() {
     address: string,
     description: string,
     date: string,
-    tags: Chips[],
+    tags: Chip[],
     ingredients: string[],
-    allergens: Chips[],
+    allergens: Chip[],
     attendants: number,
     isDivided: false,
     isOpen: false,
