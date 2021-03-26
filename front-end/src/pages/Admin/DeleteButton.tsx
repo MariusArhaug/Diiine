@@ -2,6 +2,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import client from '../../feathers-client';
+import swal from 'sweetalert';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,6 +23,17 @@ export default function DeleteButton(props: { type: number, id: number }) {
   const handleClick = (): void => {
     console.log(props.id)
     client.service(type).remove(props.id)
+    swal({
+      title: 'Good Admin!',
+      text: 'You have now deleted this user!',
+      icon: 'success',
+      buttons: {
+        confirm: {
+          text: "Nice!",
+          className: "buttonStyle",
+        }
+      }
+    });
   }
 
   return (
