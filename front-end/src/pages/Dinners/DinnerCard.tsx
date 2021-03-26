@@ -2,9 +2,10 @@ import { Chip, Grid } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import React, { useCallback } from 'react';
-import { Dinner } from '../../types';
-import { Link, useHistory } from 'react-router-dom';
+import { Dinner, User } from '../../types';
+import { useHistory } from 'react-router-dom';
+import client from '../../feathers-client';
+import React, { useEffect, useState } from 'react';
 
 const useStylesModified = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,13 +35,31 @@ const useStylesModified = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function ListComponent(props: Dinner) {
+export default function DinnerCard(dinner: Dinner) {
 
   const classes = useStylesModified();
   const componentName = "DinnerCard"
-
+  const [owner, setOwner] = useState<User>();
   const history = useHistory();
-  const handleOnClick = useCallback(() => history.push('/dinner/' + props.dinners_id), [history]);
+
+  useEffect(() => {
+    client.service('users')
+      .get(dinner.user_id)
+      .then((res: User) => {
+        setOwner(res);
+      })
+      .catch((e: any) => console.log(e))
+  }, [dinner.user_id])
+
+  const handleOnClick = () => {
+    history.push({
+      pathname: `/dinner/${dinner.dinners_id}`,
+      state: {
+        dinner: dinner,
+        dinner_owner: owner,
+      },
+    })
+  }
 
   return (
     <div className={`${classes.root}  ${componentName}`}>
@@ -48,23 +67,23 @@ export default function ListComponent(props: Dinner) {
         <Grid container spacing={1}>
           <Grid item xs={12}>
             <Typography variant="caption" color="textSecondary" className="dinnerInfo">
-              {props.address}
+              {dinner.address}
             </Typography>
           </Grid>
           <Grid item>
             <Typography variant="h5" className="dinnerInfo">
-              {props.title}
+              {dinner.title}
             </Typography>
           </Grid>
-          {props.allergens.length > 0 &&
+          {dinner.allergens.length > 0 &&
             <Grid item xs={12}>
               <Typography variant="body2" className="dinnerInfo">
-                Allergens: {props.allergens.split(',').join(', ')}
+                Allergens: {dinner.allergens.split(',').join(', ')}
               </Typography>
             </Grid>
           }
           <Grid item container spacing={1}>
-            {props.tags.split(',').map(a => (
+            {dinner.tags.split(',').map(a => (
               <Grid item className="dinnerInfo">
                 <Chip size="small" label={a} />
               </Grid>

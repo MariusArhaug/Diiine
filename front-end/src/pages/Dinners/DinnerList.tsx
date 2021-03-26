@@ -13,13 +13,6 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       padding: theme.spacing(3)
     },
-    /*paper: {
-      padding: theme.spacing(),
-      margin: 'auto',
-      maxWidth: 10000,
-      // backgroundColor: '#b3cbb9',
-    },
-    */
     image: {
       width: 128,
       height: 128,
@@ -37,6 +30,13 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+interface sortQuery {
+  $sort: {
+    dinners_id: number
+  }
+}
+
+
 export default function DinnerList() {
   const classes = useStyles();
   const [dinners, setDinners] = useState([]);
@@ -49,7 +49,7 @@ export default function DinnerList() {
     'address': false,
     'title': false,
   });
-  //const [activeButton, setActiveButton] = useState<number>();
+
   const [alignment, setAlignment] = useState<string | null>();
 
   const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
@@ -82,7 +82,7 @@ export default function DinnerList() {
       return;
     }
 
-    Object.values(toggleButtons).map((e : boolean) => e = false);
+    Object.values(toggleButtons).map((e: boolean) => e = false);
     toggleButtons[input] = true;
     setToggleButtons(toggleButtons);
     let query: any = { $sort: {} }

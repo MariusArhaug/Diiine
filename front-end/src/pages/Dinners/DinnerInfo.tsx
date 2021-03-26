@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../../styles';
 import { Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Paper, TextField } from '@material-ui/core';
@@ -8,7 +8,7 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import GroupIcon from '@material-ui/icons/Group';
 import EventIcon from '@material-ui/icons/Event';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Dinner, User } from '../../types';
 import client from '../../feathers-client';
 import Rating from '@material-ui/lab/Rating';
@@ -22,25 +22,44 @@ export default function DinnerInfo() {
 
   const classes = useStyles();
   const auth = useAuth();
-  let { dinnerId }: { dinnerId: string } = useParams();
 
+  const location: { state: { dinner: Dinner, dinner_owner: User } } = useLocation();
   const [state, setState] = useState<{ owner: User | null, dinner: Dinner | null }>({
     owner: null,
-    dinner: null
+    dinner: null,
   });
+
+  useEffect(() => {
+    const dinnerInfo: Dinner = location.state.dinner;
+    const userInfo: User = location.state.dinner_owner;
+
+    setState({ dinner: dinnerInfo, owner: userInfo })
+  }, [location.state.dinner, location.state.dinner_owner])
+
+
+  console.log(state)
+
 
   const [open, setOpen] = useState(false);
   const user: User = useAuth().user;
 
   const handleJoinDinner = () => {
     const data = {
-      dinners_id: parseInt(dinnerId, 10)
+      dinners_id: state!.dinner!.dinners_id,
     }
+
     client.service('attendingdinners').create(data);
     swal({
       title: 'Hurray!',
       text: 'You have now joined the dinner!',
-    })
+      icon: 'success',
+      buttons: {
+        confirm: {
+          text: "Nice!",
+          className: "buttonStyle"
+        }
+      }
+    });
   }
 
   const handleOpen = () => {
@@ -53,16 +72,6 @@ export default function DinnerInfo() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    /* if (state.dinner) {
-      let data = {
-        expenses: state.dinner.expenses
-      }
-      client.service('dinners').patch(state.dinner.dinners_id, data)
-      .then()
-      .catch((e: Error) => {
-        console.log(e);
-      })
-    } */
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,36 +80,18 @@ export default function DinnerInfo() {
     }
   }
 
-  useEffect(() => {
-    let dinner: Dinner;
-    client.service('dinners')
-      .get(dinnerId)
-      .then((resDinner: Dinner) => {
-        dinner = resDinner;
-        client.service('users')
-          .get(dinner.user_id)
-          .then((resOwner: User) => {
-            setState({ dinner: resDinner, owner: resOwner })
-          })
-      })
-      .catch((e: Error) => { console.log('error', e); })
-  }, [dinnerId]);
-
-  console.log(state)
-
-  const history = useHistory();
 
   const handleDeleteClick = () => {
     console.log("deleted")
-    client.service('dinners').remove(dinnerId)
+    client.service('dinners').remove(state!.dinner!.dinners_id)
       .then()
       .catch((e: Error) => {
         console.log('couldn\'t delete dinner', e);
       });
   }
-
+  const history = useHistory();
   const handleEditClick = () => {
-    history.push('/editdinner/' + state.dinner!.dinners_id);
+    history.push('/editdinner/' + state!.dinner!.dinners_id);
   }
 
   return (
@@ -108,7 +99,6 @@ export default function DinnerInfo() {
       <Paper className={classes.spacer} style={{ textAlign: "left" }}>
         {state.dinner && state.owner &&
           <Grid container spacing={3} direction="row" alignItems="stretch">
-
             {/*---------------HEADER IMG-------------------------*/}
             <Grid item xs={12}>
               <Paper className={classes.dinnerImage} style={
@@ -117,9 +107,7 @@ export default function DinnerInfo() {
                   backgroundSize: "cover"
                 }} />
             </Grid>
-
             <Grid item xs={12} container justify="space-between" alignItems="center">
-
               <Grid item container justify='flex-end'>
                 {state.owner.user_id === user.user_id || user.isAdmin ? <Button onClick={handleEditClick}>Edit</Button> : <p />}
                 {state.owner.user_id === user.user_id || user.isAdmin ? <IconButton onClick={handleDeleteClick} aria-label="delete"><DeleteIcon style={{ fill: "#512D38" }} /></IconButton> : <p />}
@@ -138,7 +126,6 @@ export default function DinnerInfo() {
                   ))}
                 </Grid>
               </Grid>
-
               {/*---------------DATE / PRIVATE DINNER-------------------------*/}
               <Grid xs item container alignItems="center" justify="flex-end">
                 <Grid item container spacing={1} alignItems="center" justify="flex-end">
@@ -162,9 +149,7 @@ export default function DinnerInfo() {
                   </Grid>
                 </Grid>
               </Grid>
-
             </Grid>
-
             <Grid item xs={12} container>
               <Paper className={classes.container} style={{ width: "100%" }}>
                 <Grid item xs={12} container justify="space-between" alignItems="center">
@@ -190,10 +175,6 @@ export default function DinnerInfo() {
                 </Grid>
               </Paper>
             </Grid>
-
-
-
-
             {/*-------------------------DETAILS-------------------------*/}
             <Grid item xs={12} md={6}>
               <Paper className={classes.container}>
@@ -216,7 +197,6 @@ export default function DinnerInfo() {
                     </Typography>
                   </Grid>
                 </Grid>
-
                 <Grid container spacing={1} alignItems="center" justify="flex-start">
                   <Grid item><CreditCardIcon /></Grid>
                   <Grid item>
@@ -231,7 +211,6 @@ export default function DinnerInfo() {
                   </Button> : null}
                   </Grid>
                 </Grid>
-
               </Paper>
             </Grid>
             {/*------------------------------DESCRIPTION--------------------- */}
