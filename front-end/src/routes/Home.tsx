@@ -1,5 +1,4 @@
 import { Container } from '@material-ui/core';
-import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import DinnerPage from '../pages/Dinners/Dinners';
 import Navbar from '../components/Navbar';
@@ -29,7 +28,7 @@ export default function Home() {
           </Route>
           <Route path="/chat">
             Chat
-                    </Route>
+          </Route>
           <Route path="/profile">
             <Profile />
           </Route>
@@ -37,7 +36,7 @@ export default function Home() {
             <DinnerInfo />
           </Route>
           <Route path="/editdinner/:dinnerId">
-            <EditDinner/>
+            <EditDinner />
           </Route>
         </Switch>
       </Container>
