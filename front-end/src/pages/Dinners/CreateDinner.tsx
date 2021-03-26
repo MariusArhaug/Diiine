@@ -139,7 +139,7 @@ export default function MyDinners() {
               <Grid item xs={12}>
                 <Typography variant="h4">
                   Create Dinner
-                                </Typography>
+                </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Grid container spacing={3}>
@@ -182,7 +182,6 @@ export default function MyDinners() {
                   onChange={handleInputChange}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <TextField
                   id="description"
@@ -196,21 +195,35 @@ export default function MyDinners() {
                   variant="outlined"
                 />
               </Grid>
-
               <Grid item xs={12}>
-                <FormGroup>
-                  <FormControlLabel
-                    control={<Checkbox checked={credentials.isDivided} onChange={handleInputChange} name="isDivided" color="primary" />}
-                    label="Split the bill"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox checked={credentials.isOpen} onChange={handleInputChange} name="isOpen" color="primary" />}
-                    label="Open"
-                  />
-
-                </FormGroup>
+                <Grid container spacing={3}>
+                  <Grid item xs={6}>
+                    <FormGroup>
+                      <FormControlLabel
+                        control={<Checkbox checked={credentials.isDivided} onChange={handleInputChange} name="isDivided" color="primary" />}
+                        label="Split the bill"
+                      />
+                      <FormControlLabel
+                        control={<Checkbox checked={credentials.isOpen} onChange={handleInputChange} name="isOpen" color="primary" />}
+                        label="Open"
+                      />
+                    </FormGroup>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      id="expenses"
+                      label="Expenses (kr)"
+                      type="number"
+                      name="expenses"
+                      defaultValue={credentials.expenses}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      onChange={handleInputChange}
+                    />
+                  </Grid>
+                </Grid>
               </Grid>
-
               <Grid item xs={12}>
                 <Autocomplete
                   multiple
@@ -252,13 +265,12 @@ export default function MyDinners() {
               <Grid item xs={12}>
                 <Button type='submit' variant="contained" color="primary" style={{ width: "100%" }}>
                   Create dinner!
-                                </Button>
+                </Button>
               </Grid>
-
             </Grid>
           </form>
         </Paper>
       </Container>
-    </div>
+    </div >
   )
 }

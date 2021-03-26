@@ -15,7 +15,7 @@ import Rating from '@material-ui/lab/Rating';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import { useAuth } from '../../hooks/use-auth';
 import DeleteIcon from '@material-ui/icons/Delete';
-//import Button from '@material-ui/core/Button';
+import swal from 'sweetalert';
 
 
 export default function DinnerInfo() {
@@ -36,8 +36,11 @@ export default function DinnerInfo() {
     const data = {
       dinners_id: parseInt(dinnerId, 10)
     }
-    client.service('attendingdinners').create(data)
-    alert("You have now joined the dinner!");
+    client.service('attendingdinners').create(data);
+    swal({
+      title: 'Hurray!',
+      text: 'You have now joined the dinner!',
+    })
   }
 
   const handleOpen = () => {

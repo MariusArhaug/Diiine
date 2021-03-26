@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Rating from '@material-ui/lab/Rating';
+import RatingDOM from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Typography from '@material-ui/core/Typography';
 import client from '../feathers-client';
@@ -10,42 +10,59 @@ import Grid from '@material-ui/core/Grid';
 import { User } from '../types';
 import swal from 'sweetalert';
 import '../styles/App.css';
+import Box from '@material-ui/core/Box';
 
-const StyledRating = withStyles({
+const styledRating = withStyles({
   iconFilled: {
     color: '#ff6d75',
   },
   iconHover: {
     color: '#ff3d47',
   },
-})(Rating);
+})
+
+const labels: { [index: string]: string } = {
+  0.5: 'Useless',
+  1: 'Useless+',
+  1.5: 'Poor',
+  2: 'Poor+',
+  2.5: 'Ok',
+  3: 'Ok+',
+  3.5: 'Good',
+  4: 'Good+',
+  4.5: 'Excellent',
+  5: 'Excellent+',
+};
+
 
 export default function CustomizedRatings(props: User) {
 
-  const [state, setState] = useState<{
+  const [hover, setHover] = React.useState(-1);
+  const [newRating, setNewRating] = useState<{
     rated_of: number;
     rating_value: number;
     description: string;
   }>({
     rated_of: props.user_id,
     rating_value: 2.5,
-    description: "",
+    description: '',
   })
 
+
   const handleRatingChange = (event: any): void => {
-    setState({ ...state, rating_value: event.target.value })
+    setNewRating({ ...newRating, rating_value: event.target.value })
   }
 
-  const handleCommentChange = (event: any): void => {
-    setState({ ...state, description: event.target.value })
+  const handleDescriptionChange = (event: any): void => {
+    setNewRating({ ...newRating, description: event.target.value })
   }
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log(state);
+    console.log(newRating);
 
-    client.service('rating').create(state)
+    client.service('rating').create(newRating)
       .catch((e: Error) => {
         console.log('couldn\'t post rating', e)
       });
@@ -55,15 +72,12 @@ export default function CustomizedRatings(props: User) {
       icon: 'success',
       buttons: {
         confirm: {
-          text: "Nice!",
+          text: `Your description: ${newRating!.description}`,
           className: "buttonStyle"
         }
       }
     });
   }
-
-
-
   return (
     <div>
       <form method='POST' onSubmit={handleSubmit}>
@@ -72,40 +86,37 @@ export default function CustomizedRatings(props: User) {
             <Typography component="legend">Give user rating</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Rating
-              name="rating"
+            <RatingDOM
+              name="rating_value"
+              precision={0.1}
+              value={newRating.rating_value}
               onChange={handleRatingChange}
-              precision={0.5}
               emptyIcon={<StarBorderIcon fontSize="inherit" />}
             />
+            {newRating.rating_value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
           </Grid>
-
           <Grid item xs={12}>
             <TextField
               id='comment'
               label='Type user comment'
               className='form-field'
               type='comment'
-              name='comment'
+              name='description'
               style={{ width: "100%" }}
-              onChange={handleCommentChange}
               multiline
               rowsMax={4}
               variant="outlined"
+              onChange={handleDescriptionChange}
               rows={2}
-
             />
           </Grid>
-
           <Grid item xs={12}>
             <Button type='submit' variant="contained" color="primary" style={{ width: "100%" }}>
               Give rating
-                        </Button>
+            </Button>
           </Grid>
-
         </Grid>
       </form>
     </div>
   );
 }
-

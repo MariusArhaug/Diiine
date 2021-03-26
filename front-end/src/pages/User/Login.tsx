@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../../hooks/use-auth';
 import { Link as RouterLink } from 'react-router-dom';
 import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
+import swal from 'sweetalert';
 
 export default function Login() {
   const auth = useAuth();
@@ -10,9 +11,6 @@ export default function Login() {
     email: '',
     password: ''
   });
-
-  //const [result, setResult] = useState(null);
-
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials((credentials) => ({
@@ -24,8 +22,34 @@ export default function Login() {
   const handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
 
+    if ((credentials.email === "") || (credentials.password === "")) {
+      swal({
+        title: 'Whopsie a wee ERROR!',
+        text: 'You need to fill in valid login information',
+        icon: 'error',
+        buttons: {
+          confirm: {
+            text: "TRY AGAIN",
+            className: "buttonStyle errorStyle",
+          }
+        }
+      })
+      return;
+    }
+
     const result = await auth.signin(credentials);
     console.log(result);
+    swal({
+      title: 'Success!',
+      text: 'You have now logged in!',
+      icon: 'success',
+      buttons: {
+        confirm: {
+          text: "Nice!",
+          className: "buttonStyle",
+        }
+      }
+    });
   }
 
   return (

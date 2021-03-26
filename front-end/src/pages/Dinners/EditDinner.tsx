@@ -137,8 +137,7 @@ export default function EditDinner() {
 		const form = {
 			...credentials,
 			allergens: credentials.allergens.map(a => a.label).join(","),
-			tags: credentials.tags.map(t => t.value).join(",")/* ,
-            ingredients: credentials.ingredients.join(",") */
+			tags: credentials.tags.map(t => t.value).join(",")
 		};
 
 		client.service('dinners').patch(dinnerId, form)
@@ -157,7 +156,7 @@ export default function EditDinner() {
 							<Grid item xs={12}>
 								<Typography variant="h4">
 									Edit Dinner
-                                </Typography>
+                </Typography>
 							</Grid>
 							<Grid item xs={12}>
 								<Grid container spacing={3}>
@@ -214,20 +213,35 @@ export default function EditDinner() {
 									variant="outlined"
 								/>
 							</Grid>
-
 							<Grid item xs={12}>
-								<FormGroup>
-									<FormControlLabel
-										control={<Checkbox checked={credentials.isDivided} onChange={handleInputChange} name="isDivided" color="primary" />}
-										label="Split the bill"
-									/>
-									<FormControlLabel
-										control={<Checkbox checked={credentials.isOpen} onChange={handleInputChange} name="isOpen" color="primary" />}
-										label="Open"
-									/>
-								</FormGroup>
+								<Grid container spacing={3}>
+									<Grid item xs={6}>
+										<FormGroup>
+											<FormControlLabel
+												control={<Checkbox checked={credentials.isDivided} onChange={handleInputChange} name="isDivided" color="primary" />}
+												label="Split the bill"
+											/>
+											<FormControlLabel
+												control={<Checkbox checked={credentials.isOpen} onChange={handleInputChange} name="isOpen" color="primary" />}
+												label="Open"
+											/>
+										</FormGroup>
+									</Grid>
+									<Grid item xs={6}>
+										<TextField
+											id="expenses"
+											label="Expenses (kr)"
+											type="number"
+											name="expenses"
+											defaultValue={credentials.expenses}
+											InputLabelProps={{
+												shrink: true,
+											}}
+											onChange={handleInputChange}
+										/>
+									</Grid>
+								</Grid>
 							</Grid>
-
 							<Grid item xs={12}>
 								<Autocomplete
 									multiple
@@ -250,7 +264,6 @@ export default function EditDinner() {
 								<Autocomplete
 									multiple
 									id="tags-standard"
-									/* value={credentials.tags} */
 									value={credentials.tags}
 									options={tags}
 									freeSolo
@@ -266,7 +279,6 @@ export default function EditDinner() {
 									)}
 								/>
 							</Grid>
-
 							<Grid item xs={12}>
 								<Button onClick={handleSubmit} variant="contained" color="primary" style={{ width: "100%" }}>
 									Save changes
