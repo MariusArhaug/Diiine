@@ -1,4 +1,3 @@
-import React from 'react';
 import SearchBar from './SearchBar'
 import DinnerList from './DinnerList'
 import { Container } from '@material-ui/core';

@@ -23,17 +23,19 @@ const allergies = [
   { label: 'Sulfites', value: 'sulfites' },
 ]
 
+interface Form {
+  name: string,
+  email: string,
+  password: string,
+  allergies: Chip[]
+  isAdmin: boolean,
+  adminKey: string,
+}
+
 export const Signup = () => {
   const auth = useAuth();
 
-  const [credentials, setCredentials] = useState<{
-    name: string,
-    email: string,
-    password: string,
-    allergies: Chip[]
-    isAdmin: boolean,
-    adminKey: string,
-  }>({
+  const [credentials, setCredentials] = useState<Form>({
     name: '',
     email: '',
     password: '',
@@ -42,7 +44,7 @@ export const Signup = () => {
     adminKey: '',
   });
 
- 
+
   //can be put in another seperate file.
   const validateEmail = (email: string): boolean => {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -57,16 +59,16 @@ export const Signup = () => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.name === 'isAdmin') {
       setCredentials((credentials) => ({
-          ...credentials,
-          [event.target.name]: event.target.checked,
+        ...credentials,
+        [event.target.name]: event.target.checked,
       }));
-  } else {
-    setCredentials((credentials) => ({
-      ...credentials,
-      [event.target.name]: event.target.value,
-    }));
+    } else {
+      setCredentials((credentials) => ({
+        ...credentials,
+        [event.target.name]: event.target.value,
+      }));
+    }
   }
-}
 
   const createChipArray = (value: any) => {
     let temp = []
@@ -85,20 +87,40 @@ export const Signup = () => {
     setCredentials({ ...credentials, allergies: createChipArray(value) });
   }
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    const hashedKey = "68f4ab4e9826312eef9953067837c087";
-    if (credentials.adminKey === hashedKey) {
-      alert("Key does not match")
-      return
-    }
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    const form = (({adminKey, ...o} ) => o)(credentials);
+    if (!formIsValid(credentials)) {
+      return;
+    };
+
+
+    const form = (({ adminKey, ...o }) => o)(credentials);
 
     console.log(form)
     const result = await auth.signup(form);
     console.log(result);
   }
+
+  const formIsValid = (form: Form): boolean => {
+    if (!validateEmail(form.email)) {
+      alert("email!")
+      return false;
+    }
+    if (!validatePassword(form.password)) {
+      alert("password!");
+      return false;
+    }
+    const hashedKey = "vielskerPU40lol";
+    if (form.isAdmin === true && form.adminKey !== hashedKey) {
+      alert("Key does not match")
+      form.isAdmin = false;
+      return false;
+    }
+
+    return true;
+  }
+
   return (
     <div>
       <div className="verticalCenter">
@@ -152,9 +174,9 @@ export const Signup = () => {
                     <Grid item xs={6} >
                       <FormGroup>
                         <FormControlLabel
-                            control={<Checkbox name="isAdmin" color="primary" checked={credentials.isAdmin}
+                          control={<Checkbox name="isAdmin" color="primary" checked={credentials.isAdmin}
                             onChange={handleInputChange} />}
-                            label="Admin"
+                          label="Admin"
                         />
                       </FormGroup>
                     </Grid>

@@ -4,8 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import React, { useCallback } from 'react';
 import { Dinner } from '../../types';
-//import { useStyles } from '../styles';
-import { Link as RouterLink, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const useStylesModified = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,7 +38,7 @@ export default function ListComponent(props: Dinner) {
 
   const classes = useStylesModified();
   const componentName = "DinnerCard"
- 
+
   const history = useHistory();
   const handleOnClick = useCallback(() => history.push('/dinner/' + props.dinners_id), [history]);
 
@@ -57,7 +56,6 @@ export default function ListComponent(props: Dinner) {
               {props.title}
             </Typography>
           </Grid>
-
           {props.allergens.length > 0 &&
             <Grid item xs={12}>
               <Typography variant="body2" className="dinnerInfo">
@@ -65,7 +63,6 @@ export default function ListComponent(props: Dinner) {
               </Typography>
             </Grid>
           }
-
           <Grid item container spacing={1}>
             {props.tags.split(',').map(a => (
               <Grid item className="dinnerInfo">

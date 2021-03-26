@@ -1,6 +1,15 @@
+-- MySQL Workbench Forward Engineering
+
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema fs_tdt4140_1_gruppe40_mddb
+-- -----------------------------------------------------
 
 -- -----------------------------------------------------
 -- Schema fs_tdt4140_1_gruppe40_mddb
@@ -14,16 +23,18 @@ USE `fs_tdt4140_1_gruppe40_mddb` ;
 CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`users` (
   `user_id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `isAdmin` TINYINT(1) DEFAULT 0,
-  `Allergies` VARCHAR(255),
-  `has_dinners_id` INT(11),
-  `rating_id` INT(11) DEFAULT 0,
-  `chatted_to` INT(11),
+  `isAdmin` TINYINT(1) NULL DEFAULT '0',
+  `allergies` VARCHAR(255) NULL DEFAULT '',
+  `avg_rating` INT(11) NULL DEFAULT '0',
+  `chatted_to` INT(11) NULL DEFAULT NULL,
+  `avatar` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`user_id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 114
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -32,20 +43,32 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`dinners` (
   `dinners_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
-  `adress` VARCHAR(255) NOT NULL,
-  `type` VARCHAR(255) NOT NULL,
-  `allergens` VARCHAR(255) NOT NULL,
+  `title` VARCHAR(255) NOT NULL,
+  `address` VARCHAR(255) NOT NULL,
+  `description` VARCHAR(255) NOT NULL,
+  `date` DATE NOT NULL,
+  `ingredients` VARCHAR(255) NOT NULL,
+  `tags` VARCHAR(255) NULL DEFAULT NULL,
+  `allergens` VARCHAR(255) NULL DEFAULT NULL,
   `attendants` INT(11) NOT NULL,
-  `isDivided` TINYINT(1) DEFAULT 0,
-  `isOpen` TINYINT(1) DEFAULT 0,
-  `expenses` DOUBLE NOT NULL,
+  `isDivided` TINYINT(1) NULL DEFAULT '0',
+  `isOpen` TINYINT(1) NULL DEFAULT '0',
+  `expenses` DOUBLE NOT NULL DEFAULT '0',
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date` DATE NOT NULL,
-  PRIMARY KEY (`dinners_id`))
+  `user_id` INT(11) NOT NULL,
+  `banner` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`dinners_id`),
+  INDEX `owner_id_idx` (`user_id` ASC),
+  CONSTRAINT `user_idx`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`users` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 78
 DEFAULT CHARACTER SET = latin1;
+
 
 -- -----------------------------------------------------
 -- Table `fs_tdt4140_1_gruppe40_mddb`.`attendingdinners`
@@ -53,21 +76,51 @@ DEFAULT CHARACTER SET = latin1;
 CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`attendingdinners` (
   `user_id` INT(11) NOT NULL,
   `dinners_id` INT(11) NOT NULL,
+  `secondary_pk` INT(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`secondary_pk`),
   INDEX `user_id_idx` (`user_id` ASC),
   INDEX `dinners_id_idx` (`dinners_id` ASC),
-  PRIMARY KEY (`user_id`, `dinners_id`),
-  CONSTRAINT `user_id`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`users` (`user_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
   CONSTRAINT `dinners_id`
     FOREIGN KEY (`dinners_id`)
     REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`dinners` (`dinners_id`)
     ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `user_id`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`users` (`user_id`)
+    ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 32
 DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `fs_tdt4140_1_gruppe40_mddb`.`chat`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`chat` (
+  `chat_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `chat_to` INT(11) NOT NULL,
+  `chat_from` INT(11) NOT NULL,
+  `message` VARCHAR(255) NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`chat_id`),
+  INDEX `chat_to_idx` (`chat_to` ASC),
+  INDEX `chat_from_idx` (`chat_from` ASC),
+  CONSTRAINT `chat_from`
+    FOREIGN KEY (`chat_from`)
+    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`users` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `chat_to`
+    FOREIGN KEY (`chat_to`)
+    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`users` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 29
+DEFAULT CHARACTER SET = latin1;
+
 
 -- -----------------------------------------------------
 -- Table `fs_tdt4140_1_gruppe40_mddb`.`rating`
@@ -75,74 +128,26 @@ DEFAULT CHARACTER SET = latin1;
 CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`rating` (
   `rated_of` INT(11) NOT NULL,
   `rated_by` INT(11) NOT NULL,
-  `rating_value` INT(11) NOT NULL,
+  `rating_value` DOUBLE NOT NULL,
   `description` VARCHAR(255) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `rating_id` INT(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`rating_id`),
   INDEX `rated_of_idx` (`rated_of` ASC),
   INDEX `rated_by_idx` (`rated_by` ASC),
-  PRIMARY KEY (`rated_of`, `rated_by`),
-  CONSTRAINT `rated_of`
-    FOREIGN KEY (`rated_of`)
-    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`dinners` (`dinners_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
   CONSTRAINT `rated_by`
     FOREIGN KEY (`rated_by`)
-    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`user` (`user_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
--- Table `fs_tdt4140_1_gruppe40_mddb`.`hasdinnerss`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`hasdinners` (
-  `dinners_id` INT(11) NOT NULL,
-  `user_id` INT(11) NOT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `average_rating` INT(11) NOT NULL,
-  INDEX `dinners_idx` (`dinners_id` ASC),
-  INDEX `user_id_idx` (`user_id` ASC),
-  PRIMARY KEY (`user_id`, `dinners_id`),
-  CONSTRAINT `user_id_idx`
-    FOREIGN KEY (`user_id`)
     REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`users` (`user_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `dinners_idx`
-    FOREIGN KEY (`dinners_id`)
-    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`dinners` (`dinners_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
--- -----------------------------------------------------
--- Table `fs_tdt4140_1_gruppe40_mddb`.`chat`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fs_tdt4140_1_gruppe40_mddb`.`chat` (
-  `chat_to` INT(11) NOT NULL,
-  `chat_from` INT(11) NOT NULL,
-  `message` VARCHAR(255) NOT NULL,
-  `created_at` TIMESTAMP NOT NULL,
-  INDEX `chat_to_idx` (`chat_to` ASC),
-  INDEX `chat_from_idx` (`chat_from` ASC),
-  PRIMARY KEY (`chat_to`, `chat_from`),
-  CONSTRAINT `chat_to`
-    FOREIGN KEY (`chat_to`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `rated_of`
+    FOREIGN KEY (`rated_of`)
     REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`users` (`user_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `chat_from`
-    FOREIGN KEY (`chat_from`)
-    REFERENCES `fs_tdt4140_1_gruppe40_mddb`.`users` (`user_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 59
 DEFAULT CHARACTER SET = latin1;
 
 

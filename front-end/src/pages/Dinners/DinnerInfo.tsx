@@ -1,20 +1,20 @@
-import React, { InputHTMLAttributes, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
-import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import { useStyles } from '../../styles';
-import { Avatar, Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Paper, TextField, Tooltip } from '@material-ui/core';
+import { Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Paper, TextField } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import GroupIcon from '@material-ui/icons/Group';
-import PlaceIcon from '@material-ui/icons/Place';
 import EventIcon from '@material-ui/icons/Event';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Dinner, User } from '../../types';
 import client from '../../feathers-client';
 import Rating from '@material-ui/lab/Rating';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import { useAuth } from '../../hooks/use-auth';
+import DeleteIcon from '@material-ui/icons/Delete';
 //import Button from '@material-ui/core/Button';
 
 // {dinnerId, name, address, type, allergens, attendants, date}: DinnerProps
@@ -32,13 +32,12 @@ export default function DinnerInfo() {
   });
 
   const [open, setOpen] = useState(false);
+  const user: User = useAuth().user;
 
   const handleJoinDinner = () => {
-    console.log("lol");
     const data = {
       dinners_id: parseInt(dinnerId, 10)
     }
-    //console.log(data);
     client.service('attendingdinners').create(data)
     alert("You have now joined the dinner!");
   }
@@ -72,7 +71,6 @@ export default function DinnerInfo() {
   }
 
   useEffect(() => {
-    //Find dinner that we clicked on
     let dinner: Dinner;
     client.service('dinners')
       .get(dinnerId)
@@ -85,9 +83,24 @@ export default function DinnerInfo() {
           })
       })
       .catch((e: Error) => { console.log('error', e); })
-  }, []);
+  }, [dinnerId]);
 
   console.log(state)
+
+  const history = useHistory();
+
+  const handleDeleteClick = () => {
+    console.log("deleted")
+    client.service('dinners').remove(dinnerId)
+      .then()
+      .catch((e: Error) => {
+        console.log('couldn\'t delete dinner', e);
+      });
+  }
+
+  const handleEditClick = () => {
+    history.push('/editdinner/' + state.dinner!.dinners_id);
+  }
 
   return (
     <div className={classes.spacer}>
@@ -106,6 +119,10 @@ export default function DinnerInfo() {
 
             <Grid item xs={12} container justify="space-between" alignItems="center">
 
+              <Grid item container justify='flex-end'>
+                {state.owner.user_id === user.user_id || user.isAdmin ? <Button onClick={handleEditClick}>Edit</Button> : <p />}
+                {state.owner.user_id === user.user_id || user.isAdmin ? <IconButton onClick={handleDeleteClick} aria-label="delete"><DeleteIcon style={{ fill: "#512D38" }} /></IconButton> : <p />}
+              </Grid>
               <Grid xs item style={{ textAlign: "left" }}>
                 <Typography variant="caption" color="textSecondary">
                   {state.dinner.address}
@@ -199,20 +216,20 @@ export default function DinnerInfo() {
                   </Grid>
                 </Grid>
 
-              <Grid container spacing={1} alignItems="center" justify="flex-start">
-                <Grid item><CreditCardIcon /></Grid>
-                <Grid item>
-                  <Typography variant="subtitle1">
-                    Total expenses: {state.dinner.isDivided ? "" : "None, enjoy a free meal"} 
-                    {state.dinner.expenses > 0 ? state.dinner.expenses + " kr" : "None yet, check back later for updates"}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  {state.dinner.user_id == auth.user.user_id ? <Button variant="outlined" onClick={handleOpen}>
-                    Edit expenses
+                <Grid container spacing={1} alignItems="center" justify="flex-start">
+                  <Grid item><CreditCardIcon /></Grid>
+                  <Grid item>
+                    <Typography variant="subtitle1">
+                      Total expenses: {state.dinner.isDivided ? "" : "None, enjoy a free meal"}
+                      {state.dinner.expenses > 0 ? state.dinner.expenses + " kr" : "None yet, check back later for updates"}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    {state.dinner.user_id === auth.user.user_id ? <Button variant="outlined" onClick={handleOpen}>
+                      Edit expenses
                   </Button> : null}
+                  </Grid>
                 </Grid>
-              </Grid>
 
               </Paper>
             </Grid>
@@ -251,7 +268,7 @@ export default function DinnerInfo() {
             </Button>
           </DialogActions>
         </Dialog>
-      </form>  
+      </form>
     </div>
   )
 }

@@ -11,6 +11,7 @@ import Register from './routes/RegisterRoute';
 import Home from './routes/Home';
 import Admin from './routes/AdminRoute'
 import Footer from './components/Footer';
+import EditDinner from './pages/Dinners/EditDinner';
 
 export default function App() {
   return (
@@ -27,6 +28,9 @@ export default function App() {
             <Route path="/">
               <Home />
             </Route>
+{/*             <Route path="/editdinner/:dinnerId">
+              <EditDinner/>
+            </Route> */}
           </Switch>
           <Footer/>
         </div>
