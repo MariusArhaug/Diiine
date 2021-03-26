@@ -35,35 +35,6 @@ export default function MyDinners() {
 
   const classes = useStyles();
 
-<<<<<<< HEAD
-    const [credentials, setCredentials] = useState<{
-        title: string,
-        address: string,
-        description: string,
-        date: string,
-        tags: Chip[],
-        ingredients: string[],
-        allergens: Chip[],
-        attendants: number,
-        isDivided: boolean,
-        isOpen: boolean,
-        expenses: number,
-        banner: string
-    }>({
-        title: '',
-        address: '',
-        description: '',
-        date: '',
-        tags: [],
-        ingredients: [],
-        allergens: [],
-        attendants: 0,
-        isDivided: false,
-        isOpen: false,
-        expenses: 0,
-        banner: ''
-    });
-=======
   const [credentials, setCredentials] = useState<{
     title: string,
     address: string,
@@ -91,7 +62,6 @@ export default function MyDinners() {
     expenses: 0,
     banner: ''
   });
->>>>>>> main
 
 
 
@@ -170,50 +140,6 @@ export default function MyDinners() {
                 <Typography variant="h4">
                   Create Dinner
                                 </Typography>
-<<<<<<< HEAD
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Grid container spacing={3}>
-                                    <Grid item xs={6}>
-                                        <TextField
-                                            id='title'
-                                            label='Dinner name'
-                                            className='form-field'
-                                            type='text'
-                                            name='title'
-                                            value={credentials.title}
-                                            style={{ width: "100%" }}
-                                            onChange={handleInputChange}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <TextField
-                                            id="date"
-                                            label="Date"
-                                            type="date"
-                                            name="date"
-                                            defaultValue={credentials.date}
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                            onChange={handleInputChange}
-                                        />
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    id='address'
-                                    label='Address'
-                                    className='form-field'
-                                    type='text'
-                                    name='address'
-                                    value={credentials.address}
-                                    style={{ width: "100%" }}
-                                    onChange={handleInputChange}
-                                />
-                            </Grid>
-=======
               </Grid>
               <Grid item xs={12}>
                 <Grid container spacing={3}>
@@ -256,7 +182,6 @@ export default function MyDinners() {
                   onChange={handleInputChange}
                 />
               </Grid>
->>>>>>> main
 
               <Grid item xs={12}>
                 <TextField
@@ -272,38 +197,6 @@ export default function MyDinners() {
                 />
               </Grid>
 
-<<<<<<< HEAD
-                            <Grid item xs={12}>
-                                <Grid container spacing={3}>
-                                    <Grid item xs={6}>
-                                        <FormGroup>
-                                            <FormControlLabel
-                                                control={<Checkbox checked={credentials.isDivided} onChange={handleInputChange} name="isDivided" color="primary" />}
-                                                label="Split the bill"
-                                            />
-                                            <FormControlLabel
-                                                control={<Checkbox checked={credentials.isOpen} onChange={handleInputChange} name="isOpen" color="primary" />}
-                                                label="Open"
-                                            />
-                                        </FormGroup>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <TextField
-                                            id="expenses"
-                                            label="Expenses (kr)"
-                                            className="form-field"
-                                            type="number"
-                                            name="expenses"
-                                            value={credentials.expenses}
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                            onChange={handleInputChange}
-                                        />
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-=======
               <Grid item xs={12}>
                 <FormGroup>
                   <FormControlLabel
@@ -317,7 +210,6 @@ export default function MyDinners() {
 
                 </FormGroup>
               </Grid>
->>>>>>> main
 
               <Grid item xs={12}>
                 <Autocomplete

@@ -17,14 +17,12 @@ import { useAuth } from '../../hooks/use-auth';
 import DeleteIcon from '@material-ui/icons/Delete';
 //import Button from '@material-ui/core/Button';
 
-// {dinnerId, name, address, type, allergens, attendants, date}: DinnerProps
 
 export default function DinnerInfo() {
 
   const classes = useStyles();
   const auth = useAuth();
   let { dinnerId }: { dinnerId: string } = useParams();
-  const [ratingValue, setRatingValue] = useState(0);
 
   const [state, setState] = useState<{ owner: User | null, dinner: Dinner | null }>({
     owner: null,

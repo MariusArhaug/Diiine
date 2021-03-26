@@ -13,10 +13,7 @@ export type Dinner = {
     isOpen: boolean;
     isDivided: boolean;
     expenses: number;
-<<<<<<< HEAD
-=======
     banner: string;
->>>>>>> main
 }
 
 export type User = {
