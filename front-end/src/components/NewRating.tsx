@@ -93,7 +93,7 @@ export default function CustomizedRatings(props: User) {
               onChange={handleRatingChange}
               emptyIcon={<StarBorderIcon fontSize="inherit" />}
             />
-            {newRating.rating_value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+            {newRating.rating_value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : newRating.rating_value]}</Box>}
           </Grid>
           <Grid item xs={12}>
             <TextField
