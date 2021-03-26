@@ -1,7 +1,8 @@
-import React, { InputHTMLAttributes, useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../../styles';
-import { Avatar, Button, Chip, Grid, IconButton, Paper } from '@material-ui/core';
+import { Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Paper, TextField } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import GroupIcon from '@material-ui/icons/Group';
@@ -11,25 +12,24 @@ import { useHistory, useParams } from 'react-router-dom';
 import { Dinner, User } from '../../types';
 import client from '../../feathers-client';
 import Rating from '@material-ui/lab/Rating';
+import CreditCardIcon from '@material-ui/icons/CreditCard';
 import { useAuth } from '../../hooks/use-auth';
-import EditButton from '../Admin/EditButton';
-import DeleteButton from '../Admin/DeleteButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 //import Button from '@material-ui/core/Button';
 
-// {dinnerId, name, address, type, allergens, attendants, date}: DinnerProps
 
 export default function DinnerInfo() {
 
   const classes = useStyles();
+  const auth = useAuth();
   let { dinnerId }: { dinnerId: string } = useParams();
-  const [ratingValue, setRatingValue] = useState(0);
 
   const [state, setState] = useState<{ owner: User | null, dinner: Dinner | null }>({
     owner: null,
     dinner: null
   });
 
+  const [open, setOpen] = useState(false);
   const user: User = useAuth().user;
 
   const handleJoinDinner = () => {
@@ -38,6 +38,34 @@ export default function DinnerInfo() {
     }
     client.service('attendingdinners').create(data)
     alert("You have now joined the dinner!");
+  }
+
+  const handleOpen = () => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  }
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    /* if (state.dinner) {
+      let data = {
+        expenses: state.dinner.expenses
+      }
+      client.service('dinners').patch(state.dinner.dinners_id, data)
+      .then()
+      .catch((e: Error) => {
+        console.log(e);
+      })
+    } */
+  }
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (state.dinner) {
+      state.dinner.expenses = Number.parseFloat(event.target.value);
+    }
   }
 
   useEffect(() => {
@@ -140,7 +168,7 @@ export default function DinnerInfo() {
                   <Grid item xs spacing={1} container alignItems="center">
                     <Grid item>
                       <Typography>
-                        Arranger: {state.owner.name}
+                        Host: {state.owner.name}
                       </Typography>
                     </Grid>
                     <Grid item>
@@ -154,7 +182,7 @@ export default function DinnerInfo() {
                   <Grid item>
                     <Button variant="outlined" onClick={handleJoinDinner}>
                       Join dinner
-                                        </Button>
+                    </Button>
                   </Grid>
                 </Grid>
               </Paper>
@@ -186,6 +214,21 @@ export default function DinnerInfo() {
                   </Grid>
                 </Grid>
 
+                <Grid container spacing={1} alignItems="center" justify="flex-start">
+                  <Grid item><CreditCardIcon /></Grid>
+                  <Grid item>
+                    <Typography variant="subtitle1">
+                      Total expenses: {state.dinner.isDivided ? "" : "None, enjoy a free meal"}
+                      {state.dinner.expenses > 0 ? state.dinner.expenses + " kr" : "None yet, check back later for updates"}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    {state.dinner.user_id === auth.user.user_id ? <Button variant="outlined" onClick={handleOpen}>
+                      Edit expenses
+                  </Button> : null}
+                  </Grid>
+                </Grid>
+
               </Paper>
             </Grid>
             {/*------------------------------DESCRIPTION--------------------- */}
@@ -195,16 +238,35 @@ export default function DinnerInfo() {
                 <Typography variant="body1">{state.dinner.description}</Typography>
               </Paper>
             </Grid>
-            {/*------------------------------INGREDIENTS--------------------- */}
-            {/* <Grid item xs={12} md={6}>
-                            <Paper className={classes.container}>
-                                <Typography variant="h6">Ingredients</Typography>
-                                <Typography variant="body1">{state.dinner.ingredients}</Typography>
-                            </Paper>
-                        </Grid> */}
           </Grid>
         }
       </Paper>
+      <form method='POST' onSubmit={handleSubmit}>
+        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">Edit expenses</DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="expenses"
+              name="expenses"
+              label="Expenses (kr)"
+              type="number"
+              className='form-field'
+              fullWidth
+              onChange={handleInputChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button type="submit" onClick={handleClose} color="primary" variant="outlined">
+              Confirm
+            </Button>
+            <Button onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </form>
     </div>
   )
 }
