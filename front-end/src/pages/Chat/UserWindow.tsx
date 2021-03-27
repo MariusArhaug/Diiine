@@ -14,21 +14,19 @@ const useStyles = makeStyles({
         margin: 0,
         padding: 0,
         height: "600px",
-        width: "30vw",
-        backgroundColor: "red",
+        width: "100%",
     },
 
     paper: { margin: "auto", maxWidth: 200, padding: '1rem' },
     avatar: {
         margin: "5px",
         padding: 0,
-        backgroundColor: 'green'
     }
 });
 
 type Props = {
     users: User[];
-    onUserClick?: (userId: number) => MouseEventHandler<HTMLDivElement>;
+    onUserClick: (userId: number) => void;
 }
 
 export default function UserWindow(props: Props) {
@@ -37,7 +35,7 @@ export default function UserWindow(props: Props) {
 
     const populateUsers = (user: User) => {
         return (
-            <div key={user.user_id}>
+            <div key={user.user_id} onClick={() => props.onUserClick(user.user_id)}>
                 <Grid container direction="row" alignContent='center'>
                     <Grid item className={classes.avatar}>
                         <Avatar src={user.avatar}>

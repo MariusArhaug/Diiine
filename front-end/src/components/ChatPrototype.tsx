@@ -73,18 +73,18 @@ export default function ChatPrototype() {
                                 width: "100%",
                             }}
                         >
-                            {messages.map((message: TypeMessage) => {
+                            {/* {messages.map((message: TypeMessage) => {
                                 return (
                                     <Message
                                         key={message.chat_id}
                                         {...{ content: message }}
                                     />
                                 );
-                            })}
+                            })} */}
                         </Grid>
                     </Scrollbars>
                     <Divider />
-                    <InputField reciever={reciever} />
+                    {/* <InputField reciever={reciever} /> */}
                 </Paper>
             </Container>
         </div>

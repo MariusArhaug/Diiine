@@ -14,5 +14,5 @@
 * Lars, kjenner ikke repo'n.... 1 prikk.
 * Marius, tror han har to prikker.
 * Marius, en prikk fordi han ikke vet for sikkert om det er to.
-* Karen, ærlig dame, kom for sent i dag.
+* Karen, ærlig dame, kom for sent i dag. En prikk
 * Torunn, skadefryd på prikker.. En prikk

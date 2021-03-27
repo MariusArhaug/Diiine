@@ -42,6 +42,9 @@ export default function (app: Application): void {
         const from = chat.chat_to;
         const to = chat.chat_from;
 
+        console.log('New chat created', chat);
+        
+
         return [app.channel(`userIds/${from}`), app.channel(`userIds/${to}`)];
     });
 }

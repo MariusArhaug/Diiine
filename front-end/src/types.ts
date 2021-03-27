@@ -11,16 +11,16 @@ export type Dinner = {
     date: Date;
     maxAttendants: number;
     isOpen: boolean;
-}
+};
 
 export type TypeMessage = {
-    chat_id: number;
-    created_at: string;
-    updated_at: string;
-    chat_from: User;
-    chat_to: User;
+    chat_id?: number;
+    created_at?: string;
+    updated_at?: string;
+    chat_from: number;
+    chat_to: number;
     message: string;
-}
+};
 
 export type User = {
     allergies?: string;
@@ -32,15 +32,26 @@ export type User = {
     isAdmin?: boolean;
     chatted_to?: number | null;
     avatar?: string;
-}
+};
 
 export type Rating = {
     rated_of: number;
     rated_by: number;
     rating_value: number;
     description: string;
-}
+};
 
 export type Chip = {
-    label: string; value: string
+    label: string;
+    value: string;
+};
+
+export type ChatManager = {
+    user: User;
+    partner: User;
+    allUsers: User[];
+    messages: TypeMessage[];
+    findMessages: () => Promise<"no user selected" | undefined>;
+    findPartner: (partnerId: number) => Promise<any>;
+    findAllUsers: () => Promise<any>;
 };

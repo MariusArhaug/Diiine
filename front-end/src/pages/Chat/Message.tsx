@@ -20,23 +20,23 @@ const useStylesModified = makeStyles((theme: Theme) =>
     })
 );
 
-export default function Message(props: { content: TypeMessage }) {
-    const classes = useStylesModified();
+type Props = {
+    message: TypeMessage;
+    user: User;
+    partner: User;
 
-    const user = useAuth().user;
-    const senderId = props.content.chat_from;
-    const amSender = user.user_id === senderId ? true : false;
+}
+
+export default function Message(props: Props) {
+    const classes = useStylesModified();
+    const message = props.message;
+    const user = props.user;
+    const partner = props.partner
+    
+
+    const amSender = (user.user_id == message.chat_from) ? true : false;
 
     const [sender, setSender] = useState<User | undefined>(undefined);
-
-    useEffect(() => {
-        client
-            .service("users")
-            .get(senderId)
-            .then((res: any) => {
-                setSender(res);
-            });
-    }, []);
 
     const color: string = amSender ? "#D4F1DB" : "#FFFFFF";
 
@@ -47,11 +47,11 @@ export default function Message(props: { content: TypeMessage }) {
                 className={classes.paper}
                 style={{ textAlign: "left", backgroundColor: color }}
             >
-                <Typography variant="body1">{props.content.message}</Typography>
+                <Typography variant="body1">{message.message}</Typography>
             </Paper>
         </Grid>,
         <Grid item key="chat-avatar">
-            <Avatar>{(sender) ? sender.name[0].toUpperCase() : "X"}</Avatar>
+            <Avatar src={amSender ? user.avatar : partner.avatar}>{amSender ? user.name[0].toUpperCase() : partner.name[0].toUpperCase()}</Avatar>
         </Grid>,
     ];
 
@@ -77,7 +77,9 @@ export default function Message(props: { content: TypeMessage }) {
             </Grid>
             <Grid item>
                 <Typography variant="caption">
-                    Sent at: {props.content.created_at}
+                    Sent at: {message.created_at} -
+                    Sent from: {message.chat_from} -
+                    {amSender? 'true':'false'}
                 </Typography>
             </Grid>
         </Grid>
