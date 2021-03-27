@@ -68,11 +68,11 @@ export default function CustomizedRatings(props: User) {
       });
     swal({
       title: 'Good job!',
-      text: 'You have now sucessfully rated this user!',
+      text: `You have now sucessfully rated this user! \n Your description: ${newRating!.description}`,
       icon: 'success',
       buttons: {
         confirm: {
-          text: `Your description: ${newRating!.description}`,
+          text: `Done`,
           className: "buttonStyle"
         }
       }
