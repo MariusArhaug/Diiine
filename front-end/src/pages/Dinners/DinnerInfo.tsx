@@ -16,6 +16,8 @@ import CreditCardIcon from '@material-ui/icons/CreditCard';
 import { useAuth } from '../../hooks/use-auth';
 import DeleteIcon from '@material-ui/icons/Delete';
 import swal from 'sweetalert';
+import NewRating from '../../components/NewRating';
+import AverageRating from '../../components/AverageRating'
 
 
 export default function DinnerInfo() {
@@ -46,6 +48,7 @@ export default function DinnerInfo() {
   const handleJoinDinner = () => {
     const data = {
       dinners_id: state!.dinner!.dinners_id,
+      user_id: user.user_id,
     }
 
     client.service('attendingdinners').create(data);
@@ -160,11 +163,7 @@ export default function DinnerInfo() {
                       </Typography>
                     </Grid>
                     <Grid item>
-                      <Rating
-                        name="simple-controlled"
-                        value={4}
-                        readOnly
-                      />
+                      <AverageRating {...state.owner} />
                     </Grid>
                   </Grid>
                   <Grid item>
@@ -218,6 +217,16 @@ export default function DinnerInfo() {
               <Paper className={classes.container}>
                 <Typography variant="h6">Description</Typography>
                 <Typography variant="body1">{state.dinner.description}</Typography>
+              </Paper>
+            </Grid>
+            {/*------------------------------Rating--------------------- */}
+            <Grid item xs={12}>
+              <Paper className={classes.container}>
+                <Typography variant="h6">Rating</Typography>
+                <br />
+                <Grid item xs>
+                  <NewRating {...state.owner} />
+                </Grid>
               </Paper>
             </Grid>
           </Grid>
