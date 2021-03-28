@@ -1,6 +1,6 @@
 import * as authentication from '@feathersjs/authentication';
 // Don't remove this comment. It's needed to format import lines nicely.
-import isAttending from '../../hooks/is_attending';
+import isAttending from '../../hooks/is-attending';
 
 const { authenticate } = authentication.hooks;
 
