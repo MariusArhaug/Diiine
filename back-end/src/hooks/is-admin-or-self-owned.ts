@@ -6,7 +6,7 @@ import { Hook, HookContext } from '@feathersjs/feathers';
 export default (options = {}): Hook => {
   return async (context: HookContext): Promise<HookContext> => {
     const { user, query } = context.params; 
-    if (user?.isAdmin || user?.user_id === query?.user_id) return context;
-    throw new Error ('You must be owner or admin to do this.')
+    if (!user?.isAdmin || user?.user_id !== query?.user_id) throw new Error ('You must be owner or admin to do this.')
+    return context;
   };
 };
