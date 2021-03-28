@@ -7,6 +7,7 @@ import {
 import { ProvideAuth } from './hooks/use-auth'
 import Login from './routes/LoginRoute';
 import Register from './routes/RegisterRoute';
+import Map from './routes/MapRoute';
 import Home from './routes/Home';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
@@ -33,6 +34,9 @@ export default function App() {
                 </Route>
                 <Route path="/signup">
                   <Register />
+                </Route>
+                <Route path="/map">
+                  <Map />
                 </Route>
                 <Route path="/">
                   <Home />

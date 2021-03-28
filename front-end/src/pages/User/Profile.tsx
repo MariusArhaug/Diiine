@@ -40,7 +40,6 @@ const useStylesModified = makeStyles((theme: Theme) =>
 export default function Profile() {
   const classes = useStylesModified();
 
-  const auth: any = useAuth();
   const user: User = useAuth().user;
   const auth = useAuth();
 

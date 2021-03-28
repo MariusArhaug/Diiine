@@ -26,11 +26,11 @@ export default function AverageRating(user: User) {
     <Grid>
       <RatingDOM
         name="simple-controlled"
-        value={Math.round(average * 2) / 2}
+        value={average ? (Math.round(average * 2) / 2) : 0}
         precision={0.1}
         readOnly
       />
-      <div>Average rating: {average}</div>
+      <div>Average rating: {average ? average : 0}</div>
     </Grid>
   )
 }

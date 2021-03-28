@@ -7,6 +7,7 @@ import Profile from '../pages/User/Profile';
 import Admin from '../pages/Admin/Admin';
 import { useAuth } from '../hooks/use-auth';
 import Chat from '../pages/Chat/Chat';
+import Map from '../components/Map';
 
 export default function Home() {
 
@@ -32,6 +33,9 @@ export default function Home() {
           </Route>
           <Route path="/my_dinners">
             <MyDinners />
+          </Route>
+          <Route path="/map">
+            <Map />
           </Route>
           <Route path="/profile">
             <Profile />

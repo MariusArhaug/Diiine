@@ -7,7 +7,6 @@ import { Chip } from '../../types';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import swal from 'sweetalert';
 
 const allergies = [
   { label: 'Lactose', value: 'lactose' },
@@ -108,10 +107,10 @@ export const Signup = () => {
       alert("email!")
       return false;
     }
-    if (!validatePassword(form.password)) {
-      alert("password!");
-      return false;
-    }
+    // if (!validatePassword(form.password)) {
+    //   alert("password!");
+    //   return false;
+    // }
     const hashedKey = "vielskerPU40lol";
     if (form.isAdmin === true && form.adminKey !== hashedKey) {
       alert("Key does not match")
