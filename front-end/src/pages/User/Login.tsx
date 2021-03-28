@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../hooks/use-auth';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, Redirect } from 'react-router-dom';
 import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
 import swal from 'sweetalert';
 
 export default function Login() {
   const auth = useAuth();
-
+  
   const [credentials, setCredentials] = useState({
     email: '',
     password: ''
   });
+
+  useEffect(() => {
+    auth.reAuth();
+    
+  }, [])
+  
+  if (auth.user !== null) {
+    return <Redirect to="/profile" />
+  }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials((credentials) => ({
@@ -37,19 +46,7 @@ export default function Login() {
       return;
     }
 
-    const result = await auth.signin(credentials);
-    console.log(result);
-    swal({
-      title: 'Success!',
-      text: 'You have now logged in!',
-      icon: 'success',
-      buttons: {
-        confirm: {
-          text: "Nice!",
-          className: "buttonStyle",
-        }
-      }
-    });
+    return await auth.signin(credentials);
   }
 
   return (
@@ -102,7 +99,6 @@ export default function Login() {
           </form>
         </Paper>
       </Container>
-      <Button component={RouterLink} to='/profile'>Profile</Button>
     </div>
   );
 }

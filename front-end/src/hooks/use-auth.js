@@ -22,7 +22,7 @@ function useProvideAuth() {
             setUser(res.user);
             return res.user
         }).catch((e) => {
-            console.log('error signing in with jwt', e);
+            console.log('error signing in with jwt');
         })
     }
 

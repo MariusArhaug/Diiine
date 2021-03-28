@@ -15,7 +15,7 @@ export default function AverageRating(user: User) {
       .then((res: any) => {
         const ratings: Rating[] = res.data
         const ratingValues: number[] = ratings.map(a => a.rating_value);
-        setAverage(ratingValues.reduce((a, acc) => acc + a) / ratings.length)
+        setAverage(ratingValues.reduce((a, acc) => acc + a, 0) / ratings.length)
       })
       .catch((e: Error) => {
         console.log(e);

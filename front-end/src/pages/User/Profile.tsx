@@ -40,9 +40,9 @@ const useStylesModified = makeStyles((theme: Theme) =>
 export default function Profile() {
   const classes = useStylesModified();
 
+  const auth: any = useAuth();
   const user: User = useAuth().user;
 
-  console.log(user);
   const [dinners, setDinners] = useState<Dinner[]>([]);
 
   useEffect(() => {
@@ -50,7 +50,6 @@ export default function Profile() {
       .service("dinners")
       .find(user.user_id)
       .then((res: any) => {
-        console.log(res.data);
         setDinners(res.data);
       })
       .catch((e: Error) => {
@@ -92,6 +91,7 @@ export default function Profile() {
 
           <Grid item xs={12}>
             <Button
+              onClick={async () => await auth.signout()}
               type="submit"
               variant="contained"
               color="primary"
@@ -124,7 +124,7 @@ export default function Profile() {
               >
                 {dinners.length &&
                   dinners!.map((dinner: Dinner) => (
-                    <Grid item>
+                    <Grid item key={dinner.dinners_id}>
                       <DinnerCard
                         {...dinner}
                         key={dinner.dinners_id}

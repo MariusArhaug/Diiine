@@ -51,8 +51,8 @@ export default function Admin() {
         <div className = {classes.root}>
             <Grid container spacing = {3} direction = 'column' justify = 'space-evenly' alignItems = 'stretch'> 
                 {users.length && users!.map((user: User) => (
-                    <Grid item>
-                        <AdminCard {...user} key = {user.user_id} />
+                    <Grid item key={user.user_id}>
+                        <AdminCard {...user} key={user.user_id} />
                     </Grid>
                 ))}
             </Grid>
