@@ -56,7 +56,7 @@ export default function SearchBar({ }) {
     });
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
   }
 
@@ -69,7 +69,7 @@ export default function SearchBar({ }) {
         inputProps={{ 'aria-label': 'search for dinners' }}
         onChange={handleChange}
       />
-      <IconButton type="submit" className={classes.iconButton} aria-label="search">
+      <IconButton type="submit" className={classes.iconButton} aria-label="search" onClick={handleSubmit}>
         <SearchIcon />
       </IconButton>
     </Paper>

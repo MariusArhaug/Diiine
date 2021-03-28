@@ -1,6 +1,6 @@
 import { Container } from '@material-ui/core';
-import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
-import DinnerList from '../pages/Dinners/DinnerList';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import DinnerPage from '../pages/Dinners/Dinners';
 import DinnerInfo from '../pages/Dinners/DinnerInfo';
 import MyDinners from '../pages/Dinners/CreateDinner';
 import Profile from '../pages/User/Profile';
@@ -11,8 +11,6 @@ import Chat from '../pages/Chat/Chat';
 export default function Home() {
 
   const auth = useAuth();
-  let { path } = useRouteMatch();
-
   if (!auth.user) {
     return <Redirect to="/login" />
   }
@@ -25,7 +23,7 @@ export default function Home() {
             <Chat />
           </Route>
           <Route path="/dinners">
-            <DinnerList />
+            <DinnerPage />
           </Route>
           <Route path="/admin">
             <Admin />
