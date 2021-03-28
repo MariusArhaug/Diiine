@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { Dinner, User } from '../../types';
 import { useHistory } from 'react-router-dom';
 import client from '../../feathers-client';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const useStylesModified = makeStyles((theme: Theme) =>
   createStyles({
@@ -84,7 +84,7 @@ export default function DinnerCard(dinner: Dinner) {
           }
           <Grid item container spacing={1}>
             {dinner.tags.split(',').map(a => (
-              <Grid item className="dinnerInfo">
+              <Grid item key={a.charCodeAt(0)}>
                 <Chip size="small" label={a} />
               </Grid>
             ))}

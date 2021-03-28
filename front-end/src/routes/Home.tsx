@@ -1,24 +1,31 @@
 import { Container } from '@material-ui/core';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import DinnerPage from '../pages/Dinners/Dinners';
-import Navbar from '../components/Navbar';
+import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
+import DinnerList from '../pages/Dinners/DinnerList';
+import DinnerInfo from '../pages/Dinners/DinnerInfo';
 import MyDinners from '../pages/Dinners/CreateDinner';
 import Profile from '../pages/User/Profile';
 import Admin from '../pages/Admin/Admin';
-import DinnerInfo from '../pages/Dinners/DinnerInfo';
-import EditDinner from '../pages/Dinners/EditDinner';
+import { useAuth } from '../hooks/use-auth';
+import Chat from '../pages/Chat/Chat';
 
 export default function Home() {
 
+  const auth = useAuth();
   let { path } = useRouteMatch();
+
+  if (!auth.user) {
+    return <Redirect to="/login" />
+  }
 
   return (
     <div>
-      <Navbar />
       <Container maxWidth="lg" className="MainContainer">
         <Switch>
+          <Route path="/chat">
+            <Chat />
+          </Route>
           <Route path="/dinners">
-            <DinnerPage />
+            <DinnerList />
           </Route>
           <Route path="/admin">
             <Admin />
@@ -26,17 +33,11 @@ export default function Home() {
           <Route path="/my_dinners">
             <MyDinners />
           </Route>
-          <Route path="/chat">
-            Chat
-          </Route>
           <Route path="/profile">
             <Profile />
           </Route>
           <Route path="/dinner/:dinnerId">
             <DinnerInfo />
-          </Route>
-          <Route path="/editdinner/:dinnerId">
-            <EditDinner />
           </Route>
         </Switch>
       </Container>

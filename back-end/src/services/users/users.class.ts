@@ -52,7 +52,7 @@ export class Users extends Service<UserData> {
   }
   
   async create(data: UserData, params?: Params) {
-    const { email, password, name, allergies, isAdmin} = data;
+    const { email, password, name, allergies, isAdmin, avatar, chatted_to} = data;
 
     //Turn allergies into string
     console.log(allergies);
@@ -66,6 +66,8 @@ export class Users extends Service<UserData> {
       updated_at: new Date(),
       allergies,
       isAdmin,
+      avatar,
+      chatted_to
     };
       // Call original `create` method with existing params and new data.
     return super.create(userData, params);

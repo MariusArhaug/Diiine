@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
+import { Redirect } from "react-router";
 import client from '../feathers-client';
 
 const authContext = createContext();
@@ -16,38 +17,38 @@ export const useAuth = () => {
 function useProvideAuth() {
     const [user, setUser] = useState(null);
 
+    const reAuth = () => {
+        return client.reAuthenticate().then(res => {
+            setUser(res.user);
+            return res.user
+        }).catch((e) => {
+            console.log('error signing in with jwt', e);
+        })
+    }
+
 
     const signin = (credentials) => {
         return client.authenticate({
             strategy: 'local',
             ...credentials
-        }).then( response => {
+        }).then(response => {
             setUser(response.user);
-            console.log(response.user);
-            console.log(user);
             return response.user;
         }).catch((e) => {
             console.log('error signing in', e);
         });
     };
 
-    const signout = () => {
+    const signout = async () => {
         // TODO: .logout().then(//redirect to home)
-        client.logout();
-        setUser(false);
+        await client.logout();
+        setUser(null);
+
     };
 
     const signup = (credentials) => {
         const userObject = {
             ...credentials,
-            /*
-            'name': 'test-from-frontend',
-            'isAdmin': 1,
-            'allergies':  {
-                'nuts': 1,
-                'lactose': 0,
-                'gluten': 1,
-            }*/
         }
         return client.service('users').create(userObject).then(
             response => {
@@ -65,6 +66,7 @@ function useProvideAuth() {
         user,
         signin,
         signout,
-        signup
+        signup,
+        reAuth
     };
 }
