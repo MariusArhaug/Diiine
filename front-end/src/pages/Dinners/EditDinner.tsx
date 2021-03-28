@@ -83,7 +83,8 @@ export default function EditDinner() {
 							...resDinner,
 							allergens: allergensChipArray,
 							tags: tagsChipArray,
-							date: newDate
+							date: newDate,
+							banner: ''
 						};
 						setCredentials(newDinner);
 					})

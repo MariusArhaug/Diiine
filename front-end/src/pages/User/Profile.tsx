@@ -105,11 +105,11 @@ export default function Profile() {
             </Typography>
           </Grid>
 
-          {user?.allergies.length > 0 && (
+          {user?.allergies!.length > 0 && (
             <Grid item xs={12}>
               <Typography variant="body2">
                 Registered allergies:{" "}
-                {user?.allergies.split(",").join(", ")}
+                {user?.allergies?.split(",").join(", ")}
               </Typography>
             </Grid>
           )}

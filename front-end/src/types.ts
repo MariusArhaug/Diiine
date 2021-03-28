@@ -11,6 +11,8 @@ export type Dinner = {
     date: Date;
     maxAttendants: number;
     isOpen: boolean;
+    isDivided: boolean,
+    expenses: number,
 };
 
 export type TypeMessage = {

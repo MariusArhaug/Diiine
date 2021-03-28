@@ -7,6 +7,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import logo_white from "../media/logo_white.svg";
 import { Link as RouterLink } from "react-router-dom";
 import { useAuth } from "../hooks/use-auth";
+import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
