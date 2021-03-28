@@ -51,3 +51,13 @@ li a:hover {
   border: 1px solid #512d38;
   text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
 }
+.userInfo {
+  padding: 5px;
+  margin-top: 10px;
+  text-align: left;
+  vertical-align: middle;
+}
+.deleteButton {
+  position: relative;
+  top: -0.5rem;
+}

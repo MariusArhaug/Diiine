@@ -2,9 +2,9 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { sizing } from '@material-ui/system';
 import { User } from '../../types';
 import DeleteButton from './DeleteButton'
+import '../../styles/App.css';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -24,45 +24,34 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }));
 
-const AdminCard = (props: User) => {
+export default function AdminCard(user: User) {
 
   const classes = useStyles();
 
-/*  {props.isAdmin &&
-            <Grid item>
-              <Typography variant='h6' className='userInfo'>
-                USER IS ADMIN
-              </Typography>
-            </Grid>
-          }
-          HVORFOR FUNKER IKKE DETTE, HVORFOR FÅR JEG NOE SOM LIGNER PÅ EN POTENS AV isAdmin?
-          */
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <Grid container spacing={1} justify="space-between">
-          <Grid item xs>
-            <Typography variant='caption' color='textSecondary' className= 'userInfo' align = 'center'>
-              {props.user_id}
+        <Grid container spacing={1} justify="space-between" xs={12}>
+          <Grid item xs={2}>
+            <Typography variant='caption' color='textSecondary' className='userInfo' align='center'>
+              ID: {user.user_id}
             </Typography>
           </Grid>
-          <Grid item xs>
-            <Typography variant='h6' className='userInfo' align = 'center'>
-              {props.name}
-            </Typography>  
-          </Grid>
-          <Grid item xs>          
-            <Typography variant = 'body2' className = 'userInfo' align = 'center'>
-              {props.email}
+          <Grid item xs={4} >
+            <Typography variant='body2' className='userInfo' align='center'>
+              {user.name}
             </Typography>
           </Grid>
-          <Grid item xs>
-            <DeleteButton {...{type: 0, id: props.user_id}}/>
+          <Grid item xs={4}>
+            <Typography variant='body2' className='userInfo' align='center'>
+              {user.email}
+            </Typography>
+          </Grid>
+          <Grid item xs={2} className='deleteButton'>
+            <DeleteButton {...{ type: 0, id: user.user_id }} />
           </Grid>
         </Grid>
       </Paper>
-    </div>
+    </div >
   );
 }
-
-export default AdminCard;

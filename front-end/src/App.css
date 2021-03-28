@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
   height: 100%;
   min-height: 100vh;
 }
@@ -43,5 +43,4 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  /* height: 100vh; */
 }
