@@ -33,7 +33,7 @@ interface Form {
   adminKey: string,
 }
 
-export const Signup = () => {
+export default function Register() {
   const auth = useAuth();
 
   const [credentials, setCredentials] = useState<Form>({
