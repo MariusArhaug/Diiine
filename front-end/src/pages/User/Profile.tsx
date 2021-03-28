@@ -42,6 +42,7 @@ export default function Profile() {
 
   const auth: any = useAuth();
   const user: User = useAuth().user;
+  const auth = useAuth();
 
   const [dinners, setDinners] = useState<Dinner[]>([]);
 
@@ -96,9 +97,10 @@ export default function Profile() {
               variant="contained"
               color="primary"
               style={{ width: "100%" }}
-            >Log out</Button>
+            >
+              Log out
+          </Button>
           </Grid>
-
           <Grid item xs>
             <Typography variant="body1">
               E-mail: {user?.email}
@@ -134,7 +136,6 @@ export default function Profile() {
               </Grid>
             </Grid>
           </Grid>
-
           <Grid item container spacing={1}>
             <Grid item></Grid>
           </Grid>
