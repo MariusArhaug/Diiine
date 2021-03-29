@@ -11,7 +11,6 @@ import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Dinner, User } from '../../types';
 import client from '../../feathers-client';
-import Rating from '@material-ui/lab/Rating';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import { useAuth } from '../../hooks/use-auth';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -31,11 +30,24 @@ export default function DinnerInfo() {
     dinner: null,
   });
 
+  const [isAttending, setAttending] = useState(false);
+
   useEffect(() => {
     const dinnerInfo: Dinner = location.state.dinner;
     const userInfo: User = location.state.dinner_owner;
 
     setState({ dinner: dinnerInfo, owner: userInfo })
+    client.service('attendingdinners')
+      .find({
+        query: {
+          user_id: userInfo.user_id,
+          dinners_id: dinnerInfo.dinners_id
+        }
+      })
+      .then((res: any) => {
+        setAttending(res.total > 0);
+      })
+    setAttending(dinnerInfo.user_id === userInfo.user_id)
   }, [location.state.dinner, location.state.dinner_owner])
 
 
@@ -51,18 +63,48 @@ export default function DinnerInfo() {
       user_id: user.user_id,
     }
 
-    client.service('attendingdinners').create(data);
-    swal({
-      title: 'Hurray!',
-      text: 'You have now joined the dinner!',
-      icon: 'success',
-      buttons: {
-        confirm: {
-          text: "Nice!",
-          className: "buttonStyle"
+    client.service('attendingdinners').create(data).then(() => {
+      swal({
+        title: 'Hurray!',
+        text: 'You have now joined the dinner!',
+        icon: 'success',
+        buttons: {
+          confirm: {
+            text: "Nice!",
+            className: "buttonStyle"
+          }
         }
-      }
+      });
+      setAttending(true);
     });
+  }
+
+  const handleLeaveDinner = () => {
+    client.service('attendingdinners').find({
+      query: {
+        dinners_id: state!.dinner!.dinners_id,
+        user_id: user.user_id,
+      }
+    }).then((res: any) => {
+      const row: { user_id: number, dinners_id: number, secondary_pk: number } = res.data[0];
+      client.service('attendingdinners')
+        .remove(row.secondary_pk)
+        .then(() => {
+          swal({
+            title: 'Left dinner!',
+            text: 'You have now left the dinner!',
+            icon: 'success',
+            buttons: {
+              confirm: {
+                text: "Done",
+                className: "buttonStyle"
+              }
+            }
+          });
+          setAttending(false);
+        }).catch((e: Error) => console.log(e));
+    }).catch((e: Error) => console.log(e));
+    ;
   }
 
   const handleOpen = () => {
@@ -167,9 +209,10 @@ export default function DinnerInfo() {
                     </Grid>
                   </Grid>
                   <Grid item>
-                    <Button variant="outlined" onClick={handleJoinDinner}>
-                      Join dinner
-                    </Button>
+                    {isAttending ?
+                      <Button variant="outlined" onClick={handleLeaveDinner}>Leave dinner</Button> :
+                      <Button variant="outlined" onClick={handleJoinDinner}>Join dinner</Button>
+                    }
                   </Grid>
                 </Grid>
               </Paper>
