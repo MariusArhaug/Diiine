@@ -48,7 +48,7 @@ export default function AdminCard(user: User) {
             </Typography>
           </Grid>
           <Grid item xs={2} className='deleteButton'>
-            <DeleteButton {...{ type: 0, id: user.user_id }} />
+            <DeleteButton {...{ type: 'users', id: user.user_id }} />
           </Grid>
         </Grid>
       </Paper>
