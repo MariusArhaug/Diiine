@@ -17,7 +17,8 @@ import { useAuth } from '../../hooks/use-auth';
 import DeleteIcon from '@material-ui/icons/Delete';
 import swal from 'sweetalert';
 import NewRating from '../../components/NewRating';
-import AverageRating from '../../components/AverageRating'
+import AverageRating from '../../components/AverageRating';
+import DeleteButton from '../Admin/DeleteButton';
 
 
 export default function DinnerInfo() {
@@ -51,18 +52,33 @@ export default function DinnerInfo() {
       user_id: user.user_id,
     }
 
-    client.service('attendingdinners').create(data);
-    swal({
-      title: 'Hurray!',
-      text: 'You have now joined the dinner!',
-      icon: 'success',
-      buttons: {
-        confirm: {
-          text: "Nice!",
-          className: "buttonStyle"
-        }
-      }
-    });
+    client.service('attendingdinners')
+      .create(data).then(() => {
+        swal({
+          title: 'Hurray!',
+          text: 'You have now joined the dinner!',
+          icon: 'success',
+          buttons: {
+            confirm: {
+              text: "Nice!",
+              className: "buttonStyle"
+            }
+          }
+        });
+      }).catch((e: Error) => {
+        swal({
+          title: 'Error',
+          text: 'You have already joined this dinner!',
+          icon: 'error',
+          buttons: {
+            confirm: {
+              text: "Nice!",
+              className: "buttonStyle buttonError"
+            }
+          }
+        });
+      });
+
   }
 
   const handleOpen = () => {
@@ -113,7 +129,7 @@ export default function DinnerInfo() {
             <Grid item xs={12} container justify="space-between" alignItems="center">
               <Grid item container justify='flex-end'>
                 {state.owner.user_id === user.user_id || user.isAdmin ? <Button onClick={handleEditClick}>Edit</Button> : <p />}
-                {state.owner.user_id === user.user_id || user.isAdmin ? <IconButton onClick={handleDeleteClick} aria-label="delete"><DeleteIcon style={{ fill: "#512D38" }} /></IconButton> : <p />}
+                {state.owner.user_id === user.user_id || user.isAdmin ? <DeleteButton {...{ type: 'dinners', id: user.user_id }} /> : <p />}
               </Grid>
               <Grid xs item style={{ textAlign: "left" }}>
                 <Typography variant="caption" color="textSecondary">
