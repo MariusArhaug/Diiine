@@ -28,6 +28,10 @@ export class Attendingdinners extends Service {
     return super.create(attendingdinnersdata, params);
   }
 
+  async find (params: Params) {
+    return super.find(params);
+  }
+
   /*
 
   TODO: 
