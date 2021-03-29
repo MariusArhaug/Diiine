@@ -82,7 +82,6 @@ export default function DinnerInfo() {
         });
       });
   }
-
   const handleLeaveDinner = () => {
     client.service('attendingdinners').find({
       query: {
