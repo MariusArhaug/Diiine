@@ -6,7 +6,7 @@ import swal from 'sweetalert';
 
 export default function Login() {
   const auth = useAuth();
-  
+
   const [credentials, setCredentials] = useState({
     email: '',
     password: ''
@@ -14,9 +14,9 @@ export default function Login() {
 
   useEffect(() => {
     auth.reAuth();
-    
+
   }, [])
-  
+
   if (auth.user !== null) {
     return <Redirect to="/profile" />
   }

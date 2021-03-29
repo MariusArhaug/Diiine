@@ -122,7 +122,7 @@ export default function Profile() {
                 justify="space-evenly"
                 alignItems="stretch"
               >
-                {dinners.length &&
+                {dinners.length ?
                   dinners!.map((dinner: Dinner) => (
                     <Grid item key={dinner.dinners_id}>
                       <DinnerCard
@@ -130,7 +130,7 @@ export default function Profile() {
                         key={dinner.dinners_id}
                       />
                     </Grid>
-                  ))}
+                  )) : <Grid xs={12}>You have not created any dinner arrangments yet!</Grid>}
               </Grid>
             </Grid>
           </Grid>
