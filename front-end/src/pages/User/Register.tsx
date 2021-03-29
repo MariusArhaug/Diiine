@@ -45,16 +45,14 @@ export default function Register() {
     adminKey: '',
   });
 
-
-  //can be put in another seperate file.
   const validateEmail = (email: string): boolean => {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
+    return re.test(email);
   }
 
   const validatePassword = (password: string): boolean => {
-    const re = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/;
-    return re.test(String(password).toLowerCase());
+    const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    return re.test(password);
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -112,8 +110,7 @@ export default function Register() {
       alert("password!");
       return false;
     }
-    const hashedKey = "vielskerPU40lol";
-    if (form.isAdmin === true && form.adminKey !== hashedKey) {
+    if (form.isAdmin === true && form.adminKey !== "vielskerPU40lol") {
       alert("Key does not match")
       form.isAdmin = false;
       return false;

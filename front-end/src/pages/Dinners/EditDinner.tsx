@@ -144,7 +144,7 @@ export default function EditDinner() {
 		client.service('dinners').patch(dinnerId, form)
 			.then()
 			.catch((e: Error) => {
-				console.log('couldn\'t create dinner', e);
+				console.log('couldn\'t edit dinner', e);
 			});
 	}
 

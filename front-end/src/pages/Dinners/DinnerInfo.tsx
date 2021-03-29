@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../../styles';
 import { Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Paper, TextField } from '@material-ui/core';
-import { IconButton } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import GroupIcon from '@material-ui/icons/Group';
@@ -13,18 +12,18 @@ import { Dinner, User } from '../../types';
 import client from '../../feathers-client';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import { useAuth } from '../../hooks/use-auth';
-import DeleteIcon from '@material-ui/icons/Delete';
 import swal from 'sweetalert';
 import NewRating from '../../components/NewRating';
-import AverageRating from '../../components/AverageRating'
+import AverageRating from '../../components/AverageRating';
+import DeleteButton from '../Admin/DeleteButton';
 
 
 export default function DinnerInfo() {
-
   const classes = useStyles();
   const auth = useAuth();
-
   const location: { state: { dinner: Dinner, dinner_owner: User } } = useLocation();
+  const [open, setOpen] = useState(false);
+  const user: User = useAuth().user;
   const [state, setState] = useState<{ owner: User | null, dinner: Dinner | null }>({
     owner: null,
     dinner: null,
@@ -50,35 +49,39 @@ export default function DinnerInfo() {
     setAttending(dinnerInfo.user_id === userInfo.user_id)
   }, [location.state.dinner, location.state.dinner_owner])
 
-
-  console.log(state)
-
-
-  const [open, setOpen] = useState(false);
-  const user: User = useAuth().user;
-
   const handleJoinDinner = () => {
     const data = {
       dinners_id: state!.dinner!.dinners_id,
       user_id: user.user_id,
     }
 
-    client.service('attendingdinners').create(data).then(() => {
-      swal({
-        title: 'Hurray!',
-        text: 'You have now joined the dinner!',
-        icon: 'success',
-        buttons: {
-          confirm: {
-            text: "Nice!",
-            className: "buttonStyle"
+    client.service('attendingdinners')
+      .create(data).then(() => {
+        swal({
+          title: 'Hurray!',
+          text: 'You have now joined the dinner!',
+          icon: 'success',
+          buttons: {
+            confirm: {
+              text: "Nice!",
+              className: "buttonStyle"
+            }
           }
-        }
+        });
+      }).catch((e: Error) => {
+        swal({
+          title: 'Error',
+          text: 'You have already joined this dinner!',
+          icon: 'error',
+          buttons: {
+            confirm: {
+              text: "Nice!",
+              className: "buttonStyle buttonError"
+            }
+          }
+        });
       });
-      setAttending(true);
-    });
   }
-
   const handleLeaveDinner = () => {
     client.service('attendingdinners').find({
       query: {
@@ -125,15 +128,6 @@ export default function DinnerInfo() {
     }
   }
 
-
-  const handleDeleteClick = () => {
-    console.log("deleted")
-    client.service('dinners').remove(state!.dinner!.dinners_id)
-      .then()
-      .catch((e: Error) => {
-        console.log('couldn\'t delete dinner', e);
-      });
-  }
   const history = useHistory();
   const handleEditClick = () => {
     history.push('/editdinner/' + state!.dinner!.dinners_id);
@@ -155,7 +149,7 @@ export default function DinnerInfo() {
             <Grid item xs={12} container justify="space-between" alignItems="center">
               <Grid item container justify='flex-end'>
                 {state.owner.user_id === user.user_id || user.isAdmin ? <Button onClick={handleEditClick}>Edit</Button> : <p />}
-                {state.owner.user_id === user.user_id || user.isAdmin ? <IconButton onClick={handleDeleteClick} aria-label="delete"><DeleteIcon style={{ fill: "#512D38" }} /></IconButton> : <p />}
+                {state.owner.user_id === user.user_id || user.isAdmin ? <DeleteButton {...{ type: 'dinners', id: user.user_id }} /> : <p />}
               </Grid>
               <Grid xs item style={{ textAlign: "left" }}>
                 <Typography variant="caption" color="textSecondary">
