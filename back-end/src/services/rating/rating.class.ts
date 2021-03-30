@@ -6,7 +6,7 @@ import { Application } from '../../declarations';
 /* Interface for ratings:
 rated_of is receiver of rating, rated_by is sender
 */
-interface RatingData {
+export interface RatingData {
   rated_of: number,
   rated_by: number,
   rating_value: number,

@@ -15,8 +15,8 @@ export default {
     find: [ authenticate('jwt') ],
     get: [ authenticate('jwt') ],
     create: [hashPassword('password'), parseObjectToString('allergies')], 
-    update: [ hashPassword('password'),  authenticate('jwt'), isAdminOrSelfOwned() ],
-    patch: [ hashPassword('password'),  authenticate('jwt'), isAdminOrSelfOwned() ],
+    update: [ hashPassword('password'),  authenticate('jwt') ],
+    patch: [ hashPassword('password'),  authenticate('jwt') ],
     remove: [authenticate('jwt'), isAdminOrSelfOwned()]
   },
 
