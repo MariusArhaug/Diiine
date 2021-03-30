@@ -1,21 +1,21 @@
-export type Dinner = {
-    dinners_id: number;
-    user_id: number;
-    title: string;
-    description: string;
-    address: string;
-    ingredients: string;
-    tags: string;
-    allergens: string;
-    attendants: number;
-    date: Date;
-    maxAttendants: number;
-    isOpen: boolean;
+export interface Dinner {
+    dinners_id: number,
+    user_id: number,
+    title: string,
+    description: string,
+    address: string,
+    ingredients: string,
+    tags: string,
+    allergens: string,
+    attendants: User[],
+    date: Date,
+    maxAttendants: number,
+    isOpen: boolean,
     isDivided: boolean,
     expenses: number,
 };
 
-export type TypeMessage = {
+export interface TypeMessage {
     chat_id?: number;
     created_at?: string;
     updated_at?: string;
@@ -24,10 +24,10 @@ export type TypeMessage = {
     message: string;
 };
 
-export type User = {
+export interface User {
+    user_id: number;
     allergies?: string;
     avg_rating?: number;
-    user_id: number;
     name: string;
     address?: string;
     email?: string;
@@ -36,24 +36,39 @@ export type User = {
     avatar?: string;
 };
 
-export type Rating = {
+export interface Rating {
     rated_of: number;
     rated_by: number;
     rating_value: number;
     description: string;
 };
 
-export type Chip = {
+export interface Chip {
     label: string;
     value: string;
 };
 
-export type ChatManager = {
-    user: User;
-    partner: User;
-    allUsers: User[];
-    messages: TypeMessage[];
-    findMessages: () => Promise<"no user selected" | undefined>;
-    findPartner: (partnerId: number) => Promise<any>;
-    findAllUsers: () => Promise<any>;
+export interface ChatManager {
+  user: User;
+  partner: User;
+  allUsers: User[];
+  messages: TypeMessage[];
+  findMessages: () => Promise<"no user selected" | undefined>;
+  findPartner: (partnerId: number) => Promise<any>;
+  findAllUsers: () => Promise<any>;
 };
+
+export interface Result {
+  data : [];
+  limit : number;
+  skip: 0;
+  total: 2;
+}
+
+export interface AttendingDinnerResult extends Omit<Result, 'data'>{
+  data : [{
+    user_id: number, 
+    dinners_id: number,
+    secondary_pk: number
+  }]
+}

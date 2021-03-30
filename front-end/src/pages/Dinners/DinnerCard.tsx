@@ -36,7 +36,6 @@ const useStylesModified = makeStyles((theme: Theme) =>
 );
 
 export default function DinnerCard(dinner: Dinner) {
-
   const classes = useStylesModified();
   const componentName = "DinnerCard"
   const [owner, setOwner] = useState<User>();
@@ -51,19 +50,19 @@ export default function DinnerCard(dinner: Dinner) {
       .catch((e: any) => console.log(e))
   }, [dinner.user_id])
 
-  const handleOnClick = () => {
+  const handleClick = () => {
     history.push({
       pathname: `/dinner/${dinner.dinners_id}`,
       state: {
         dinner: dinner,
-        dinner_owner: owner,
-      },
+        owner: owner,
+      }
     })
   }
 
   return (
     <div className={`${classes.root}  ${componentName}`}>
-      <Paper className={classes.paper} style={{ textAlign: "left" }} onClick={handleOnClick}>
+      <Paper className={classes.paper} style={{ textAlign: "left" }} onClick={handleClick}>
         <Grid container spacing={1}>
           <Grid item xs={12}>
             <Typography variant="caption" color="textSecondary" className="dinnerInfo">
@@ -94,4 +93,3 @@ export default function DinnerCard(dinner: Dinner) {
     </div>
   );
 }
-
