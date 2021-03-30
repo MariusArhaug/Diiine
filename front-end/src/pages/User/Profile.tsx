@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import DinnerCard from "../Dinners/DinnerCard";
-import AverageRating from "../../components/AverageRating";
+import RatingDOM from '@material-ui/lab/Rating';
 
 const useStylesModified = makeStyles((theme: Theme) =>
   createStyles({
@@ -72,7 +72,13 @@ export default function Profile() {
             </Typography>
           </Grid>
           <Grid item>
-            <AverageRating {...user} />
+            Average Rating: {user?.avg_rating}
+            <RatingDOM
+              name="average_rating"
+              precision={0.1}
+              value={user?.avg_rating}
+              readOnly
+            />
           </Grid>
         </Grid>
       </Paper>
