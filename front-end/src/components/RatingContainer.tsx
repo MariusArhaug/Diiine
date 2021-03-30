@@ -15,30 +15,26 @@ export default function RatingContainer(user: User) {
     client.service('rating')
       .find({ query: { rated_of: user.user_id } })
       .then((res: any) => {
-        setRatings(prev => ({
-          ...prev,
-          rated_of: res.data.map((rating: any) => client.service('users').get(rating.rated_of).then()),
-          rated_by: res.data.map((rating: any) => client.service('users').get(rating.rated_by).then()),
-        }))
-        console.log(ratings)
+        setRatings([...res.data])
       })
-  }, [])
+  }, [user.user_id])
 
   return (
     <Grid item xs={12}>
       <Paper className={classes.container}>
-        <Typography variant="h6">Rating</Typography>
+        <Typography variant="h6">
+          Rating
+        </Typography>
         <br />
         <Grid item xs>
           <NewRating {...user} />
         </Grid>
         <Grid>
-          {ratings.length ? ratings.map((rating: Rating) => (
-            <Grid>
-              <RatingCard {...rating} />
+          {ratings.length && ratings!.map((rating: Rating) => (
+            <Grid item>
+              <RatingCard {...rating} key={rating.rating_id} />
             </Grid>
-          )) : null
-          }
+          ))}
         </Grid>
       </Paper>
     </Grid>
