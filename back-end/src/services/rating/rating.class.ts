@@ -48,11 +48,6 @@ export class Rating extends Service {
   }
 
   async find(params: Params) {
-
-    /* params:
-    rated_of: 12
-    */
-
     return super.find(params);
   }
 

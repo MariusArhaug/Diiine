@@ -37,6 +37,7 @@ export type User = {
 };
 
 export type Rating = {
+    rating_id?: number,
     rated_of: User;
     rated_by: User;
     rating_value: number;

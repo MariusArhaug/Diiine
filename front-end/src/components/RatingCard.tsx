@@ -3,9 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { User, Rating } from '../types';
-import client from '../feathers-client';
-
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const useStylesModified = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,9 +37,8 @@ export default function RatingCard(rating: Rating) {
 
   const classes = useStylesModified();
   const [state, setState] = useState<Rating>(rating);
-  const [user, setUser] = useState<User>();
-
-  useEffect(() => { })
+  const [ratedOf, setRatedOf] = useState<User>(rating.rated_of)
+  const [ratedBy, setRatedBy] = useState<User>(rating.rated_by)
 
 
   return (
@@ -49,12 +46,12 @@ export default function RatingCard(rating: Rating) {
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <Typography variant="caption" color="textSecondary">
-
+            Rated by: {ratedBy.name}
           </Typography>
         </Grid>
         <Grid item>
           <Typography variant="h5">
-            Rating Description: { }
+            Rating Description: {state.description}
           </Typography>
         </Grid>
       </Grid>

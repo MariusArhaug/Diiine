@@ -1,5 +1,6 @@
 import * as authentication from '@feathersjs/authentication';
-import averageRating from '../../hooks/average-rating'
+import averageRating from '../../hooks/average-rating';
+import changeRatingFields from '../../hooks/change-rating-fields';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
@@ -17,8 +18,8 @@ export default {
 
   after: {
     all: [],
-    find: [],
-    get: [],
+    find: [changeRatingFields()],
+    get: [changeRatingFields()],
     create: [],
     update: [],
     patch: [],
