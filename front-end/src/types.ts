@@ -37,8 +37,8 @@ export type User = {
 };
 
 export type Rating = {
-    rated_of: number;
-    rated_by: number;
+    rated_of: User;
+    rated_by: User;
     rating_value: number;
     description: string;
 };
