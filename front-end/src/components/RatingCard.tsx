@@ -2,8 +2,9 @@ import { Grid } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { User } from '../types';
+import { User, Rating } from '../types';
 import client from '../feathers-client';
+
 import { useEffect, useState } from 'react';
 
 const useStylesModified = makeStyles((theme: Theme) =>
@@ -34,10 +35,11 @@ const useStylesModified = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function RatingCard(user: User) {
+export default function RatingCard(rating: Rating) {
 
   const classes = useStylesModified();
-  const [userRating, setUserRating] = useState<User>(user);
+  const [state, setState] = useState<Rating>(rating);
+  const [user, setUser] = useState<User>();
 
   useEffect(() => { })
 
@@ -47,7 +49,7 @@ export default function RatingCard(user: User) {
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <Typography variant="caption" color="textSecondary">
-            User: {userRating.name}
+
           </Typography>
         </Grid>
         <Grid item>

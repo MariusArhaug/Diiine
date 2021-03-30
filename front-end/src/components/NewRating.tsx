@@ -30,8 +30,8 @@ export default function CustomizedRatings(props: User) {
 
   const [hover, setHover] = React.useState(-1);
   const [newRating, setNewRating] = useState<Rating>({
-    rated_of: props.user_id,
-    rated_by: useAuth().user.user_id,
+    rated_of: props,
+    rated_by: useAuth().user,
     rating_value: 2.5,
     description: '',
   })

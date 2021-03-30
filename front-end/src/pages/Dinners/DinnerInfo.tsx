@@ -13,9 +13,9 @@ import client from '../../feathers-client';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import { useAuth } from '../../hooks/use-auth';
 import swal from 'sweetalert';
-import AverageRating from '../../components/AverageRating';
 import DeleteButton from '../Admin/DeleteButton';
-import CreateRating from '../../components/CreateRating';
+import RatingDOM from '@material-ui/lab/Rating';
+import RatingContainer from '../../components/RatingContainer';
 
 
 export default function DinnerInfo() {
@@ -199,7 +199,12 @@ export default function DinnerInfo() {
                       </Typography>
                     </Grid>
                     <Grid item>
-                      <AverageRating {...state.owner} />
+                      <RatingDOM
+                        name="rating_value"
+                        precision={0.1}
+                        value={state.owner.avg_rating}
+                        readOnly
+                      />
                     </Grid>
                   </Grid>
                   <Grid item>
@@ -257,7 +262,7 @@ export default function DinnerInfo() {
               </Paper>
             </Grid>
             {/*------------------------------Rating--------------------- */}
-            <CreateRating {...state.owner} />
+            <RatingContainer {...state.owner} />
           </Grid>
         }
       </Paper>
