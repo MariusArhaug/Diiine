@@ -1,18 +1,18 @@
 export interface Dinner {
-    dinners_id: number,
-    user_id: number,
-    title: string,
-    description: string,
-    address: string,
-    ingredients: string,
-    tags: string,
-    allergens: string,
-    attendants: User[],
-    date: Date,
-    maxAttendants: number,
-    isOpen: boolean,
-    isDivided: boolean,
-    expenses: number,
+    dinners_id: number;
+    owner: User;
+    title: string;
+    description: string;
+    address: string;
+    ingredients: string;
+    tags: string;
+    allergens: string;
+    attendants: User[];
+    date: Date;
+    maxAttendants: number;
+    isOpen: boolean;
+    isDivided: boolean;
+    expenses: number;
 };
 
 export interface TypeMessage {
