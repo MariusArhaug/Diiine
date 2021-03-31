@@ -2,10 +2,8 @@ import { Chip, Grid } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { Dinner, User } from '../../types';
+import { Dinner } from '../../types';
 import { useHistory } from 'react-router-dom';
-import client from '../../feathers-client';
-import { useEffect, useState } from 'react';
 
 const useStylesModified = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,24 +36,13 @@ const useStylesModified = makeStyles((theme: Theme) =>
 export default function DinnerCard(dinner: Dinner) {
   const classes = useStylesModified();
   const componentName = "DinnerCard"
-  const [owner, setOwner] = useState<User>();
   const history = useHistory();
-
-  useEffect(() => {
-    client.service('users')
-      .get(dinner.user_id)
-      .then((res: User) => {
-        setOwner(res);
-      })
-      .catch((e: any) => console.log(e))
-  }, [dinner.user_id])
 
   const handleClick = () => {
     history.push({
       pathname: `/dinner/${dinner.dinners_id}`,
       state: {
-        dinner: dinner,
-        owner: owner,
+        dinnerFromLocation: dinner,
       }
     })
   }

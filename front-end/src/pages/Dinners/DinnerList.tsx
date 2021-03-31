@@ -59,7 +59,7 @@ export default function DinnerList() {
   const defaultPage = () => {
     client.service('dinners')
       .find({ query: { $sort: { dinners_id: 1 } } })
-      .then((res: any) => setDinners(res.data))
+      .then((res: any) => (console.log(res), setDinners(res.data)))
       .catch((e: Error) => { console.log('error', e); })
   }
 

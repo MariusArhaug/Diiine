@@ -8,7 +8,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import EventIcon from '@material-ui/icons/Event';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Dinner, User, AttendingDinnerResult } from '../../types';
+import { Dinner } from '../../types';
 import client from '../../feathers-client';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import { useAuth } from '../../hooks/use-auth';
@@ -17,63 +17,27 @@ import DeleteButton from '../Admin/DeleteButton';
 import { SwalAlert } from '../../hooks/SwalAlert';
 
 export default function DinnerInfo() {
+  const { state: { dinnerFromLocation } }: { state: { dinnerFromLocation: Dinner } } = useLocation();
   const classes = useStyles();
   const auth = useAuth();
-  const user: User = auth.user;
-  const { state: { owner, dinner } }: { state: { owner: User, dinner: Dinner } } = useLocation();
+
+  const [dinner, setDinner] = useState<Dinner>(dinnerFromLocation);
   const [open, setOpen] = useState(false);
-  const [info, setInfo] = useState<{ owner: User, dinner: Dinner }>({ owner: owner, dinner: dinner });
-  const [isAttending, setAttending] = useState(false);
+  const [isAttending, setAttending] = useState(dinner.attendants.some((attend) => attend.user_id === auth.user.user_id));
 
-  useEffect(() => {
-    client.service('attendingdinners')
-      .find({
-        query: {
-          user_id: info.owner.user_id,
-          dinners_id: info.dinner.dinners_id
-        }
-      })
-      .then((res: AttendingDinnerResult) => {
-        setAttending(res.total > 0);
-      })
-    findAttendants();
-  }, [])
-
-  const findAttendants = () => {
-    client.service('attendingdinners')
-      .find({ query: { dinners_id: info.dinner.dinners_id } })
-      .then((res: AttendingDinnerResult) => {
-        const users: User[] = [];
-        res.data.map(obj => client.service('users').get(obj.user_id).then((user: User) => users.push(user)))
-        setInfo((prevState) => ({
-          ...prevState,
-          dinner: {
-            ...prevState.dinner,
-            attendants: users,
-          }
-        }))
-      }).catch((e: Error) => console.log(e))
-    console.log(info);
-  }
 
   const handleJoinDinner = () => {
     const data = {
-      dinners_id: info!.dinner!.dinners_id,
-      user_id: user.user_id,
+      dinners_id: dinner!.dinners_id,
+      user_id: auth.user.user_id,
     }
     client.service('attendingdinners')
-      .create(data).then(() => {
+      .create(data)
+      .then(() => {
         SwalAlert('Hurray', 'You have now joined the dinner!', 'success', 'Nice!')
         setAttending(true);
-        const users = [...info.dinner.attendants, user]
-        setInfo((prevState) => ({
-          ...prevState,
-          dinner: {
-            ...prevState.dinner,
-            attendants: users,
-          }
-        }))
-      }).catch((e: Error) => {
+      })
+      .catch((e: Error) => {
         SwalAlert('Error', 'You have already joined this dinner!', 'error', 'Understand', 'buttonError');
       });
   }
@@ -81,8 +45,8 @@ export default function DinnerInfo() {
   const handleLeaveDinner = () => {
     client.service('attendingdinners').find({
       query: {
-        dinners_id: info!.dinner!.dinners_id,
-        user_id: user.user_id,
+        dinners_id: dinner!.dinners_id,
+        user_id: auth.user.user_id,
       }
     }).then((res: any) => {
       const row: { user_id: number, dinners_id: number, secondary_pk: number } = res.data[0];
@@ -93,7 +57,6 @@ export default function DinnerInfo() {
           setAttending(false);
         }).catch((e: Error) => console.log(e));
     }).catch((e: Error) => console.log(e));
-    findAttendants();
   }
 
   const handleOpen = () => {
@@ -109,14 +72,14 @@ export default function DinnerInfo() {
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (info.dinner) {
-      info.dinner.expenses = Number.parseFloat(event.target.value);
+    if (dinner) {
+      dinner.expenses = Number.parseFloat(event.target.value);
     }
   }
 
   const history = useHistory();
   const handleEditClick = () => {
-    history.push(`/editdinner/${info.dinner.dinners_id}`);
+    history.push(`/editdinner/${dinner.dinners_id}`);
   }
 
   return (
@@ -133,17 +96,17 @@ export default function DinnerInfo() {
           </Grid>
           <Grid item xs={12} container justify="space-between" alignItems="center">
             <Grid item container justify='flex-end'>
-              {info.owner.user_id === user.user_id || user.isAdmin ? <Button onClick={handleEditClick}>Edit</Button> : <p />}
-              {info.owner.user_id === user.user_id || user.isAdmin ? <DeleteButton {...{ type: 'dinners', id: user.user_id }} /> : <p />}
+              {dinner.owner.user_id === auth.user.user_id || auth.user.isAdmin ? <Button onClick={handleEditClick}>Edit</Button> : <p />}
+              {dinner.owner.user_id === auth.user.user_id || auth.user.isAdmin ? <DeleteButton {...{ type: 'dinners', id: auth.user.user_id }} /> : <p />}
             </Grid>
             <Grid xs item style={{ textAlign: "left" }}>
               <Typography variant="caption" color="textSecondary">
-                {info.dinner.address}
+                {dinner.address}
               </Typography>
               {/*---------------DINNER NAME ETC-------------------------*/}
-              <Typography variant="h4">{info.dinner.title}</Typography>
+              <Typography variant="h4">{dinner.title}</Typography>
               <Grid item container spacing={1} justify="flex-start">
-                {info.dinner.tags.split(',').map(a => (
+                {dinner.tags.split(',').map(a => (
                   <Grid item>
                     <Chip size="small" label={a} />
                   </Grid>
@@ -155,17 +118,17 @@ export default function DinnerInfo() {
               <Grid item container spacing={1} alignItems="center" justify="flex-end">
                 <Grid item>
                   <Typography variant="subtitle2">
-                    {info.dinner.isOpen ? "Open dinner" : "Private dinner"}
+                    {dinner.isOpen ? "Open dinner" : "Private dinner"}
                   </Typography>
                 </Grid>
                 <Grid item>
-                  {info.dinner.isOpen ? <LockOpenIcon /> : <LockOutlinedIcon />}
+                  {dinner.isOpen ? <LockOpenIcon /> : <LockOutlinedIcon />}
                 </Grid>
               </Grid>
               <Grid item container spacing={1} alignItems="center" justify="flex-end">
                 <Grid item>
                   <Typography variant="subtitle2">
-                    {info.dinner.date}
+                    {dinner.date}
                   </Typography>
                 </Grid>
                 <Grid item>
@@ -180,7 +143,7 @@ export default function DinnerInfo() {
                 <Grid item xs spacing={1} container alignItems="center">
                   <Grid item>
                     <Typography>
-                      Host: {info.owner.name}
+                      Host: {dinner.owner.name}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -201,17 +164,17 @@ export default function DinnerInfo() {
                 <Grid item><GroupIcon /></Grid>
                 <Grid item>
                   <Typography variant="subtitle1">
-                    Number of attendants: {info.dinner.attendants.length}
+                    Number of attendants: {dinner.attendants.length}
                   </Typography>
                 </Grid>
                 <Grid item>
-                  {info.dinner.attendants.length > 0 ? <Button variant="outlined">Show attendants</Button> : null}
+                  {dinner.attendants.length > 0 ? <Button variant="outlined">Show attendants</Button> : null}
                 </Grid>
                 <Grid container spacing={1} alignItems="center" justify="flex-start">
                   <Grid item><LocalHospitalIcon /></Grid>
                   <Grid item>
                     <Typography variant="subtitle1">
-                      Allergens: {info.dinner.allergens.split(',').join(', ')}
+                      Allergens: {dinner.allergens.split(',').join(', ')}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -220,12 +183,12 @@ export default function DinnerInfo() {
                 <Grid item><CreditCardIcon /></Grid>
                 <Grid item>
                   <Typography variant="subtitle1">
-                    Total expenses: {info.dinner.isDivided ? "" : "None, enjoy a free meal"}
-                    {info.dinner.expenses > 0 ? info.dinner.expenses + " kr" : "None yet, check back later for updates"}
+                    Total expenses: {dinner.isDivided ? "" : "None, enjoy a free meal"}
+                    {dinner.expenses > 0 ? dinner.expenses + " kr" : "None yet, check back later for updates"}
                   </Typography>
                 </Grid>
                 <Grid item>
-                  {info.dinner.user_id === auth.user.user_id ? <Button variant="outlined" onClick={handleOpen}>
+                  {dinner.owner.user_id === auth.user.user_id ? <Button variant="outlined" onClick={handleOpen}>
                     Edit expenses
                   </Button> : null}
                 </Grid>
@@ -236,7 +199,7 @@ export default function DinnerInfo() {
           <Grid item xs={12} md={6}>
             <Paper className={classes.container}>
               <Typography variant="h6">Description</Typography>
-              <Typography variant="body1">{info.dinner.description}</Typography>
+              <Typography variant="body1">{dinner.description}</Typography>
             </Paper>
           </Grid>
           {/*------------------------------Rating--------------------- */}
@@ -245,7 +208,7 @@ export default function DinnerInfo() {
               <Typography variant="h6">Rating</Typography>
               <br />
               <Grid item xs>
-                <NewRating {...info.owner} />
+                <NewRating {...dinner.owner} />
               </Grid>
             </Paper>
           </Grid>

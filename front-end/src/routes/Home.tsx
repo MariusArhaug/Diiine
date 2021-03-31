@@ -2,6 +2,7 @@ import { Container } from '@material-ui/core';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import DinnerPage from '../pages/Dinners/Dinners';
 import DinnerInfo from '../pages/Dinners/DinnerInfo';
+import EditDinner from '../pages/Dinners/EditDinner';
 import MyDinners from '../pages/Dinners/CreateDinner';
 import Profile from '../pages/User/Profile';
 import Admin from '../pages/Admin/Admin';
@@ -36,6 +37,9 @@ export default function Home() {
           </Route>
           <Route path="/dinner/:dinnerId">
             <DinnerInfo />
+          </Route>
+          <Route path="/editdinner/:dinnerId">
+            <EditDinner />
           </Route>
         </Switch>
       </Container>
