@@ -14,14 +14,14 @@ import CreditCardIcon from '@material-ui/icons/CreditCard';
 import { useAuth } from '../../hooks/use-auth';
 import NewRating from '../../components/NewRating';
 import DeleteButton from '../Admin/DeleteButton';
-import { SwalAlert } from '../../hooks/SwalAlert';
+import { SuccessAlert, ErrorAlert } from '../../hooks/Alerts';
 
 export default function DinnerInfo() {
   const { state: { dinnerFromLocation } }: { state: { dinnerFromLocation: Dinner } } = useLocation();
   const classes = useStyles();
   const auth = useAuth();
 
-  const [dinner, setDinner] = useState<Dinner>(dinnerFromLocation);
+  const [dinner] = useState<Dinner>(dinnerFromLocation);
   const [open, setOpen] = useState(false);
   const [isAttending, setAttending] = useState(dinner.attendants.some((attend) => attend.user_id === auth.user.user_id));
 
@@ -34,11 +34,11 @@ export default function DinnerInfo() {
     client.service('attendingdinners')
       .create(data)
       .then(() => {
-        SwalAlert('Hurray', 'You have now joined the dinner!', 'success', 'Nice!')
+        SuccessAlert('Hurray', 'You have now joined the dinner!', 'Nice!')
         setAttending(true);
       })
       .catch((e: Error) => {
-        SwalAlert('Error', 'You have already joined this dinner!', 'error', 'Understand', 'buttonError');
+        ErrorAlert('Error!', e.message, 'Understand');
       });
   }
 
@@ -53,7 +53,7 @@ export default function DinnerInfo() {
       client.service('attendingdinners')
         .remove(row.secondary_pk)
         .then(() => {
-          SwalAlert('Left dinner!', 'You have now left the dinner!', 'success', 'Done');
+          SuccessAlert('Left dinner!', 'You have now left the dinner!', 'Done');
           setAttending(false);
         }).catch((e: Error) => console.log(e));
     }).catch((e: Error) => console.log(e));
@@ -79,7 +79,12 @@ export default function DinnerInfo() {
 
   const history = useHistory();
   const handleEditClick = () => {
-    history.push(`/editdinner/${dinner.dinners_id}`);
+    history.push({
+      pathname: `/editdinner/${dinner.dinners_id}`,
+      state: {
+        dinnerFromLocation: dinner,
+      }
+    })
   }
 
   return (
