@@ -58,17 +58,9 @@ export interface ChatManager {
   findAllUsers: () => Promise<any>;
 };
 
-export interface Result {
-  data : [];
-  limit : number;
-  skip: 0;
-  total: 2;
-}
 
-export interface AttendingDinnerResult extends Omit<Result, 'data'>{
-  data : [{
-    user_id: number, 
-    dinners_id: number,
-    secondary_pk: number
-  }]
+export interface AttendingDinner {
+  user_id: number, 
+  dinners_id: number,
+  secondary_pk: number
 }
