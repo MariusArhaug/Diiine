@@ -15,6 +15,8 @@ import { useAuth } from '../../hooks/use-auth';
 import NewRating from '../../components/NewRating';
 import DeleteButton from '../Admin/DeleteButton';
 import { SuccessAlert, ErrorAlert } from '../../hooks/Alerts';
+import ShowAttendants from './ShowAttendants';
+import Modal from '@material-ui/core/Modal';
 
 export default function DinnerInfo() {
   const { state: { dinnerFromLocation } }: { state: { dinnerFromLocation: Dinner } } = useLocation();
@@ -23,6 +25,7 @@ export default function DinnerInfo() {
 
   const [dinner] = useState<Dinner>(dinnerFromLocation);
   const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [isAttending, setAttending] = useState(dinner.attendants.some((attend) => attend.user_id === auth.user.user_id));
 
 
@@ -173,7 +176,17 @@ export default function DinnerInfo() {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  {dinner.attendants.length > 0 ? <Button variant="outlined">Show attendants</Button> : null}
+                  {dinner.attendants.length > 0 ? (
+                    <Grid item>
+                      <Button onClick={() => setOpenModal(true)} variant="outlined">Show attendants</Button>
+                      <Modal
+                        open={openModal}
+                        onClose={() => setOpenModal(false)}
+                      >
+                        <ShowAttendants {...dinner} />
+                      </Modal>
+                    </Grid>)
+                    : null}
                 </Grid>
                 <Grid container spacing={1} alignItems="center" justify="flex-start">
                   <Grid item><LocalHospitalIcon /></Grid>

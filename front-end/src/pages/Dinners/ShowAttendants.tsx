@@ -1,30 +1,16 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from '@material-ui/core';
-import { useState } from 'react';
+import UserCard from '../User/UserCard';
+import { User, Dinner } from '../../types'
+import Grid from '@material-ui/core/Grid';
 
-export default function CompleteAction(props: any) {
-
-  const [visible, setVisible] = useState(true);
-
-  const handleClick = (bool: boolean) => {
-    const innerVisible = !visible
-    props.handleClick(bool)
-    setVisible(innerVisible);
-  }
-
+export default function ShowAttendants(dinner: Dinner) {
+  console.log(dinner)
   return (
-    <Dialog open={visible} onClose={() => handleClick(true)} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Attendants</DialogTitle>
-      <DialogActions>
-        <Button onClick={() => handleClick(true)} color="primary" variant="outlined">
-          Exit
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <div>
+      {dinner.attendants.map((attendant: User) => (
+        <Grid item>
+          <UserCard {...{ dinner: dinner, user: attendant }} key={attendant.user_id} />
+        </Grid>
+      ))}
+    </div>
   )
 }
