@@ -7,8 +7,9 @@ import { Chip } from '../../types';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import swal from 'sweetalert';
 import '../../styles/App.css';
+import { CreateChipArray } from '../../hooks/CreateChipArray';
+import { ErrorAlert } from '../../hooks/Alerts';
 
 const allergies = [
   { label: 'Lactose', value: 'lactose' },
@@ -61,18 +62,7 @@ const formIsValid = (form: Form): boolean => {
     errorFields += 'Key';
   }
   if (!isValid) {
-    swal({
-      title: 'Error',
-      text: `The following fields are not filled out correctly! \n
-      Fields: ${errorFields}`,
-      icon: 'error',
-      buttons: {
-        confirm: {
-          text: "Try again",
-          className: "buttonStyle errorStyle"
-        }
-      }
-    });
+    ErrorAlert('Error!', `the following fields not out filled out: \n ${errorFields}`, 'Try again')
   }
   return isValid;
 }
@@ -104,21 +94,8 @@ export default function Register() {
     }
   }
 
-  const createChipArray = (value: any) => {
-    let temp = []
-    for (let element of value) {
-      if (!(element.hasOwnProperty("label")) || !(element.hasOwnProperty("value"))) {
-        temp.push({ label: element, value: element })
-      }
-      else {
-        temp.push(element)
-      }
-    }
-    return temp
-  }
-
   const handleAllergyChange = (event: any, value: any) => {
-    setCredentials({ ...credentials, allergies: createChipArray(value) });
+    setCredentials({ ...credentials, allergies: CreateChipArray(value) });
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
