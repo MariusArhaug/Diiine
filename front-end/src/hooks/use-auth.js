@@ -33,15 +33,13 @@ function useProvideAuth() {
         setUser(response.user);
         return response.user;
     }).catch((e) => {
-        console.log('error signing in', e);
+        throw new Error(e.message);
     });
   };
 
   const signout = async () => {
-      // TODO: .logout().then(//redirect to home)
       await client.logout();
       setUser(null);
-
   };
 
   const signup = (credentials) => {
@@ -53,13 +51,9 @@ function useProvideAuth() {
           setUser(response.user);
           return response.user;
         }).catch((e) => {
-          console.log('couldn\'t create user', e);
+          throw new Error(e.message);
         })
   }
-
-    // Subscribe to user on mount ?? vet ikke helt hva det betyr
-    // useEffect();
-
   return {
     user,
     signin,

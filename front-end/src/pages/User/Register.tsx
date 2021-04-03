@@ -134,8 +134,8 @@ export default function Register() {
             history.push({
               pathname: `/profile/`
             })
-          }).catch((e: Error) => console.log('Error with loging in!', e))
-      }).catch((e: Error) => console.log('Error with signing up', e));
+          }).catch((e: Error) => console.log('Error with loging in!', e.message))
+      }).catch((e: Error) => console.log('Error with signing up', e.message));
   }
 
 
