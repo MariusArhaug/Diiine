@@ -1,27 +1,9 @@
 import { Service, KnexServiceOptions } from 'feathers-knex';
 import { Application } from '../../declarations';
 import { Params, Id, ServiceMethods } from '@feathersjs/feathers';
-import app from '../../app';
-
-/*
-  Incoming user object
-  {
-    name: string,
-    email: string,
-    password: string,
-    isAdmin: boolean,
-    allergies: [
-      {
-        "gluten": 0,
-        "nuts": 1
-      }
-    ]
-  }
-*/
 
 
-// A type interface for our user (no valdiation) 
-interface UserData {
+export interface UserData {
   user_id: number,
   name: string,
   email: string,
