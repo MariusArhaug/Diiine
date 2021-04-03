@@ -1,50 +1,70 @@
-import { makeStyles } from "@material-ui/core";
-import React, { useEffect } from "react";
+import { createStyles, Divider, makeStyles, Theme, Typography } from "@material-ui/core";
+import React, { useEffect, useState, useRef } from "react";
+import Scrollbars from "react-custom-scrollbars";
 import { ChatManager, TypeMessage, User } from "../../types";
 import Message from "./Message";
 
-const useStyles = makeStyles({
-    root: {
-        display: "inline-block",
-        margin: 0,
-        padding: 0,
-        width: "100%",
-        border: "3px yellow solid",
-    },
+const useStylesModified = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            // display: "inline-block",
 
-    card: {},
-});
+            margin: theme.spacing(3),
+            padding: 0,
+            // width: "100%",
+            // overflow: "auto"
+            // border: "3px yellow solid",
+        },
+    })
+);
 
 type Props = {
-    chatManager: ChatManager;
+    // chatManager: ChatManager;
+    messages: TypeMessage[];
+    partner: User;
+    user: User;
 };
 
 export default function ChatWindow(props: Props) {
-    const chatManager = props.chatManager;
-    const classes = useStyles();
+    // const chatManager = props.chatManager;
+    const classes = useStylesModified();
+    const messageEl = useRef(null);
 
-    useEffect(() => {
-        
-    }, [chatManager.messages])
+    // const [messages, setMessages] = useState<TypeMessage[]>([]);
 
-    const chatWindow = () => {
-        return;
-    };
+    // useEffect(() => {
+    //     setMessages(chatManager.messages);
+    // }, [])
 
     return (
-        <div className={classes.root}>
-            {chatManager.partner.user_id == 0
-                ? "Select a user, from the left"
-                : chatManager.messages.map((message: TypeMessage) => {
-                      return (
-                          <Message
-                              key={message.chat_id}
-                              message={message}
-                              user={chatManager.user}
-                              partner={chatManager.partner}
-                          />
-                      );
-                  })}
+        <div>
+            <Typography variant="h6" style={{margin: "1rem"}}>{props.partner.user_id == 0
+                ? "Select user from list"
+                : props.partner.name}
+            </Typography>
+            <Divider />
+            <Scrollbars
+                ref={messageEl}
+                autoHide
+                style={{ width: "100%", height: 600 }}
+                renderTrackHorizontal={props => <div {...props} style={{display: 'none'}} className="track-horizontal"/>}
+            >
+                <div className={classes.root}>
+                    {props.partner.user_id == 0
+                        ? ""
+                        :
+                        props.messages.map((message: TypeMessage) => {
+                            return (
+                                <Message
+                                    key={message.chat_id}
+                                    message={message}
+                                    user={props.user}
+                                    partner={props.partner}
+                                />
+                            );
+                        })}
+                </div>
+            </Scrollbars>
         </div>
     );
 }

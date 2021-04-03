@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { Paper, Typography } from "@material-ui/core";
+import { Paper, Tooltip, Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
 import { TypeMessage, User } from "../../types";
@@ -51,7 +51,9 @@ export default function Message(props: Props) {
             </Paper>
         </Grid>,
         <Grid item key="chat-avatar">
-            <Avatar src={amSender ? user.avatar : partner.avatar}>{amSender ? user.name[0].toUpperCase() : partner.name[0].toUpperCase()}</Avatar>
+            <Tooltip title={amSender ? user.name : partner.name}>
+                <Avatar src={amSender ? user.avatar : partner.avatar}>{amSender ? user.name[0].toUpperCase() : partner.name[0].toUpperCase()}</Avatar>
+            </Tooltip>
         </Grid>,
     ];
 
@@ -66,6 +68,12 @@ export default function Message(props: Props) {
             xs={12}
             justify={amSender ? "flex-end" : "flex-start"}
         >
+            {/* <Grid item>
+                <Typography variant="subtitle2">
+                    {amSender ? "You" : partner.name}
+                </Typography>
+            </Grid> */}
+            
             <Grid
                 spacing={1}
                 justify={amSender ? "flex-end" : "flex-start"}
@@ -77,9 +85,10 @@ export default function Message(props: Props) {
             </Grid>
             <Grid item>
                 <Typography variant="caption">
-                    Sent at: {message.created_at} -
-                    Sent from: {message.chat_from} -
-                    {amSender? 'true':'false'}
+                    Sent at: {message.created_at}
+                    {/* - */}
+                    {/* Sent from: {message.chat_from} -
+                    {amSender? 'true':'false'} */}
                 </Typography>
             </Grid>
         </Grid>
