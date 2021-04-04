@@ -1,21 +1,21 @@
-export type Dinner = {
+export interface Dinner {
     dinners_id: number;
-    user_id: number;
+    owner: User;
     title: string;
     description: string;
     address: string;
     ingredients: string;
     tags: string;
     allergens: string;
-    attendants: number;
+    attendants: User[];
     date: Date;
     maxAttendants: number;
     isOpen: boolean;
-    isDivided: boolean,
-    expenses: number,
+    isDivided: boolean;
+    expenses: number;
 };
 
-export type TypeMessage = {
+export interface TypeMessage {
     chat_id?: number;
     created_at?: string;
     updated_at?: string;
@@ -24,10 +24,10 @@ export type TypeMessage = {
     message: string;
 };
 
-export type User = {
+export interface User {
+    user_id: number;
     allergies?: string;
     avg_rating?: number;
-    user_id: number;
     name: string;
     address?: string;
     email?: string;
@@ -44,17 +44,24 @@ export type Rating = {
     description: string;
 };
 
-export type Chip = {
+export interface Chip {
     label: string;
     value: string;
 };
 
-export type ChatManager = {
-    user: User;
-    partner: User;
-    allUsers: User[];
-    messages: TypeMessage[];
-    findMessages: () => Promise<"no user selected" | undefined>;
-    findPartner: (partnerId: number) => Promise<any>;
-    findAllUsers: () => Promise<any>;
+export interface ChatManager {
+  user: User;
+  partner: User;
+  allUsers: User[];
+  messages: TypeMessage[];
+  findMessages: () => Promise<"no user selected" | undefined>;
+  findPartner: (partnerId: number) => Promise<any>;
+  findAllUsers: () => Promise<any>;
 };
+
+
+export interface AttendingDinner {
+  user_id: number, 
+  dinners_id: number,
+  secondary_pk: number
+}

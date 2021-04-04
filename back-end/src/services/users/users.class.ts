@@ -1,7 +1,7 @@
 import { Service, KnexServiceOptions } from 'feathers-knex';
 import { Application } from '../../declarations';
 import { Params, Id } from '@feathersjs/feathers';
- 
+
 export interface UserData {
   user_id: number,
   name: string,
@@ -16,7 +16,6 @@ export interface UserData {
   chatted_to: number,
   avatar: string,
 }
-
 
 export class Users extends Service<UserData> {
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -52,7 +51,6 @@ export class Users extends Service<UserData> {
   }
 
   async find(params: Params) {
-
     return super.find(params);
   }
 }

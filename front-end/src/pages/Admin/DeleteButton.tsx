@@ -4,7 +4,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import client from "../../feathers-client";
 import CompleteAction from '../../components/CompleteAction';
 import { useState } from 'react';
-import swal from 'sweetalert';
+import { SuccessAlert, ErrorAlert } from '../../hooks/Alerts'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,39 +16,22 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+function capitalize(string: string): string {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export default function DeleteButton(props: { type: string; id: number }) {
   const classes = useStyles();
   const [visible, setVisible] = useState(false);
-  const formattedString = props.type === 'dinners' ? 'Dinner' : 'User';
   const handleDelete = () => {
     client.service(props.type)
       .remove(props.id)
       .then(() => {
-        swal({
-          title: `${formattedString} deleted!`,
-          text: `You deleted ${formattedString}: with user ID: ${props.id}`,
-          icon: 'success',
-          buttons: {
-            confirm: {
-              text: 'Done',
-              className: 'buttonStyle'
-            }
-          }
-        })
+        SuccessAlert(`${capitalize(props.type)} deleted!`, `You deleted ${capitalize(props.type)}: with user ID: ${props.id}`, 'Done')
       })
       .catch((e: any) => {
         console.log(e);
-        swal({
-          title: 'Error',
-          text: 'Something went wrong!',
-          icon: 'error',
-          buttons: {
-            confirm: {
-              text: 'try again',
-              className: 'buttonStyle errorStyle'
-            }
-          }
-        })
+        ErrorAlert('Error!', e.message, 'try again')
       });
   }
 

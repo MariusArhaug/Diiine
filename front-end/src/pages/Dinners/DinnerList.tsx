@@ -30,16 +30,9 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface sortQuery {
-  $sort: {
-    dinners_id: number
-  }
-}
-
-
 export default function DinnerList() {
   const classes = useStyles();
-  const [dinners, setDinners] = useState([]);
+  const [dinners, setDinners] = useState<Dinner[]>([]);
   const componentName = "dinnerList";
   const [toggleButtons, setToggleButtons] = useState<{
     [key: string]: boolean
@@ -58,17 +51,9 @@ export default function DinnerList() {
 
   const defaultPage = () => {
     client.service('dinners')
-      .find({
-        query: {
-          $sort: {
-            dinners_id: 1
-          }
-        }
-      })
-      .then((res: any) => {
-        setDinners(res.data);
-      })
-      .catch((e: Error) => { console.log('error', e); })
+      .find({ query: { $sort: { dinners_id: 1 } } })
+      .then((res: any) => (console.log(res), setDinners(res.data)))
+      .catch((e: Error) => { console.log(e); })
   }
 
   useEffect(() => defaultPage(), []);

@@ -5,9 +5,9 @@ import footer from '../media/footer.svg';
 import swal from 'sweetalert';
 import '../styles/App.css';
 
+export default function Footer() {
 
-//Interested in advertising on this page? Lets Button: get in touch
-function Footer() {
+  const user = useAuth().user;
 
   const handleOnClick = (): void => {
     swal({
@@ -22,15 +22,20 @@ function Footer() {
     });
   };
 
+  if (user) {
+    return (
+      <div>
+        <img src={footer} style={{ height: "200px" }} alt="footerimage" />
+        <br />
+        <Button variant="outlined" onClick={handleOnClick}>
+          Want to advertise on this page?
+        </Button>
+      </div>
+    );
+  }
   return (
     <div>
-      <img src={footer} alt="footerimage" />
-      <Button variant="outlined" onClick={handleOnClick}>
-        Want to advertise on this page?
-      </Button>
+      <img src={footer} alt="footerimage" style={{ height: "25vw" }} />
     </div>
   );
-
 }
-
-export default Footer;

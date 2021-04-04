@@ -1,5 +1,8 @@
 import * as authentication from '@feathersjs/authentication';
+import findAttendants from '../../hooks/find-attendants';
 import parseObjectToString from '../../hooks/parse-object-to-string';
+import { combine } from 'feathers-hooks-common';
+import findOwner from '../../hooks/find-dinner-owner';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
@@ -17,8 +20,8 @@ export default {
 
   after: {
     all: [],
-    find: [],
-    get: [],
+    find: [combine(findAttendants(), findOwner())],
+    get: [combine(findAttendants(), findOwner())],
     create: [],
     update: [],
     patch: [],
