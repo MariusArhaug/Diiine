@@ -7,34 +7,24 @@ import Message from "./Message";
 const useStylesModified = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            // display: "inline-block",
-
             margin: theme.spacing(3),
             padding: 0,
-            // width: "100%",
-            // overflow: "auto"
-            // border: "3px yellow solid",
         },
     })
 );
 
 type Props = {
-    // chatManager: ChatManager;
     messages: TypeMessage[];
     partner: User;
     user: User;
 };
 
 export default function ChatWindow(props: Props) {
-    // const chatManager = props.chatManager;
     const classes = useStylesModified();
-    const messageEl = useRef(null);
 
-    // const [messages, setMessages] = useState<TypeMessage[]>([]);
-
-    // useEffect(() => {
-    //     setMessages(chatManager.messages);
-    // }, [])
+    useEffect(() => {
+        // scrollToBottom();
+    }, [])
 
     return (
         <div>
@@ -43,28 +33,29 @@ export default function ChatWindow(props: Props) {
                 : props.partner.name}
             </Typography>
             <Divider />
-            <Scrollbars
-                ref={messageEl}
-                autoHide
-                style={{ width: "100%", height: 600 }}
-                renderTrackHorizontal={props => <div {...props} style={{display: 'none'}} className="track-horizontal"/>}
-            >
-                <div className={classes.root}>
-                    {props.partner.user_id == 0
-                        ? ""
-                        :
-                        props.messages.map((message: TypeMessage) => {
-                            return (
-                                <Message
-                                    key={message.chat_id}
-                                    message={message}
-                                    user={props.user}
-                                    partner={props.partner}
-                                />
-                            );
-                        })}
-                </div>
-            </Scrollbars>
+            <ScrollToBottom>
+                <Scrollbars
+                    autoHide
+                    style={{ width: "100%", height: 600 }}
+                    renderTrackHorizontal={props => <div {...props} style={{display: 'none'}} className="track-horizontal"/>}
+                >
+                    <div className={classes.root}>
+                        {props.partner.user_id == 0
+                            ? ""
+                            :
+                            props.messages.map((message: TypeMessage) => {
+                                return (
+                                    <Message
+                                        key={message.chat_id}
+                                        message={message}
+                                        user={props.user}
+                                        partner={props.partner}
+                                    />
+                                );
+                            })}
+                    </div>
+                </Scrollbars>
+            </ScrollToBottom>
         </div>
     );
 }
