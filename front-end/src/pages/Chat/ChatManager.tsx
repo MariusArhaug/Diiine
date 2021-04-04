@@ -32,6 +32,7 @@ export default function ChatManager() {
             message: content,
         });
 
+        await findMessages();
         return result;
         
     };
@@ -43,7 +44,7 @@ export default function ChatManager() {
                 .find({
                     query: {
                         $sort: { created_at: 1 },
-                        $limit: 10,
+                        $limit: 20,
                         $and: [
                             {
                                 chat_to: {

@@ -8,18 +8,29 @@ import {
     Typography,
 } from "@material-ui/core";
 import React, { MouseEventHandler } from "react";
+import { useAuth } from "../../hooks/use-auth";
+import Scrollbars from "react-custom-scrollbars";
 
 const useStyles = makeStyles({
     root: {
         margin: 0,
         padding: 0,
-        height: "600px",
-        width: "100%",
+        // height: "600px",
+        // width: "100%",
+        backgroundColor: "#ffffff"
     },
-
-    paper: { margin: "auto", maxWidth: 200, padding: '1rem' },
+    user: {
+        margin: "auto",
+        padding: '1rem',
+        cursor: "pointer",
+        textAlign: "left",
+        transition: "background-color 0.1s ease",
+        "&:hover": {
+            backgroundColor: "#fafafa"
+        },
+    },
     avatar: {
-        margin: "5px",
+        marginRight: "1rem",
         padding: 0,
     }
 });
@@ -32,38 +43,42 @@ type Props = {
 export default function UserWindow(props: Props) {
     const users = props.users;
     const classes = useStyles();
+    const loggedInUser = useAuth().user;
 
     const populateUsers = (user: User) => {
         return (
-            <div key={user.user_id} onClick={() => props.onUserClick(user.user_id)}>
-                <Grid container direction="row" alignContent='center'>
+            <Paper elevation={0} key={user.user_id} onClick={() => props.onUserClick(user.user_id)} className={classes.user}>
+                <Grid container direction="row" alignItems='center'>
                     <Grid item className={classes.avatar}>
                         <Avatar src={user.avatar}>
                             {user.avatar ? "" : user.name[0].toUpperCase()}
                         </Avatar>
                     </Grid>
-                    <Grid item>
-                        <Paper
-                            className={classes.paper}
-                            style={{
-                                textAlign: "left",
-                                backgroundColor: "blue",
-                            }}
-                        >
-                            <Typography variant="body1">{user.name}</Typography>
-                        </Paper>
+                    <Grid item xs>
+                        <Typography variant="body1">
+                            {user.user_id == loggedInUser.user_id ? "You" : user.name}
+                        </Typography>
                     </Grid>
                 </Grid>
-            </div>
+            </Paper>
         );
     };
 
     return (
         <div className={classes.root}>
-            <h2>
-                Number of users: <span>{users.length}</span>
-            </h2>
-            {users.map((e: User) => populateUsers(e))}
+            <Typography variant="h6">
+                Chats
+                {/* Number of users: <span>{users.length}</span> */}
+            </Typography>
+            <Scrollbars
+                // ref={messageEl}
+                autoHide
+                style={{ width: "100%", height: 660 }}
+                renderTrackHorizontal={props => <div {...props} style={{display: 'none'}} className="track-horizontal"/>}
+            >
+                {users.map((e: User) => populateUsers(e))}
+            </Scrollbars>
+            
         </div>
     );
 }

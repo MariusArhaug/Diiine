@@ -26,7 +26,8 @@ const useStylesModified = makeStyles((theme: Theme) =>
 );
 
 type Props = {
-    newMessage:(content: string) => Promise<any>;
+    // newMessage:(content: string) => Promise<any>;
+    newMessage:(content: string) => void;
     user: User;
     partner: User; 
 }
@@ -43,18 +44,20 @@ export default function InputField(props: Props) {
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         props.newMessage(chat);
+        setChat('');
     }
 
     
 
     return (
-        <Grid
-            container
-            alignItems="center"
-            justify="space-between"
-            className={classes.container}
-        >
-            <form method="POST" onSubmit={(e) => handleSubmit(e)}>
+        <form method="POST" onSubmit={(e) => handleSubmit(e)}>
+            <Grid
+                container
+                alignItems="center"
+                justify="space-between"
+                className={classes.container}
+            >
+            
                 <Grid item xs>
                     <TextField
                         id="message"
@@ -74,7 +77,8 @@ export default function InputField(props: Props) {
                         <SendRounded />
                     </IconButton>
                 </Grid>
-            </form>
-        </Grid>
+            
+            </Grid>
+        </form>
     );
 }
