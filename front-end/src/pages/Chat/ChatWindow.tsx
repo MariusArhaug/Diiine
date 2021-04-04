@@ -2,6 +2,7 @@ import { createStyles, Divider, makeStyles, Theme, Typography } from "@material-
 import React, { useEffect, useState, useRef } from "react";
 import Scrollbars from "react-custom-scrollbars";
 import { ChatManager, TypeMessage, User } from "../../types";
+import ChatWindowScroll from "./ChatWindowScroll";
 import Message from "./Message";
 
 const useStylesModified = makeStyles((theme: Theme) =>
@@ -33,29 +34,7 @@ export default function ChatWindow(props: Props) {
                 : props.partner.name}
             </Typography>
             <Divider />
-            <ScrollToBottom>
-                <Scrollbars
-                    autoHide
-                    style={{ width: "100%", height: 600 }}
-                    renderTrackHorizontal={props => <div {...props} style={{display: 'none'}} className="track-horizontal"/>}
-                >
-                    <div className={classes.root}>
-                        {props.partner.user_id == 0
-                            ? ""
-                            :
-                            props.messages.map((message: TypeMessage) => {
-                                return (
-                                    <Message
-                                        key={message.chat_id}
-                                        message={message}
-                                        user={props.user}
-                                        partner={props.partner}
-                                    />
-                                );
-                            })}
-                    </div>
-                </Scrollbars>
-            </ScrollToBottom>
+            <ChatWindowScroll {...{messages: props.messages, partner: props.partner, user: props.user, classes: classes}}/>
         </div>
     );
 }
