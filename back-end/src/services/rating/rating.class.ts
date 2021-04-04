@@ -6,7 +6,7 @@ import { Application } from '../../declarations';
 /* Interface for ratings:
 rated_of is receiver of rating, rated_by is sender
 */
-interface RatingData {
+export interface RatingData {
   rated_of: number,
   rated_by: number,
   rating_value: number,
@@ -48,11 +48,6 @@ export class Rating extends Service {
   }
 
   async find(params: Params) {
-
-    /* params:
-    rated_of: 12
-    */
-
     return super.find(params);
   }
 

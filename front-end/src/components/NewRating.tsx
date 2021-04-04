@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import RatingDOM from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Typography from '@material-ui/core/Typography';
@@ -7,19 +6,11 @@ import client from '../feathers-client';
 import Button from '@material-ui/core/Button';
 import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import { User } from '../types';
+import { User, Rating } from '../types';
 import swal from 'sweetalert';
 import '../styles/App.css';
 import Box from '@material-ui/core/Box';
-
-const styledRating = withStyles({
-  iconFilled: {
-    color: '#ff6d75',
-  },
-  iconHover: {
-    color: '#ff3d47',
-  },
-})
+import { useAuth } from '../hooks/use-auth';
 
 const labels: { [index: string]: string } = {
   0.5: 'Useless',
@@ -38,45 +29,65 @@ const labels: { [index: string]: string } = {
 export default function CustomizedRatings(props: User) {
 
   const [hover, setHover] = React.useState(-1);
-  const [newRating, setNewRating] = useState<{
-    rated_of: number;
-    rating_value: number;
-    description: string;
-  }>({
-    rated_of: props.user_id,
+  const [newRating, setNewRating] = useState<Rating>({
+    rated_of: props,
+    rated_by: useAuth().user,
     rating_value: 2.5,
     description: '',
   })
 
-
-  const handleRatingChange = (event: any): void => {
-    setNewRating({ ...newRating, rating_value: event.target.value })
-  }
-
-  const handleDescriptionChange = (event: any): void => {
-    setNewRating({ ...newRating, description: event.target.value })
+  const handleInputChange = (event: any): void => {
+    setNewRating((prevRating) => ({
+      ...prevRating,
+      [event.target.name]: event.target.value,
+    }))
   }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    if (newRating.description === '') {
+      swal({
+        title: 'Error!',
+        text: `You must fill in a rating description!`,
+        icon: 'error',
+        buttons: {
+          confirm: {
+            text: `Ok`,
+            className: "buttonStyle errorStyle"
+          }
+        }
+      });
+      return;
+    }
     console.log(newRating);
 
     client.service('rating').create(newRating)
+      .then(() => {
+        swal({
+          title: 'Good job!',
+          text: `You have now sucessfully rated this user! \n Your description: ${newRating!.description}`,
+          icon: 'success',
+          buttons: {
+            confirm: {
+              text: `Done`,
+              className: "buttonStyle"
+            }
+          }
+        });
+      })
       .catch((e: Error) => {
-        console.log('couldn\'t post rating', e)
+        swal({
+          title: 'Error!',
+          text: `You can't rate your self!`,
+          icon: 'error',
+          buttons: {
+            confirm: {
+              text: `Ok`,
+              className: "buttonStyle errorStyle"
+            }
+          }
+        });
       });
-    swal({
-      title: 'Good job!',
-      text: `You have now sucessfully rated this user! \n Your description: ${newRating!.description}`,
-      icon: 'success',
-      buttons: {
-        confirm: {
-          text: `Done`,
-          className: "buttonStyle"
-        }
-      }
-    });
   }
   return (
     <div>
@@ -90,7 +101,7 @@ export default function CustomizedRatings(props: User) {
               name="rating_value"
               precision={0.1}
               value={newRating.rating_value}
-              onChange={handleRatingChange}
+              onChange={handleInputChange}
               emptyIcon={<StarBorderIcon fontSize="inherit" />}
             />
             {newRating.rating_value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : newRating.rating_value]}</Box>}
@@ -102,11 +113,12 @@ export default function CustomizedRatings(props: User) {
               className='form-field'
               type='comment'
               name='description'
+              value={newRating.description}
               style={{ width: "100%" }}
               multiline
               rowsMax={4}
               variant="outlined"
-              onChange={handleDescriptionChange}
+              onChange={handleInputChange}
               rows={2}
             />
           </Grid>
