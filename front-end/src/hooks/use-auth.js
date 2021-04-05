@@ -34,8 +34,7 @@ function useProvideAuth() {
         setUser(response.user);
         return response.user;
     }).catch((e) => {
-        // throw new Error(e.message);
-        ErrorAlert('Couldn\'t sign you in', e.message,'Ok')
+        throw new Error(e.message);
     });
   };
 
