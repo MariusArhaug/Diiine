@@ -19,6 +19,10 @@ export default function RatingContainer(user: User) {
       })
   }, [user.user_id])
 
+  const handleChange = (newValue: Rating) => {
+    setRatings(prev => [...prev, newValue])
+  }
+
   return (
     <Grid item xs={12}>
       <Paper className={classes.container}>
@@ -27,7 +31,7 @@ export default function RatingContainer(user: User) {
         </Typography>
         <br />
         <Grid item xs>
-          <NewRating {...user} />
+          <NewRating value={user} onChange={handleChange} />
         </Grid>
         <Grid>
           {ratings.length && ratings!.map((rating: Rating) => (

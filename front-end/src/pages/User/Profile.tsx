@@ -45,15 +45,15 @@ export default function Profile() {
   const [dinners, setDinners] = useState<Dinner[]>([]);
 
   useEffect(() => {
-    // client
-    //   .service("dinners")
-    //   .find(user.user_id)
-    //   .then((res: any) => {
-    //     setDinners(res.data);
-    //   })
-    //   .catch((e: Error) => {
-    //     console.log("error", e);
-    //   });
+    client
+      .service("dinners")
+      .find({ query: { user_id: user.user_id } })
+      .then((res: any) => {
+        setDinners(res.data);
+      })
+      .catch((e: Error) => {
+        console.log("error", e);
+      });
   }, [user.user_id]);
 
   return (

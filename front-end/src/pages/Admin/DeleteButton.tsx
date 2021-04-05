@@ -5,6 +5,7 @@ import client from "../../feathers-client";
 import CompleteAction from '../../components/CompleteAction';
 import { useState } from 'react';
 import { SuccessAlert, ErrorAlert } from '../../hooks/Alerts'
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,11 +24,16 @@ function capitalize(string: string): string {
 export default function DeleteButton(props: { type: string; id: number }) {
   const classes = useStyles();
   const [visible, setVisible] = useState(false);
+  const history = useHistory();
   const handleDelete = () => {
     client.service(props.type)
       .remove(props.id)
       .then(() => {
-        SuccessAlert(`${capitalize(props.type)} deleted!`, `You deleted ${capitalize(props.type)}: with user ID: ${props.id}`, 'Done')
+        SuccessAlert(`${capitalize(props.type)} deleted!`,
+          `You deleted ${capitalize(props.type)}: with ${props.type} ID: ${props.id}`, 'Done')
+        history.push({
+          pathname: '/dinners',
+        })
       })
       .catch((e: any) => {
         console.log(e);
