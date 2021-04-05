@@ -16,13 +16,16 @@ export default function MyDinners() {
   const history = useHistory();
   const classes = useStyles();
 
+  const [allergenInputValue, setAllergenInputValue] = useState('');
+  const [tagInputValue, setTagInputValue] = useState('');
+
   const [credentials, setCredentials] = useState<{
     title: string,
     address: string,
     description: string,
     date: string,
     tags: Chip[],
-    ingredients: string[],
+    ingredients: string,
     allergens: Chip[],
     attendants: number,
     isDivided: false,
@@ -35,7 +38,7 @@ export default function MyDinners() {
     description: '',
     date: '',
     tags: [],
-    ingredients: [],
+    ingredients: "",
     allergens: [],
     attendants: 0,
     isDivided: false,
@@ -72,9 +75,8 @@ export default function MyDinners() {
     event.preventDefault();
     const form = {
       ...credentials,
-      allergens: credentials.allergens.map(a => a.label).join(","),
-      tags: credentials.tags.map(t => t.label).join(","),
-      ingredients: credentials.ingredients.join(",")
+      allergens: credentials.allergens ? credentials.allergens.map(a => a.label).join(",") : "",
+      tags: credentials.tags ? credentials.tags.map(t => t.label).join(",") : ""
     };
 
     client.service('dinners').create(form)
@@ -188,10 +190,13 @@ export default function MyDinners() {
                 <Autocomplete
                   multiple
                   id="tags-standard"
-                  value={credentials.allergens}
-                  onChange={handleAllergenChange}
                   options={allergies}
-                  freeSolo
+                  value={credentials.allergens}
+                  inputValue={allergenInputValue}
+                  onInputChange={(_, newInputValue) => {
+                    setAllergenInputValue(newInputValue)
+                  }}
+                  onChange={handleAllergenChange}
                   getOptionLabel={(option) => option.label}
                   renderInput={(params) => (
                     <TextField
@@ -207,9 +212,13 @@ export default function MyDinners() {
                 <Autocomplete
                   multiple
                   id="tags-standard"
-                  value={credentials.tags}
                   options={tags}
                   freeSolo
+                  value={credentials.tags}
+                  inputValue={tagInputValue}
+                  onInputChange={(_, newInputValue) => {
+                    setTagInputValue(newInputValue)
+                  }}
                   onChange={handleTagChange}
                   getOptionLabel={(option) => option.label}
                   renderInput={(params) => (

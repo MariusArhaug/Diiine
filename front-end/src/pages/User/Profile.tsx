@@ -56,6 +56,9 @@ export default function Profile() {
       });
   }, [user.user_id]);
 
+  console.log(user);
+  
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper} style={{ textAlign: "center" }}>

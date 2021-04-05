@@ -22,8 +22,8 @@ interface Cred {
   isOpen: boolean,
   attendants: number,
   expenses: number,
-  allergens: Chip[],
-  tags: Chip[]
+  allergens: Chip[] | undefined,
+  tags: Chip[] | undefined,
   banner: string,
 }
 
@@ -45,6 +45,10 @@ export default function EditDinner(dinner: Dinner) {
     tags: CreateChipArray(dinner.tags.split(",")),
     banner: '',
   })
+
+  
+  const [allergenInputValue, setAllergenInputValue] = useState('');
+  const [tagInputValue, setTagInputValue] = useState('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.name === 'isDivided' || event.target.name === 'isOpen') {
@@ -75,10 +79,9 @@ export default function EditDinner(dinner: Dinner) {
     event.preventDefault();
     const form = {
       ...credentials,
-      allergens: credentials.allergens.map(a => a.label).join(","),
-      tags: credentials.tags.map(t => t.label).join(",")
+      allergens: credentials.allergens ? credentials.allergens.map(a => a.label).join(",") : "",
+      tags: credentials.tags ? credentials.tags.map(t => t.label).join(",") : ""
     };
-    console.log(form);
 
     client.service('dinners').patch(dinner.dinners_id, form)
       .then(async () => {
@@ -198,6 +201,11 @@ export default function EditDinner(dinner: Dinner) {
                   multiple
                   id="tags-standard"
                   options={allergies}
+                  value={credentials.allergens}
+                  inputValue={allergenInputValue}
+                  onInputChange={(_, newInputValue) => {
+                    setAllergenInputValue(newInputValue)
+                  }}
                   onChange={handleAllergenChange}
                   getOptionLabel={(option) => option.label}
                   renderInput={(params) => (
@@ -216,6 +224,11 @@ export default function EditDinner(dinner: Dinner) {
                   id="tags-standard"
                   options={tags}
                   freeSolo
+                  value={credentials.tags}
+                  inputValue={tagInputValue}
+                  onInputChange={(_, newInputValue) => {
+                    setTagInputValue(newInputValue)
+                  }}
                   onChange={handleTagChange}
                   getOptionLabel={(option) => option.label}
                   renderInput={(params) => (
