@@ -12,9 +12,12 @@ export default {
     all: [],
     find: [],
     get: [],
-    create: [authenticate('jwt'), parseObjectToString('allergens') ],
-    update: [ parseObjectToString('allergens') ],
-    patch: [ parseObjectToString('allergens') ],
+    create: [authenticate('jwt')],
+    update: [],
+    patch: [],
+    // create: [authenticate('jwt'), parseObjectToString('allergens') ],
+    // update: [ parseObjectToString('allergens') ],
+    // patch: [ parseObjectToString('allergens') ],
     remove: []
   },
 

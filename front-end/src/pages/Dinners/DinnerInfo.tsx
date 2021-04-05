@@ -107,7 +107,7 @@ export default function DinnerInfo() {
               {dinner.owner.user_id === auth.user.user_id || auth.user.isAdmin ? <Button onClick={handleEditClick}>Edit</Button> : <p />}
               {dinner.owner.user_id === auth.user.user_id || auth.user.isAdmin ? <DeleteButton {...{ type: 'dinners', id: dinner.dinners_id }} /> : <p />}
             </Grid>
-            <Grid xs item style={{ textAlign: "left" }}>
+            <Grid xs item style={{ textAlign: "left", marginBottom: "1.5rem" }}>
               <Typography variant="caption" color="textSecondary">
                 {dinner.address}
               </Typography>

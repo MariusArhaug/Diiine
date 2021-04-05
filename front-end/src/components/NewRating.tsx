@@ -28,7 +28,6 @@ const labels: { [index: string]: string } = {
 
 export default function CustomizedRatings(props: any) {
   const [hover] = useState(-1);
-  console.log(props);
   const [newRating, setNewRating] = useState<Rating>({
     rated_of: props.value,
     rated_by: useAuth().user,

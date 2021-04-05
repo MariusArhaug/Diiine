@@ -30,7 +30,7 @@ interface Form {
   name: string,
   email: string,
   password: string,
-  allergies: Chip[]
+  allergies: Chip[] | undefined
   isAdmin: boolean,
   adminKey: string,
 }
@@ -56,7 +56,13 @@ const formIsValid = (form: Form): boolean => {
     isValid = false;
     errorFields += 'Password '
   }
+
   console.log(form);
+  console.log({
+    ...form,
+    allergies: form.allergies ? form.allergies.map(a => a.label).join(",") : ""
+  });
+
   if (form.isAdmin === true && form.adminKey !== "vielskerPU40lol") {
     isValid = false;
     errorFields += 'Key';
@@ -70,6 +76,8 @@ const formIsValid = (form: Form): boolean => {
 export default function Register() {
   const auth = useAuth();
   const history = useHistory();
+
+  const [allergyInputValue, setAllergyInputValue] = useState('');
 
   const [credentials, setCredentials] = useState<Form>({
     name: '',
@@ -95,7 +103,7 @@ export default function Register() {
   }
 
   const handleAllergyChange = (event: any, value: any) => {
-    setCredentials({ ...credentials, allergies: CreateChipArray(value) });
+    setCredentials({ ...credentials, allergies: value as Chip[] });
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -103,7 +111,11 @@ export default function Register() {
     if (!formIsValid(credentials)) {
       return;
     };
-    const form = (({ adminKey, ...o }) => o)(credentials);
+    
+    const form = (({ adminKey, ...o }) => o)({
+      ...credentials,
+      allergies: credentials.allergies ? credentials.allergies.map(a => a.label).join(",") : ""
+    });
     auth.signup(form)
       .then(() => {
         auth.signin({ email: form.email, password: form.password })
@@ -117,107 +129,113 @@ export default function Register() {
 
 
   return (
-    <Container maxWidth="xs">
-      <Paper style={{ padding: "50px" }}>
-        <form method='POST' onSubmit={handleSubmit}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Typography variant="h4">
-                Sign Up
-                  </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                id='name'
-                label='Name'
-                className='form-field'
-                type='text'
-                name='name'
-                value={credentials.name}
-                style={{ width: "100%" }}
-                onChange={handleInputChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                id='email'
-                label='Email'
-                className='form-field'
-                type='text'
-                name='email'
-                value={credentials.email}
-                style={{ width: "100%" }}
-                onChange={handleInputChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                id='password'
-                label='Password'
-                className='form-field'
-                type='password'
-                name='password'
-                value={credentials.password}
-                style={{ width: "100%" }}
-                onChange={handleInputChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Grid container spacing={3}>
-                <Grid item xs={6} >
-                  <FormGroup>
-                    <FormControlLabel
-                      control={<Checkbox name="isAdmin" color="primary" checked={credentials.isAdmin}
-                        onChange={handleInputChange} />}
-                      label="Admin"
+    <div className="verticalCenter">
+      <Container maxWidth="xs">
+        <Paper style={{ padding: "50px" }}>
+          <form method='POST' onSubmit={handleSubmit}>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <Typography variant="h4">
+                  Sign Up
+                    </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id='name'
+                  label='Name'
+                  className='form-field'
+                  type='text'
+                  name='name'
+                  value={credentials.name}
+                  style={{ width: "100%" }}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id='email'
+                  label='Email'
+                  className='form-field'
+                  type='text'
+                  name='email'
+                  value={credentials.email}
+                  style={{ width: "100%" }}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id='password'
+                  label='Password'
+                  className='form-field'
+                  type='password'
+                  name='password'
+                  value={credentials.password}
+                  style={{ width: "100%" }}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Grid container spacing={3}>
+                  <Grid item xs={6} >
+                    <FormGroup>
+                      <FormControlLabel
+                        control={<Checkbox name="isAdmin" color="primary" checked={credentials.isAdmin}
+                          onChange={handleInputChange} />}
+                        label="Admin"
+                      />
+                    </FormGroup>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      label='Key:'
+                      className='form-field'
+                      type='password'
+                      name='adminKey'
+                      value={credentials.adminKey}
+                      style={{ width: "100%" }}
+                      onChange={handleInputChange}
                     />
-                  </FormGroup>
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label='Key:'
-                    className='form-field'
-                    type='password'
-                    name='adminKey'
-                    value={credentials.adminKey}
-                    style={{ width: "100%" }}
-                    onChange={handleInputChange}
-                  />
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-            <Grid item xs={12}>
-              <Autocomplete
-                multiple
-                id="tags-standard"
-                value={credentials.allergies}
-                onChange={handleAllergyChange}
-                options={allergies}
-                getOptionLabel={(option) => option.label}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    variant="standard"
-                    label="Allergens"
-                    placeholder="Allergy"
+              <Grid item xs={12}>
+                <Autocomplete
+                    multiple
+                    id="tags-standard"
+                    options={allergies}
+                    value={credentials.allergies}
+                    inputValue={allergyInputValue}
+                    onInputChange={(_, newInputValue) => {
+                      setAllergyInputValue(newInputValue)
+                    }}
+                    onChange={handleAllergyChange}
+                    getOptionLabel={(option) => option.label}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        variant="standard"
+                        label="Allergies"
+                        placeholder="Allergy"
+                      />
+                    )}
                   />
-                )}
-              />
+              </Grid>
+              <Grid item xs={12}>
+                <Button type='submit' variant="contained" color="primary" style={{ width: "100%" }}>
+                  Sign Up
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="caption">
+                  Already have an account?
+                  <Link component={RouterLink} to="/login">Log in</Link>
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <Button type='submit' variant="contained" color="primary" style={{ width: "100%" }}>
-                Sign Up
-              </Button>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="caption">
-                Already have an account?
-                <Link component={RouterLink} to="/login">Log in</Link>
-              </Typography>
-            </Grid>
-          </Grid>
-        </form>
-      </Paper>
-    </Container>
+          </form>
+        </Paper>
+      </Container>
+    </div>
   )
 }
