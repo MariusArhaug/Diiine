@@ -42,7 +42,6 @@ export default function Profile() {
 
   const auth: any = useAuth();
   const user: User = useAuth().user;
-  const auth = useAuth();
 
   const [dinners, setDinners] = useState<Dinner[]>([]);
 
