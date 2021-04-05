@@ -40,6 +40,7 @@ const useStylesModified = makeStyles((theme: Theme) =>
 export default function Profile() {
   const classes = useStylesModified();
   const user: User = useAuth().user;
+  const auth: any = useAuth();
 
   const [dinners, setDinners] = useState<Dinner[]>([]);
 

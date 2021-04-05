@@ -1,5 +1,6 @@
 import { useState, useContext, createContext } from "react";
 import client from '../feathers-client';
+import { ErrorAlert } from "./Alerts";
 
 const authContext = createContext();
 
@@ -21,7 +22,7 @@ function useProvideAuth() {
         setUser(res.user);
         return res.user
     }).catch((e) => {
-        console.log('error signing in with jwt');
+        console.log('error signing in with jwt \n', e.message );
     })
     }
 
@@ -33,7 +34,8 @@ function useProvideAuth() {
         setUser(response.user);
         return response.user;
     }).catch((e) => {
-        throw new Error(e.message);
+        // throw new Error(e.message);
+        ErrorAlert('Couldn\'t sign you in', e.message,'Ok')
     });
   };
 
