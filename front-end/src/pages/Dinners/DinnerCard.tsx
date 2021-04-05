@@ -2,10 +2,8 @@ import { Chip, Grid } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { Dinner, User } from '../../types';
+import { Dinner } from '../../types';
 import { useHistory } from 'react-router-dom';
-import client from '../../feathers-client';
-import { useEffect, useState } from 'react';
 
 const useStylesModified = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,8 +14,9 @@ const useStylesModified = makeStyles((theme: Theme) =>
       padding: theme.spacing(3),
       margin: 'auto',
       maxWidth: 500,
-      backgroundColor: "#ffffff",
+      // backgroundColor: "#ffffff",
       cursor: "pointer",
+      transition: "background-color 0.1s ease",
       "&:hover": {
         backgroundColor: "#fafafa"
       }
@@ -36,34 +35,22 @@ const useStylesModified = makeStyles((theme: Theme) =>
 );
 
 export default function DinnerCard(dinner: Dinner) {
-
   const classes = useStylesModified();
   const componentName = "DinnerCard"
-  const [owner, setOwner] = useState<User>();
   const history = useHistory();
 
-  useEffect(() => {
-    client.service('users')
-      .get(dinner.user_id)
-      .then((res: User) => {
-        setOwner(res);
-      })
-      .catch((e: any) => console.log(e))
-  }, [dinner.user_id])
-
-  const handleOnClick = () => {
+  const handleClick = () => {
     history.push({
       pathname: `/dinner/${dinner.dinners_id}`,
       state: {
-        dinner: dinner,
-        dinner_owner: owner,
-      },
+        dinnerFromLocation: dinner,
+      }
     })
   }
 
   return (
     <div className={`${classes.root}  ${componentName}`}>
-      <Paper className={classes.paper} style={{ textAlign: "left" }} onClick={handleOnClick}>
+      <Paper className={classes.paper} style={{ textAlign: "left" }} onClick={handleClick}>
         <Grid container spacing={1}>
           <Grid item xs={12}>
             <Typography variant="caption" color="textSecondary" className="dinnerInfo">
@@ -94,4 +81,3 @@ export default function DinnerCard(dinner: Dinner) {
     </div>
   );
 }
-

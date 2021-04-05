@@ -2,8 +2,10 @@ import { Params } from '@feathersjs/feathers';
 import { Service, KnexServiceOptions } from 'feathers-knex';
 import { Application } from '../../declarations';
 
-interface AttendingdinnersData {
-  dinners_id: number
+export interface AttendingdinnersData {
+  user_id: number;
+  dinners_id: number;
+  seconday_pk: number;
 }
 
 export class Attendingdinners extends Service {
@@ -28,15 +30,15 @@ export class Attendingdinners extends Service {
     return super.create(attendingdinnersdata, params);
   }
 
+  async find (params: Params) {
+    return super.find(params);
+  }
+
   /*
 
   TODO: 
   1. Restrict users from deleting entries
   This might be handled in front-end, users should only be able to delete themselves from the signup-table, unless they are
   the owner of the dinner or an admin.
-
-  2. Use other services to return lists of users or dinners based on queries. Ex. find dinners you are signed up for, or find 
-  a list of attendees.
-
   */
 }

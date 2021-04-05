@@ -2,21 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../hooks/use-auth';
 import { Link as RouterLink, Redirect } from 'react-router-dom';
 import { Button, Container, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
-import swal from 'sweetalert';
+import '../../App.css'
+import { ErrorAlert } from '../../hooks/Alerts';
 
 export default function Login() {
   const auth = useAuth();
-  
+
   const [credentials, setCredentials] = useState({
     email: '',
     password: ''
   });
 
-  useEffect(() => {
-    auth.reAuth();
-    
-  }, [])
-  
+  useEffect(() => auth.reAuth(), [])
+
   if (auth.user !== null) {
     return <Redirect to="/profile" />
   }
@@ -32,17 +30,7 @@ export default function Login() {
     event.preventDefault();
 
     if ((credentials.email === "") || (credentials.password === "")) {
-      swal({
-        title: 'Whopsie a wee ERROR!',
-        text: 'You need to fill in valid login information',
-        icon: 'error',
-        buttons: {
-          confirm: {
-            text: "TRY AGAIN",
-            className: "buttonStyle errorStyle",
-          }
-        }
-      })
+      ErrorAlert('Whopsie a wee ERROR!', 'You need to fill in the fields!', 'Try again')
       return;
     }
 

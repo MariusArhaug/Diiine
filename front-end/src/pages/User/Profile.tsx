@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import DinnerCard from "../Dinners/DinnerCard";
-import AverageRating from "../../components/AverageRating";
+import RatingDOM from '@material-ui/lab/Rating';
 
 const useStylesModified = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,22 +39,20 @@ const useStylesModified = makeStyles((theme: Theme) =>
 
 export default function Profile() {
   const classes = useStylesModified();
-
-  const auth: any = useAuth();
   const user: User = useAuth().user;
 
   const [dinners, setDinners] = useState<Dinner[]>([]);
 
   useEffect(() => {
-    client
-      .service("dinners")
-      .find(user.user_id)
-      .then((res: any) => {
-        setDinners(res.data);
-      })
-      .catch((e: Error) => {
-        console.log("error", e);
-      });
+    // client
+    //   .service("dinners")
+    //   .find(user.user_id)
+    //   .then((res: any) => {
+    //     setDinners(res.data);
+    //   })
+    //   .catch((e: Error) => {
+    //     console.log("error", e);
+    //   });
   }, [user.user_id]);
 
   return (
@@ -73,7 +71,13 @@ export default function Profile() {
             </Typography>
           </Grid>
           <Grid item>
-            <AverageRating {...user} />
+            Average Rating: {user?.avg_rating}
+            <RatingDOM
+              name="average_rating"
+              precision={0.1}
+              value={user?.avg_rating}
+              readOnly
+            />
           </Grid>
         </Grid>
       </Paper>
@@ -123,7 +127,7 @@ export default function Profile() {
                 justify="space-evenly"
                 alignItems="stretch"
               >
-                {dinners.length &&
+                {dinners.length ?
                   dinners!.map((dinner: Dinner) => (
                     <Grid item key={dinner.dinners_id}>
                       <DinnerCard
@@ -131,7 +135,7 @@ export default function Profile() {
                         key={dinner.dinners_id}
                       />
                     </Grid>
-                  ))}
+                  )) : <Grid xs={12}>You have not created any dinner arrangments yet!</Grid>}
               </Grid>
             </Grid>
           </Grid>
