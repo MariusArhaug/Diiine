@@ -63,7 +63,7 @@ export default function Profile() {
   useEffect(() => {
     client
       .service("dinners")
-      .find(user.user_id)
+      .find({ query: { user_id: user.user_id } })
       .then((res: any) => {
         setDinners(res.data);
       })
@@ -71,6 +71,9 @@ export default function Profile() {
         console.log("error", e);
       });
   }, [user.user_id]);
+
+  console.log(user);
+  
 
   return (
     <div className={classes.root}>

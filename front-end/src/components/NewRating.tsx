@@ -6,11 +6,11 @@ import client from '../feathers-client';
 import Button from '@material-ui/core/Button';
 import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import { User, Rating } from '../types';
-import swal from 'sweetalert';
+import { Rating } from '../types';
 import '../styles/App.css';
 import Box from '@material-ui/core/Box';
 import { useAuth } from '../hooks/use-auth';
+import { SuccessAlert, ErrorAlert } from '../hooks/Alerts';
 
 const labels: { [index: string]: string } = {
   0.5: 'Useless',
@@ -26,11 +26,10 @@ const labels: { [index: string]: string } = {
 };
 
 
-export default function CustomizedRatings(props: User) {
-
-  const [hover, setHover] = React.useState(-1);
+export default function CustomizedRatings(props: any) {
+  const [hover] = useState(-1);
   const [newRating, setNewRating] = useState<Rating>({
-    rated_of: props,
+    rated_of: props.value,
     rated_by: useAuth().user,
     rating_value: 2.5,
     description: '',
@@ -46,48 +45,23 @@ export default function CustomizedRatings(props: User) {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (newRating.description === '') {
-      swal({
-        title: 'Error!',
-        text: `You must fill in a rating description!`,
-        icon: 'error',
-        buttons: {
-          confirm: {
-            text: `Ok`,
-            className: "buttonStyle errorStyle"
-          }
-        }
-      });
+      ErrorAlert('Error!', 'You must fill in a rating description', 'Ok');
       return;
     }
-    console.log(newRating);
-
-    client.service('rating').create(newRating)
+    const data = {
+      rated_of: newRating.rated_of.user_id,
+      rated_by: newRating.rated_by.user_id,
+      rating_value: newRating.rating_value,
+      description: newRating.description,
+    }
+    client.service('rating').create(data)
       .then(() => {
-        swal({
-          title: 'Good job!',
-          text: `You have now sucessfully rated this user! \n Your description: ${newRating!.description}`,
-          icon: 'success',
-          buttons: {
-            confirm: {
-              text: `Done`,
-              className: "buttonStyle"
-            }
-          }
-        });
+        SuccessAlert('Good job!',
+          `You have now sucessfully rated this user! \n Your description: ${data!.description}`,
+          'Done')
+        props.onChange(newRating);
       })
-      .catch((e: Error) => {
-        swal({
-          title: 'Error!',
-          text: `You can't rate your self!`,
-          icon: 'error',
-          buttons: {
-            confirm: {
-              text: `Ok`,
-              className: "buttonStyle errorStyle"
-            }
-          }
-        });
-      });
+      .catch((e: Error) => ErrorAlert('Error!', e.message, 'Ok'));
   }
   return (
     <div>
@@ -99,7 +73,7 @@ export default function CustomizedRatings(props: User) {
           <Grid item xs={12}>
             <RatingDOM
               name="rating_value"
-              precision={0.1}
+              precision={0.5}
               value={newRating.rating_value}
               onChange={handleInputChange}
               emptyIcon={<StarBorderIcon fontSize="inherit" />}

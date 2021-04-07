@@ -69,13 +69,16 @@ export default function DinnerCard(dinner: Dinner) {
               </Typography>
             </Grid>
           }
-          <Grid item container spacing={1}>
+          {dinner.tags.length > 0 &&
+            <Grid item container spacing={1}>
             {dinner.tags.split(',').map(a => (
               <Grid item key={a.charCodeAt(0)}>
                 <Chip size="small" label={a} />
               </Grid>
             ))}
           </Grid>
+          }
+          
         </Grid>
       </Paper>
     </div>

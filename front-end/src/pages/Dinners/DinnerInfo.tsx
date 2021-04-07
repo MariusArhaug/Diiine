@@ -105,9 +105,9 @@ export default function DinnerInfo() {
           <Grid item xs={12} container justify="space-between" alignItems="center">
             <Grid item container justify='flex-end'>
               {dinner.owner.user_id === auth.user.user_id || auth.user.isAdmin ? <Button onClick={handleEditClick}>Edit</Button> : <p />}
-              {dinner.owner.user_id === auth.user.user_id || auth.user.isAdmin ? <DeleteButton {...{ type: 'dinners', id: auth.user.user_id }} /> : <p />}
+              {dinner.owner.user_id === auth.user.user_id || auth.user.isAdmin ? <DeleteButton {...{ type: 'dinners', id: dinner.dinners_id }} /> : <p />}
             </Grid>
-            <Grid xs item style={{ textAlign: "left" }}>
+            <Grid xs item style={{ textAlign: "left", marginBottom: "1.5rem" }}>
               <Typography variant="caption" color="textSecondary">
                 {dinner.address}
               </Typography>
@@ -177,10 +177,7 @@ export default function DinnerInfo() {
                   {dinner.attendants.length > 0 ? (
                     <Grid item>
                       <Button onClick={() => setOpenModal(true)} variant="outlined">Show attendants</Button>
-                      <Modal
-                        open={openModal}
-                        onClose={() => setOpenModal(false)}
-                      >
+                      <Modal open={openModal} onClose={() => setOpenModal(false)} >
                         <ShowAttendants {...dinner} />
                       </Modal>
                     </Grid>)

@@ -7,33 +7,17 @@ import Checkbox from '@material-ui/core/Checkbox';
 import client from '../../feathers-client'
 import { useStyles } from '../../styles';
 import { Chip } from '../../types';
-import swal from 'sweetalert';
-
-const allergies: Chip[] = [
-  { label: 'Lactose', value: 'lactose' },
-  { label: 'Gluten', value: 'gluten' },
-  { label: 'Shellfish', value: 'shellfish' },
-  { label: 'Egg', value: 'egg' },
-  { label: 'Fish', value: 'fish' },
-  { label: 'Mustard', value: 'mustard' },
-  { label: 'Celleri', value: 'celleri' },
-  { label: 'Peanuts', value: 'peanuts' },
-  { label: 'Soy', value: 'soy' },
-  { label: 'Molluscs', value: 'molluscs' },
-  { label: 'Lupin', value: 'lupin' },
-  { label: 'Sulfites', value: 'sulfites' },
-]
-
-const tags: Chip[] = [
-  { label: 'Vegan', value: 'vegan' },
-  { label: 'Meat', value: 'meat' }
-]
-
-
+import { allergies, tags } from './EditDinnerPage';
+import { SuccessAlert, ErrorAlert } from '../../hooks/Alerts';
+import { CreateChipArray } from '../../hooks/CreateChipArray'
+import { useHistory } from 'react-router-dom';
 
 export default function MyDinners() {
-
+  const history = useHistory();
   const classes = useStyles();
+
+  const [allergenInputValue, setAllergenInputValue] = useState('');
+  const [tagInputValue, setTagInputValue] = useState('');
 
   const [credentials, setCredentials] = useState<{
     title: string,
@@ -41,7 +25,7 @@ export default function MyDinners() {
     description: string,
     date: string,
     tags: Chip[],
-    ingredients: string[],
+    ingredients: string,
     allergens: Chip[],
     attendants: number,
     isDivided: false,
@@ -54,7 +38,7 @@ export default function MyDinners() {
     description: '',
     date: '',
     tags: [],
-    ingredients: [],
+    ingredients: "",
     allergens: [],
     attendants: 0,
     isDivided: false,
@@ -62,8 +46,6 @@ export default function MyDinners() {
     expenses: 0,
     banner: ''
   });
-
-
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.name === 'isDivided' || event.target.name === 'isOpen') {
@@ -79,56 +61,36 @@ export default function MyDinners() {
     }
 
   }
-
-  const createChipArray = (value: any) => {
-    let temp = []
-    for (let element of value) {
-      if (!(element.hasOwnProperty("label")) || !(element.hasOwnProperty("value"))) {
-        temp.push({ label: element, value: element })
-      }
-      else {
-        temp.push(element)
-      }
-    }
-    return temp
-  }
-
   const handleTagChange = (event: any, value: any) => {
     console.log(event);
 
-    setCredentials({ ...credentials, tags: createChipArray(value) });
+    setCredentials({ ...credentials, tags: value as Chip[] });
   }
 
   const handleAllergenChange = (event: any, value: any) => {
-    setCredentials({ ...credentials, allergens: createChipArray(value) });
+    setCredentials({ ...credentials, allergens: value as Chip[] });
   }
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const form = {
       ...credentials,
-      allergens: credentials.allergens.map(a => a.value).join(","),
-      tags: credentials.tags.map(t => t.value).join(","),
-      ingredients: credentials.ingredients.join(",")
+      allergens: credentials.allergens ? credentials.allergens.map(a => a.label).join(",") : "",
+      tags: credentials.tags ? credentials.tags.map(t => t.label).join(",") : ""
     };
 
     client.service('dinners').create(form)
+      .then(() => {
+        SuccessAlert('Scoore!', 'You have now created a new dinner!', 'Nice!')
+        history.push({
+          pathname: `/dinners/`,
+        })
+      })
       .catch((e: Error) => {
-        console.log('couldn\'t create dinner', e);
+        ErrorAlert('Error!', e.message, 'Ok')
       });
-    swal({
-      title: 'Scoooore!',
-      text: 'You have now created a new dinner!',
-      icon: 'success',
-      buttons: {
-        confirm: {
-          text: "Nice!",
-          className: "buttonStyle",
-        }
-      }
-
-    });
   }
+
 
   return (
     <div className={classes.spacer}>
@@ -228,9 +190,13 @@ export default function MyDinners() {
                 <Autocomplete
                   multiple
                   id="tags-standard"
-                  value={credentials.allergens}
-                  onChange={handleAllergenChange}
                   options={allergies}
+                  value={credentials.allergens}
+                  inputValue={allergenInputValue}
+                  onInputChange={(_, newInputValue) => {
+                    setAllergenInputValue(newInputValue)
+                  }}
+                  onChange={handleAllergenChange}
                   getOptionLabel={(option) => option.label}
                   renderInput={(params) => (
                     <TextField
@@ -246,9 +212,13 @@ export default function MyDinners() {
                 <Autocomplete
                   multiple
                   id="tags-standard"
-                  value={credentials.tags}
                   options={tags}
                   freeSolo
+                  value={credentials.tags}
+                  inputValue={tagInputValue}
+                  onInputChange={(_, newInputValue) => {
+                    setTagInputValue(newInputValue)
+                  }}
                   onChange={handleTagChange}
                   getOptionLabel={(option) => option.label}
                   renderInput={(params) => (
