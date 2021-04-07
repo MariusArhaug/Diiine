@@ -37,12 +37,10 @@ export default (options = {}): Hook => {
       throw new Error('Error! ')
     }
     if (context.method === 'get') {
-      console.log(context.result)
       context.result = {
         ...context.result,
         attendants: await getAttendants(context.result.dinners_id)
       }
-      console.log(context.result)
     } 
     else {
       context.result.data = await findDinnersAttendants(context.result.data)

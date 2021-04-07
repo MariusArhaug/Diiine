@@ -9,23 +9,19 @@ export default (options = {}): Hook => {
   return async (context: HookContext): Promise<HookContext> => {
 
     if (context.method === 'get') {
-      
       context.result = {
         ...context.result,
         owner : await Promise.resolve(app.service('users').get(context.result.user_id))
       }
-    
-      console.log(context.result);
-    } else {
-      let dinnersArray = await Promise.all(context.result.data
-        .map(async (dinners : DinnerData) => ({
-          ...dinners,
-          owner: await Promise.resolve(app.service('users').get(dinners.user_id))
-        }))
-      )
-      context.result.data = dinnersArray.map((dinners: any) => {delete dinners.user_id; return dinners})
-    }
-    
+      return context;
+    } 
+    let dinnersArray = await Promise.all(context.result.data
+      .map(async (dinners : DinnerData) => ({
+        ...dinners,
+        owner: await Promise.resolve(app.service('users').get(dinners.user_id))
+      }))
+    )
+    context.result.data = dinnersArray.map((dinners: any) => {delete dinners.user_id; return dinners})
     
     return context;
   };

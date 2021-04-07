@@ -14,8 +14,6 @@ export default (options = {}): Hook => {
     if (row.total > 0) {
       throw new Error('A user with this email already exists!');
     }
-    console.log(row)
-
     return context;
   };
 };
