@@ -52,18 +52,17 @@ export default function DinnerList() {
   const defaultPage = () => {
     client.service('dinners')
       .find({ query: { $sort: { dinners_id: 1 } } })
-      .then((res: any) => (console.log(res), setDinners(res.data)))
+      .then((res: any) => setDinners(res.data))
       .catch((e: Error) => { console.log(e); })
   }
 
   useEffect(() => defaultPage(), []);
 
   const handleClick = (input: string) => {
-
     if (toggleButtons[input] === true) {
       toggleButtons[input] = false;
-      setToggleButtons(toggleButtons);
       defaultPage();
+      setToggleButtons(toggleButtons);
       return;
     }
 
@@ -73,16 +72,11 @@ export default function DinnerList() {
     let query: any = { $sort: {} }
 
     query['$sort'][input] = 1;
-    console.log(query)
-    client.service('dinners')
-      .find({
-        query
-      })
-      .then((res: any) => {
-        setDinners(res.data);
-      })
-      .catch((e: Error) => { console.log('error', e); })
 
+    client.service('dinners')
+      .find({ query })
+      .then((res: any) => setDinners(res.data))
+      .catch((e: Error) => { console.log('error', e); })
   }
   return (
     <div>
@@ -115,7 +109,7 @@ export default function DinnerList() {
         >
           {dinners.length && dinners!.map((dinner: Dinner, i: number) => (
             <Grid item>
-              <DinnerCard {...dinner} key={i} />
+              <DinnerCard {...dinner} key={dinner.dinners_id} />
             </Grid>
           ))}
         </Grid>
