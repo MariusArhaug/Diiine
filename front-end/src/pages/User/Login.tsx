@@ -34,7 +34,7 @@ export default function Login() {
       return;
     }
 
-    return await auth.signin(credentials);
+    auth.signin(credentials).catch((e: Error) => ErrorAlert('Error!', e.message, 'Try again'));
   }
 
   return (
