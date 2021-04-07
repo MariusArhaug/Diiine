@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function SearchBar({ }) {
+export default function SearchBar() {
   const classes = useStyles();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,11 +43,9 @@ export default function SearchBar({ }) {
     const dinnerCards = Array.from(document.getElementsByClassName('DinnerCard') as HTMLCollectionOf<HTMLElement>);
 
     dinnerCards.forEach((dinnerCard: HTMLElement) => {
-      console.log(dinnerCard)
       let dinnerInfo = Array.from(dinnerCard.getElementsByClassName('dinnerInfo'));
 
       const dinnerText = [...dinnerInfo.map(info => info.textContent?.toLowerCase())]
-      console.log(dinnerText)
       if (dinnerText.find(a => a?.includes(searchInput))) {
         dinnerCard.style.display = 'block';
       } else {

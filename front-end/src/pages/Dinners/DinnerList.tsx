@@ -85,6 +85,7 @@ export default function DinnerList() {
         exclusive
         onChange={handleAlignment}
         aria-label="text alignment"
+        style={{ width: 515 }}
       >
         {Object.keys(toggleButtons).length && Object.keys(toggleButtons)!.map((key: string, i: number) => (
           <ToggleButton
@@ -94,6 +95,7 @@ export default function DinnerList() {
             className={classes.button}
             onClick={() => handleClick(key)}
             aria-label={key}
+            style={{ width: "25%" }}
           >
             {key}
           </ToggleButton>))}
