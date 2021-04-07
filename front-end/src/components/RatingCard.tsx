@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { User, Rating } from '../types';
 import { useState } from 'react';
+import RatingDOM from '@material-ui/lab/Rating';
 
 const useStylesModified = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,26 +37,33 @@ const useStylesModified = makeStyles((theme: Theme) =>
 export default function RatingCard(rating: Rating) {
 
   const classes = useStylesModified();
-  const [state, setState] = useState<Rating>(rating);
-  const [ratedOf, setRatedOf] = useState<User>(rating.rated_of)
-  const [ratedBy, setRatedBy] = useState<User>(rating.rated_by)
+  const [state] = useState<Rating>(rating);
+  const [ratedBy] = useState<User>(rating.rated_by)
 
 
   return (
-    <Paper className={classes.paper} style={{ textAlign: "left" }}>
+    <Paper className={classes.paper} style={{
+      textAlign: "left", cursor: "default", marginTop: 10
+    }}>
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <Typography variant="caption" color="textSecondary">
-            Rated by: {ratedBy.name}
+            Rated by: {ratedBy.name} @:{ratedBy.email}
           </Typography>
         </Grid>
         <Grid item>
           <Typography variant="h5">
-            Rating Description: {state.description}
+            {state.description}
           </Typography>
+          <RatingDOM
+            name="rating_value"
+            precision={0.5}
+            value={state.rating_value}
+            readOnly
+          />
         </Grid>
       </Grid>
-    </Paper>
+    </Paper >
   );
 }
 

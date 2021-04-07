@@ -15,19 +15,22 @@ export default (options = {}): Hook => {
     }
     
     const userRated : UserData = await app.service('users').get(context.data.rated_of);
-    console.log(userRated)
+    
     let rows : any = await app.service('rating').find({
       query: {
         rated_of: context.data.rated_of
        }
      });
-  
-    userRated.avg_rating = rows.data
+    if (rows.total === 0) {
+      userRated.avg_rating = (userRated.avg_rating + context.data.avg_rating)/2
+    } else {
+      userRated.avg_rating = rows.data
       .map((obj: RatingData)  => obj.rating_value)
       .reduce((a : number, b : number) => a + b)/rows.data.length;
-
+    }
+    
     app.service('users')
-      .update(context.data.rated_by, userRated, context.params)
+      .patch(userRated.user_id, userRated)
       .catch((e: Error) => console.log(e));
     return context;
   };
