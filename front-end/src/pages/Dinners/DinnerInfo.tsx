@@ -197,7 +197,8 @@ export default function DinnerInfo() {
                 <Grid item>
                   <Typography variant="subtitle1">
                     Total expenses: {dinner.isDivided ? "" : "None, enjoy a free meal"}
-                    {dinner.expenses > 0 ? dinner.expenses + " kr" : "None yet, check back later for updates"}
+                    {dinner.isDivided && dinner.expenses === 0 ? "None yet, check back later for updates" : ""}
+                    {dinner.expenses > 0 ? dinner.expenses + " kr" : ""}
                   </Typography>
                 </Grid>
                 <Grid item>
