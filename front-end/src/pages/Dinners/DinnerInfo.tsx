@@ -62,24 +62,6 @@ export default function DinnerInfo() {
     }).catch((e: Error) => console.log(e));
   }
 
-  const handleOpen = () => {
-    setOpen(true);
-  }
-
-  const handleClose = () => {
-    setOpen(false);
-  }
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-  }
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (dinner) {
-      dinner.expenses = Number.parseFloat(event.target.value);
-    }
-  }
-
   const history = useHistory();
   const handleEditClick = () => {
     history.push({
@@ -201,11 +183,6 @@ export default function DinnerInfo() {
                     {dinner.expenses > 0 ? dinner.expenses + " kr" : ""}
                   </Typography>
                 </Grid>
-                <Grid item>
-                  {dinner.owner.user_id === auth.user.user_id ? <Button variant="outlined" onClick={handleOpen}>
-                    Edit expenses
-                  </Button> : null}
-                </Grid>
               </Grid>
             </Paper>
           </Grid>
@@ -228,32 +205,6 @@ export default function DinnerInfo() {
           </Grid>
         </Grid >
       </Paper >
-      <form method='POST' onSubmit={handleSubmit}>
-        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Edit expenses</DialogTitle>
-          <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="expenses"
-              name="expenses"
-              label="Expenses (kr)"
-              type="number"
-              className='form-field'
-              fullWidth
-              onChange={handleInputChange}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button type="submit" onClick={handleClose} color="primary" variant="outlined">
-              Confirm
-            </Button>
-            <Button onClick={handleClose} color="primary">
-              Cancel
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </form>
     </div >
   )
 }
