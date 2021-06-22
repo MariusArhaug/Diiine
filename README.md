@@ -1,16 +1,19 @@
 # Intro
+This is a project evaluation for group 40 in the subject TDT4140 Software Development Spring 2021 at NTNU in Trondheim. 
+<!-- Dette er mappeevaluering for gruppe 40 i faget TDT4140 Programvareutvikling, våren 2021. -->
 
-Dette er mappeevaluering for gruppe 40 i faget TDT4140 Programvareutvikling, våren 2021.
+<!-- **Oppgaven** kan finnes [her](OPPGAVEBESKRIVELSE.md). -->
+**Project Task** Kan be found [here](OPPGAVEBESKRIVELSE.md)
 
-**Oppgaven** kan finnes [her](OPPGAVEBESKRIVELSE.md).
+Standards and practices for contributing can be found [here](CONTRIBUTING.md)
+<!-- Rutiner og standarder for å **contribute** finnes [her](CONTRIBUTING.md). -->
 
-Rutiner og standarder for å **contribute** finnes [her](CONTRIBUTING.md).
+The group has intiated their own group contract, the contract can be found [here](rapporter/L1/gruppekkontrakt.pdf)
+<!-- Gruppens **gruppekontrakt** finnes [her](rapporter/L1/gruppekkontrakt.pdf) -->
 
-Gruppens **gruppekontrakt** finnes [her](rapporter/L1/gruppekkontrakt.pdf)
-
-En oversikt over **prikksystemet** vårt, som beskrives i gruppekontrakten, finnes [her](dev-ops/PRIKKER.md).
-
-## Gruppen består av:
+<!-- En oversikt over **prikksystemet** vårt, som beskrives i gruppekontrakten, finnes [her](dev-ops/PRIKKER.md). -->
+## The group consists of: 
+<!-- ## Gruppen består av: -->
 * Ivar Carlsen, ivarhc@stud.ntnu.no
 * Marius Arhaug, mariuhar@stud.ntnu.no
 * Karen Hompland, karenhom@stud.ntnu.no
@@ -19,23 +22,34 @@ En oversikt over **prikksystemet** vårt, som beskrives i gruppekontrakten, finn
 * Torunn Elisabeth Seyffarth, torunnse@stud.ntnu.no
 * Joakim Schäffer, jnschaff@stud.ntnu.no
 
-og veileder
+<!-- og veileder -->
+### Supervisor: 
 * Sindre Langaard
 
-# NAVN Overordnet oversikt
-Gruppen har blitt hyret inn for å lage en Middagsdelingstjeneste ved navn NAVN. Tjenesten skal gjøre det enkelt for brukere, som synes det er kjedelig å lage middag kun til seg selv, å tilby middager til andre brukere. Brukere kan så samles og spise et bedre måltid sammen og kanskje på sikt utvide sitt eget nettverk og få litt sosialt påfyll.
 
-## Produktoversikt
+<!-- # NAVN Overordnet oversikt -->
+# Diiine
+The group has been assingned to create and develop a sharable dinner service with the name *Diiine*. The service provides a platform that makes it simple and easy for users to share and invite people over for dinners. User can both join their friends' dinners aswell as expand their social network and join other open dinners hosted by people living nearby.
+
+<!-- Gruppen har blitt hyret inn for å lage en Middagsdelingstjeneste ved navn NAVN. Tjenesten skal gjøre det enkelt for brukere, som synes det er kjedelig å lage middag kun til seg selv, å tilby middager til andre brukere. Brukere kan så samles og spise et bedre måltid sammen og kanskje på sikt utvide sitt eget nettverk og få litt sosialt påfyll. -->
+
+## Overiew of product
+<!-- ## Produktoversikt
 For å få et minimal viable project (MVP) opp å gå, må ulike tjenester være på plass. Her presenteres en oversikt over de tjenestene og prosessene som trengs.
+ -->
+In order to have a miniaml viable project (MVP), there needs to be certain services in order. Here is presented an overview over the different services and processes that are required.
 
+### Web application
+This is the main entry point for *Diiine*. Here will users have the ability to administer their own dinners aswell as have the oppourtinity to join other available dinners. The users also have the possibility to filter dinners based on their desires, and also being able to directly communicate with other users. 
+<!--  
 ### Web-applikasjon
-Dette er inngangspunktet til NAVN. Her vil brukere kunne administrere middager de vil holde, melde seg opp til middager og ha en oversikt over tilgjengelige middager. Brukeren må også kunne filtrere middager samt å kunne kommunisere med andre brukere.
-
-For å få til dette må det eksistere en **User Manager** som håndterer funksjonaliteten til brukeren, samt sørger for å legge det til i MySQL-databasen som vil bli brukt. Det trengs også en **Chat Manager**, som håndterer kommunikasjonen mellom brukere, samt en **Dinner Manager** som håndterer funksjonaliteten til selve middagsarrangementet.
-
+Dette er inngangspunktet til NAVN. Her vil brukere kunne administrere middager de vil holde, melde seg opp til middager og ha en oversikt over tilgjengelige middager. Brukeren må også kunne filtrere middager samt å kunne kommunisere med andre brukere. -->
+In order to have this working, there needs to exist a **User Manager** that controlls the functionality for a user, a **Chat Manager** that controlls the interactions between users aswell as **Dinner Manager** that has controll over dinner events. CRUD functionality is integrated into these *managers* and is then stored in the MySQL database. 
+<!-- For å få til dette må det eksistere en **User Manager** som håndterer funksjonaliteten til brukeren, samt sørger for å legge det til i MySQL-databasen som vil bli brukt. Det trengs også en **Chat Manager**, som håndterer kommunikasjonen mellom brukere, samt en **Dinner Manager** som håndterer funksjonaliteten til selve middagsarrangementet.
+ -->
 ### User Manager
-Denne tjenesten vil håndtere all funksjonalitet relatert til brukeren. Eksempler på dette vil være å lage/oppdatere brukerdata, lagre brukerdata, håndtere brukerrating og reputation.
-
+<!-- Denne tjenesten vil håndtere all funksjonalitet relatert til brukeren. Eksempler på dette vil være å lage/oppdatere brukerdata, lagre brukerdata, håndtere brukerrating og reputation.
+ -->
 ### Chat Manager
 Denne tjenesten vil håndtere all funksjonalitet relatert til kommunikasjon mellom brukere. Eksempler på dette er å opprette en en-til-en, en-til-flere og middagschat, samt å lagre meldinger, vedlegg og chat-rooms.
 
